@@ -24,5 +24,7 @@ export const loadData = (rawData) => {
     })),
   };
 
+  // console.log("data from loadData.js: ", data);
+
   return data;
 };

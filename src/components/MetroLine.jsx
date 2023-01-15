@@ -54,7 +54,7 @@ export default function MetroLine({
         return (
           <motion.g key={index}>
             <motion.path
-              className={`edge-shadow-${path.id} alerts-border`}
+              className={`edge-shadow-${path.id}`}
               d={drawPath(path.path)}
               style={{
                 fill: "transparent",

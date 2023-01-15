@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import {
   METROLINE_WIDTH,
@@ -12,7 +12,19 @@ export default function MetroLineLabel({ data, onMetroLineLabelClick }) {
 
   const { id, label, colour, points } = data;
 
-  const content = Array.isArray(label) > 0 ? label[0] : label;
+  const content = Array.isArray(label) ? label[0].replace(/ /g, "") : label;
+
+  // get the length of the label array
+  const labelLength = Math.min(Array.isArray(label) ? label.length : 1, 5);
+  // get the first 5 words of the label array
+
+  const moreContent = Array.isArray(label)
+    ? label
+        .slice(0, 5)
+        .map((x) => x.replace(/ /g, "_"))
+        .join(", ")
+    : label;
+  // join the label array into a string with space as separator
 
   const [{ x0, y0 }, { x1, y1 }] = points.map((coordinate, index) => {
     const keyX = `x${index}`;
@@ -44,7 +56,7 @@ export default function MetroLineLabel({ data, onMetroLineLabelClick }) {
       ? shiftDist * Math.sin(angleBetweenTwoLinesRadian)
       : 0;
 
-  // if angleBetweenTwoLinesDegree is 45 degree, then the label should be shifted to the left by 50px
+  const [showMore, setShowMore] = useState(false);
 
   return (
     <motion.div
@@ -60,10 +72,7 @@ export default function MetroLineLabel({ data, onMetroLineLabelClick }) {
       animate={{
         // change x and y values based on angleBetweenTwoLinesDegree to make the label shift to the left or right
         x: Math.min(x0, x1) + shifDistAlongX,
-        y:
-          Math.min(y0, y1) -
-          (LINK_LABEL_HEIGHT - METROLINE_WIDTH) +
-          shifDistAlongY, // if y1 is smaller than y0 (lines going upwards) may cause bugs without Math.min
+        y: Math.min(y0, y1) - METROLINE_WIDTH + shifDistAlongY, // if y1 is smaller than y0 (lines going upwards) may cause bugs without Math.min
         width: Math.abs(x1 - x0),
         height: Math.abs(y1 - y0),
         rotate: angleBetweenTwoLinesDegree,
@@ -78,16 +87,24 @@ export default function MetroLineLabel({ data, onMetroLineLabelClick }) {
         data-type="metro-line-label"
         id={id}
         style={{
-          backgroundColor: colour, // "white"
-          height: LINK_LABEL_HEIGHT, // 20 from line height of text-sm
+          wordSpacing: "100vw",
+          width: "min-content", // to prevent the label from wrapping
           border: label ? "2px solid white" : null,
           borderBottom: "none",
+          backgroundColor: colour, // "white"
+        }}
+        animate={{
+          height: showMore
+            ? LINK_LABEL_HEIGHT * labelLength
+            : LINK_LABEL_HEIGHT, // 20 from line height of text-sm
         }}
         className={`edge-${id}  text-black text-sm rounded-md px-2 z-50 cursor-pointer pointer-events-auto`}
         onClick={onMetroLineLabelClick}
+        onMouseEnter={() => setShowMore(true)}
+        onMouseLeave={() => setShowMore(false)}
       >
         {/* remove empty space in content */}
-        {content.replace(/ /g, "")}
+        {showMore ? moreContent : content}
       </motion.div>
     </motion.div>
   );

@@ -22,7 +22,7 @@ export default function TimeAxis({
     return data[maxColumnIndex].length < column.length ? index : maxColumnIndex;
   }, 0);
 
-  console.log(data);
+  // console.log(data);
 
   const timeAxisHeight =
     // article stack height

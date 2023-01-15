@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
-  margin,
   cutomerInterpolation,
   invertCustomerInterpolation,
 } from "../utilities/util";
@@ -20,14 +19,21 @@ export const SideDrawer = ({
   const drawerWidth = screenWidth;
   const drawerHeight = screenHeight / 4;
   // check if whoOpenSideDrawer dom element is on top half of the screen
-  const isOnTopHalf = whoOpenSideDrawer
-    ? whoOpenSideDrawer.getBoundingClientRect().top < screenHeight / 2
-    : false;
+
+  const [isOnTopHalf, setIsOnTopHalf] = useState(false);
+
+  useEffect(() => {
+    setIsOnTopHalf(
+      whoOpenSideDrawer
+        ? whoOpenSideDrawer.getBoundingClientRect().top < screenHeight / 2
+        : false
+    );
+  }, [whoOpenSideDrawer, screenHeight]);
 
   const getColour = (whoOpenSideDrawer) => {
     if (whoOpenSideDrawer) {
       const type = whoOpenSideDrawer.dataset.type;
-      console.log("type", type);
+      // console.log("type", type);
       if (type === "metro-line-path") {
         // return path element stroke properties
 

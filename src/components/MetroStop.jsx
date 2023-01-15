@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import ArticleStack from "./ArticleStack";
 import { nodeWordsVariantsFactory } from "../utilities/metroStopUtilities";
@@ -6,8 +6,8 @@ import { useWindowSize } from "react-use";
 import {
   ARTICALSTACK_INNER_PADDING,
   METROSTOP_CIRCLE_SIZE,
-  LEFT_MARGIN,
-  TOP_MARGIN,
+  // LEFT_MARGIN,
+  // TOP_MARGIN,
 } from "../utilities/util";
 import NeighbouringNodes from "./NeighbouringNodes";
 
@@ -29,8 +29,17 @@ export default function MetroStop({
   onNodeWordsLabelClick,
   mapId,
 }) {
+  console.log(data);
+  const label = data.node_words;
   const { width: screenWidth, height: screenHeight } = useWindowSize();
-  const content = data.node_words.length > 0 ? data.node_words[0] : "";
+  const content = Array.isArray(label) ? label[0].replace(/ /g, "") : label;
+
+  const moreContent = Array.isArray(label)
+    ? label
+        .slice(0, 5)
+        .map((x) => x.replace(/ /g, "_"))
+        .join(", ")
+    : label;
 
   const ARTICLE_SIZE_MULTIPLIER = 1.25;
   const ARTICLE_HEIGHT = (screenHeight / 18) * ARTICLE_SIZE_MULTIPLIER;
@@ -47,6 +56,8 @@ export default function MetroStop({
   const { title } = articles.find(
     (article) => !EXCLUDED_TITLES.includes(article.title.toLowerCase())
   );
+
+  const [showMore, setShowMore] = useState(false);
 
   return (
     <>
@@ -100,8 +111,8 @@ export default function MetroStop({
               : "rgba(0, 0, 0, 0)"
             : data.colour, //"white"
         }}
-        className={`w-fll ml-5 mt-10 h-full text-black truncate flex justify-center -z-40 ${
-          clicked || isMapFocused ? "" : "items-center"
+        className={`w-fll ml-5 mt-10 h-full text-black flex justify-center -z-40 ${
+          clicked || isMapFocused ? "truncate" : "items-center"
         } rounded-md`}
       >
         {/* node number label */}
@@ -119,7 +130,7 @@ export default function MetroStop({
               y: height - 40,
               x: -10,
             }}
-            className={`node-${data.id} alerts-border absolute rounded-xl text-xs flex justify-center items-center hover:border-2 cursor-pointer`}
+            className={`node-${data.id} absolute rounded-xl text-xs flex justify-center items-center hover:border-2 cursor-pointer`}
             onClick={(event) => onNodeNumberLabelClick(event.target)}
           >
             {data.articles.length}
@@ -143,9 +154,7 @@ export default function MetroStop({
                 data.colour,
               border: "2px solid white",
             }}
-            className={`node-${
-              data.id
-            } alerts-border truncate text-black cursor-pointer  ${
+            className={`node-${data.id}  text-black cursor-pointer  ${
               isMapFocused
                 ? `absolute rounded-md px-2 ${clicked ? "text-4xl" : "text-sm"}`
                 : ""
@@ -154,8 +163,10 @@ export default function MetroStop({
             onClick={(event) =>
               isMapFocused ? onNodeWordsLabelClick(event.target) : undefined
             }
+            onMouseEnter={() => setShowMore(true)}
+            onMouseLeave={() => setShowMore(false)}
           >
-            {content}
+            {showMore ? moreContent : content}
           </motion.div>
         )}
       </motion.div>

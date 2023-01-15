@@ -50,12 +50,16 @@ export default function MetroMap({
   const paddingX = fullPageXPadding - NODE_WIDTH / 2;
   const paddingY = fullPageYPadding - NODE_HEIGHT;
 
+  // console.log("data from start of MetroMap", data);
+
   const [nodes, lines, columns] = useMemo(
     () => calculateMetroMapLayout(screenWidth, screenHeight, data, margin),
     // data and margin are not changing
     // eslint-disable-next-line react-hooks/exhaustive-deps,
     [screenWidth, screenHeight]
   );
+
+  // console.log("nodes from metropStop", nodes);
 
   const [customNodes, setCustomeNodes] = useState(nodes);
   const [customLines, setCustomLines] = useState(lines);
@@ -431,7 +435,7 @@ export default function MetroMap({
                     return data.articles[articleId];
                   }
                 );
-                console.log("articles", articles);
+                // console.log("articles", articles);
 
                 return (
                   <motion.div
