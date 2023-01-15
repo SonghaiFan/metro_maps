@@ -99,7 +99,7 @@ input[type="range"] {
 }
 
 .alerts-border {
-  animation: blink 2s ease-out infinite;
+  /* animation: blink 2s ease-out infinite; */
 }
 
 @keyframes blink {

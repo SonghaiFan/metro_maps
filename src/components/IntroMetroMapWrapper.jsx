@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import NavigationButton from "./NavigationButton";
 import { FaArrowAltCircleRight } from "react-icons/fa";
 import NavigationBar from "./NavigationBar";
@@ -25,8 +25,30 @@ import articles from "../img/articles.png";
 
 export default function IntroMetroMapWrapper({ setStart }) {
   const [currentPage, setCurrentPage] = useState(1);
-  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
+  const [isReadAllStatement, setIsReadAllStatement] = useState(false);
   const [isConfirmed, setIsConfirmed] = useState(false);
+
+  const divRef = useRef(null);
+
+  const handleScroll = useCallback(() => {
+    if (
+      divRef.current.scrollTop + divRef.current.clientHeight >=
+      divRef.current.scrollHeight
+    ) {
+      console.log("Div has been scrolled to the end");
+      setIsReadAllStatement(true);
+    }
+  }, [divRef]);
+
+  useEffect(() => {
+    const div = divRef.current;
+
+    div.addEventListener("scroll", handleScroll);
+
+    return () => {
+      div.removeEventListener("scroll", handleScroll);
+    };
+  }, [handleScroll]);
 
   useEffect(() => {
     setCurrentPage(1);
@@ -46,7 +68,6 @@ export default function IntroMetroMapWrapper({ setStart }) {
         return {
           left: (
             <WelcomePage
-              setIsFormSubmitted={setIsFormSubmitted}
               isConfirmed={isConfirmed}
               setIsConfirmed={setIsConfirmed}
             />
@@ -144,6 +165,7 @@ export default function IntroMetroMapWrapper({ setStart }) {
       <div className="h-[100vh] w-[100vw] flex overflow-hidden absolute top-0 left-0">
         <div className="w-1/2 m-[3%] ">{page.left}</div>
         <div
+          ref={divRef}
           className="overflow-y-auto scrollbar w-1/2 m-[3%] px-[2%] pb-[25px]"
           style={{ direction: "rtl" }}
         >
@@ -160,10 +182,10 @@ export default function IntroMetroMapWrapper({ setStart }) {
             totalPages={TOTAL_SLIDES}
             handleNext={handleNext}
             handlePrev={handlePrev}
-            isConfirmed={isConfirmed}
+            isConfirmed={isConfirmed && isReadAllStatement}
           />
         </div>
-        {currentPage === TOTAL_SLIDES && isConfirmed && (
+        {currentPage === TOTAL_SLIDES && (
           <NavigationButton
             onClick={() => setStart(true)}
             className={`right-[2%] top-[50%]`}

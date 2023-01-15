@@ -16,7 +16,7 @@ import MetroLine from "./MetroLine";
 import MetroLineLabel from "./MetroLineLabel";
 import TimeAxis from "./TimeAxis";
 import { SideDrawer } from "./SideDrawer";
-// import mixpanel from "mixpanel-browser";
+import mixpanel from "mixpanel-browser";
 
 export default function MetroMap({
   width,
@@ -202,11 +202,11 @@ export default function MetroMap({
   };
 
   const handleMetroStopClick = (nodeId) => () => {
-    // mixpanel.track("MetroStopClick on neighbouring node button", {
-    //   nodeId: nodeId,
-    // });
     // if the user clicks on next/previous neighbouring node button
     if (clickedNode) {
+      mixpanel.track("MetroStopOnNeighbouringNode node clicked", {
+        nodeId: nodeId,
+      });
       setClickedNodeBuffer(nodeId);
       setPreviousClickedNode(clickedNode);
       setClickedNode(null);
@@ -215,13 +215,13 @@ export default function MetroMap({
 
     // if the user clicks the node directly (not the neighbouring node button)
     setClickedNode(nodeId);
-    // mixpanel.track("MetroStopClick on node button directly", {
-    //   nodeId: nodeId,
-    // });
+    mixpanel.track("MetroStop node clicked", {
+      nodeId: nodeId,
+    });
   };
 
   const onZoomOutButtonClick = () => {
-    // mixpanel.track("MetroStop ZoomOut button clicked");
+    mixpanel.track("NavigationButtonMetroStop ZoomOut button clicked");
     clearArticleAnimationDelayRef();
     setClickedNodeBuffer(null);
     setClickedNode(null);
@@ -482,7 +482,7 @@ export default function MetroMap({
             className={`absolute ${
               isMapFocused
                 ? "text-2xl"
-                : `bg-black flex flex-col justify-start mt-5 pt-14 content-center `
+                : `bg-black flex flex-col justify-start mt-10 pt-14 content-center `
             }`}
             animate={{
               x: 0, //isMapFocused ? 0 : margin.x * width,
@@ -496,7 +496,7 @@ export default function MetroMap({
             {/* metromap title */}
             <motion.div
               style={{ width: isMapFocused ? width * 3 : width - 64 }}
-              className=" px-8 py-1 mx-auto text-center whitespace-nowrap overflow-x-auto scrollbar-none text-xl"
+              className=" mx-auto text-center whitespace-nowrap overflow-x-auto scrollbar-none text-sm"
             >
               <motion.h2
                 animate={isMapFocused ? {} : titleAnimation}

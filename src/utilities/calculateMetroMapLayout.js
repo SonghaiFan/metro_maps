@@ -1,7 +1,8 @@
 import * as d3 from "d3";
-import { link } from "d3";
 import { sankey } from "d3-sankey";
 import { NODEWIDTH, flatMap, MAX_ARTICLES, cutomerInterpolation } from "./util";
+
+import { showTruth } from "./util";
 
 const preprocessData = (metroMapData) => {
   metroMapData.nodes.forEach((node) => {
@@ -129,8 +130,9 @@ const getAverageNodesYPosition = (newNodes, metroMapData) => (lineId) => {
   );
 };
 
-const colourNodes = (nodes, lines, edges, useEdgeWeight) => {
+const colourNodes = (nodes, lines, edges, useNodeWeight, useEdgeWeight) => {
   const processNodeColours = (nodeColours) => {
+    console.log("nodeColours", nodeColours);
     // since some nodes may have multiple lines passing through them, nodeColours may contain multiple colours for a single node
     // line may not be sorted based on weight, so reversing the array may not always give the correct behaviour
     const uniqueNodeColours = nodeColours.reduce(
@@ -157,42 +159,66 @@ const colourNodes = (nodes, lines, edges, useEdgeWeight) => {
     Object.values(uniqueNodeColours).forEach(
       (nodeColour) => (nodes[nodeColour.nodeId].colour = nodeColour.colour)
     );
+
+    console.log("nodeColours", nodeColours);
   };
 
-  if (!useEdgeWeight) {
-    const lineOrder = Object.keys(lines);
+  if (useNodeWeight) {
+    let nodeColours = [];
 
-    const linesColoursAndNodes = lineOrder.map((lineId) => {
-      const { colour, nodeIDs, weight } = lines[lineId];
-      return { colour, nodeIDs, weight };
+    Object.keys(nodes).forEach((key) => {
+      let currentObj = nodes[key];
+      nodeColours.push({
+        nodeId: currentObj.id,
+        colour: cutomerInterpolation(
+          showTruth && currentObj["node_weight-truth"] !== undefined
+            ? currentObj["node_weight-truth"]
+            : currentObj.node_weight
+        ),
+        weight:
+          showTruth && currentObj["node_weight-truth"] !== undefined
+            ? currentObj["node_weight-truth"]
+            : currentObj.node_weight,
+      });
     });
-
-    const nodeColours = flatMap(
-      linesColoursAndNodes,
-      ({ colour, nodeIDs, weight }) =>
-        nodeIDs.map((nodeId) => {
-          return { colour, nodeId, weight };
-        })
-    );
 
     processNodeColours(nodeColours);
   } else {
-    const nodeColours = edges.reduce((accumulated, edge) => {
-      return accumulated.concat(
-        {
-          nodeId: edge.source.id,
-          colour: cutomerInterpolation(edge.edge_weight),
-          weight: edge.edge_weight,
-        },
-        {
-          nodeId: edge.target.id,
-          colour: cutomerInterpolation(edge.edge_weight),
-          weight: edge.edge_weight,
-        }
-      );
-    }, []);
+    if (!useEdgeWeight) {
+      const lineOrder = Object.keys(lines);
 
-    processNodeColours(nodeColours);
+      const linesColoursAndNodes = lineOrder.map((lineId) => {
+        const { colour, nodeIDs, weight } = lines[lineId];
+        return { colour, nodeIDs, weight };
+      });
+
+      const nodeColours = flatMap(
+        linesColoursAndNodes,
+        ({ colour, nodeIDs, weight }) =>
+          nodeIDs.map((nodeId) => {
+            return { colour, nodeId, weight };
+          })
+      );
+
+      processNodeColours(nodeColours);
+    } else {
+      const nodeColours = edges.reduce((accumulated, edge) => {
+        return accumulated.concat(
+          {
+            nodeId: edge.source.id,
+            colour: cutomerInterpolation(edge.edge_weight),
+            weight: edge.edge_weight,
+          },
+          {
+            nodeId: edge.target.id,
+            colour: cutomerInterpolation(edge.edge_weight),
+            weight: edge.edge_weight,
+          }
+        );
+      }, []);
+
+      processNodeColours(nodeColours);
+    }
   }
 };
 
@@ -255,6 +281,7 @@ const calculateMetroMapLayout = (
   metroMapData,
   margin
 ) => {
+  // console.log("Calculating metro map layout...", metroMapData);
   // the greater the margin, the smaller the metromap will be
   const paddedMetroMapWidth = metroMapWidth * (1 - 2 * margin.x);
   const paddedMetroMapHeight = metroMapHeight * (1 - 2 * margin.y);
@@ -264,13 +291,19 @@ const calculateMetroMapLayout = (
 
   preprocessData(metroMapData);
 
+  // console.log("Preprocessed data", metroMapData);
+
   generateMetroMapFullViewPositions(
     paddedMetroMapWidth,
     paddedMetroMapHeight,
     metroMapData
   );
 
+  // console.log("Generated full view positions", metroMapData);
+
   const nodes = metroMapData.nodes;
+
+  // console.log("Nodes", nodes);
 
   const columns = distributeNodesOnYAxis(paddedMetroMapHeight, nodes);
 
@@ -328,7 +361,7 @@ const calculateMetroMapLayout = (
 
     // generates basic coordinate object
     const getEndPoint = (link) => (node) => {
-      console.log(link);
+      console.log("edgeLabel", link.edge_label);
       return {
         source: link.source,
         target: link.target,
@@ -339,9 +372,19 @@ const calculateMetroMapLayout = (
         endPoint: true,
         edgeColour:
           link.edge_weight !== undefined
-            ? cutomerInterpolation(link.edge_weight)
-            : null, // do not use link.edge_weight ? ... since 0 is a falsey value
-        edgeLabel: link.edge_label[0] || null,
+            ? cutomerInterpolation(
+                showTruth && link["node_weight-truth"] !== undefined
+                  ? link["edge_weight-truth"]
+                  : link.edge_weight
+              )
+            : "red", // do not use link.edge_weight ? ... since 0 is a falsey value
+        edgeLabel:
+          link.edge_label !== undefined
+            ? // if edge label is an array, use the first element
+              Array.isArray(link.edge_label)
+              ? link.edge_label[0]
+              : link.edge_label
+            : null,
       };
     };
 
@@ -454,6 +497,7 @@ const calculateMetroMapLayout = (
 
   // generate line properties path and colour
   metroMapData.lines.forEach((line) => {
+    console.log(line);
     newLines[`line_${line.id}`] = {
       ...line,
       line_label_start:
@@ -470,14 +514,16 @@ const calculateMetroMapLayout = (
           : null,
       nodeIDs: getNodesConnectedByOneLine(line.links),
       pathCoords: generatePath(newNodes, line),
-      colour: cutomerInterpolation(line.weight),
+      colour: "white", //cutomerInterpolation(line.weight),
     };
   });
 
   colourNodes(
+    // nodes, lines, edges, useNodeWeight, useEdgeWeight
     newNodes,
     newLines,
     metroMapData.links,
+    metroMapData.nodes[0].node_weight,
     metroMapData.links[0].edge_weight
   );
 

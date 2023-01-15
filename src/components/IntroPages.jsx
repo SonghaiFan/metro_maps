@@ -32,11 +32,11 @@ export function ExplanatoryPage() {
       </div>
       <br></br>
       <br></br>
+      <strong>Department of Human Centred Computing, Monash University</strong>
       <div className="grid grid-cols-2 gap-4">
         <div className="col-span-1">
           <strong>Chief Investigator: Dr. Sarah Goodwin </strong>
           <br></br>
-          Department of Human Centred Computing, Monash University <br></br>
           Email:{" "}
           <a
             href="mailto:sarah.goodwin@monash.edu"
@@ -47,25 +47,111 @@ export function ExplanatoryPage() {
             sarah.goodwin@monash.edu
           </a>{" "}
           <br></br>
-          ...
         </div>
         <div className="col-span-1">
-          <strong>Chief Investigator: Dr. Sarah Goodwin </strong>
+          <strong>Co-investigator: Dr. Ying Yang </strong>
           <br></br>
-          Department of Human Centred Computing, Monash University <br></br>
           Email:{" "}
           <a
-            href="mailto:sarah.goodwin@monash.edu"
+            href="mailto:ying.yang@monash.edu"
             target="_blank"
             className="url"
             rel="noreferrer"
           >
-            sarah.goodwin@monash.edu
+            ying.yang@monash.edu
           </a>{" "}
           <br></br>
-          ...
+        </div>
+        <div className="col-span-1">
+          <strong>Co-investigator: Songhai Fan </strong>
+          <br></br>
+          Email:{" "}
+          <a
+            href="mailto:songhai.fan@monash.edu"
+            target="_blank"
+            className="url"
+            rel="noreferrer"
+          >
+            songhai.fan@monash.edu
+          </a>{" "}
+          <br></br>
+        </div>
+        <div className="col-span-1">
+          <strong>Co-investigator: Professor. Tim Dwyer </strong>
+          <br></br>
+          Email:{" "}
+          <a
+            href="mailto:tim.dwyer@monash.edu"
+            target="_blank"
+            className="url"
+            rel="noreferrer"
+          >
+            tim.dwyer@monash.edu
+          </a>{" "}
+          <br></br>
+        </div>
+        <div className="col-span-1">
+          <strong>Co-investigator: Professor. Helen Purchase </strong>
+          <br></br>
+          Email:{" "}
+          <a
+            href="mailto:helen.purchase@monash.edu"
+            target="_blank"
+            className="url"
+            rel="noreferrer"
+          >
+            helen.purchase@monash.edu
+          </a>{" "}
+          <br></br>
+        </div>
+        <div className="col-span-1">
+          <strong>Co-investigator: Nancy Van Nieuwenhove </strong>
+          <br></br>
+          Email:{" "}
+          <a
+            href="mailto:nancy.van.nieuwenhove@monash.edu"
+            target="_blank"
+            className="url"
+            rel="noreferrer"
+          >
+            nancy.van.nieuwenhove@monash.edu
+          </a>{" "}
+          <br></br>
+        </div>
+        <div className="col-span-1">
+          <strong>Co-investigator: Satya Borgohain </strong>
+          <br></br>
+          Email:{" "}
+          <a
+            href="mailto:stay.borgohain@monash.edu"
+            target="_blank"
+            className="url"
+            rel="noreferrer"
+          >
+            stay.borgohain@monash.edu
+          </a>{" "}
+          <br></br>
         </div>
       </div>
+      <br></br>
+      <strong>Department of Human Centred Computing, Monash University</strong>
+      <div className="grid grid-cols-2 gap-4">
+        <div className="col-span-1">
+          <strong>Co-investigator: Associate Professor. Simon Angus</strong>
+          <br></br>
+          Email:{" "}
+          <a
+            href="mailto:simon.angus@monash.edu"
+            target="_blank"
+            className="url"
+            rel="noreferrer"
+          >
+            simon.angus@monash.edu
+          </a>{" "}
+          <br></br>
+        </div>
+      </div>
+      <br></br>
       <br></br>
       <div className="text-yellow-400">
         <strong>What does the research involve?</strong>

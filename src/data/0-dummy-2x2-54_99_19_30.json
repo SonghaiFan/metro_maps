@@ -207,7 +207,7 @@
             ],
             "id": 0,
             "tag": "dummy|one-one",
-            "node_weight-truth": 0.85504435
+            "edge_weight-truth": 0.85504435
         },
         {
             "source": "0_1",
@@ -227,7 +227,7 @@
             ],
             "id": 1,
             "tag": "dummy|one-many-line",
-            "node_weight-truth": 0.96683658
+            "edge_weight-truth": 0.96683658
         },
         {
             "source": "0_0",
@@ -238,7 +238,7 @@
             ],
             "id": 2,
             "tag": "dummy|one-many-cross",
-            "node_weight-truth": 0.79296421
+            "edge_weight-truth": 0.79296421
         }
     ],
     "articles": [

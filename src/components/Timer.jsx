@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { MdTimerOff, MdTimer } from "react-icons/md";
 
 export default function Timer({ pageState, isValid, isStop, onTimeUp }) {
   const timeToCount = pageState.time;
@@ -50,12 +51,22 @@ export default function Timer({ pageState, isValid, isStop, onTimeUp }) {
       {isValid && (
         <>
           <motion.div
-            className="fixed w-full h-2 ml-3 rounded-full "
+            className="fixed w-full h-2 ml-3 "
             style={{
               color: timeLeftPercent < 0.2 ? "red" : "white",
             }}
           >
-            <h1>{`Time Remaining: ${timeLeft}s`}</h1>
+            {isStop ? (
+              <div className="flex items-center justify-center align-items-center mt-1">
+                <MdTimerOff size={30} />
+                <span>{`Total Time: ${timeLeft}s`}</span>
+              </div>
+            ) : (
+              <div className="flex items-center justify-center align-items-center mt-1">
+                <MdTimer size={30} />
+                <span>{`Time Remaining: ${timeLeft}s`}</span>
+              </div>
+            )}
           </motion.div>
           <motion.div className="fixed w-2 h-full  rounded-full ">
             <motion.div

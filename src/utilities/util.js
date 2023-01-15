@@ -16,7 +16,10 @@ export const flatMap = (array, mapFunction) => {
   return Array.prototype.concat(...array.map(mapFunction));
 };
 
+export const showTruth = true;
+export const normalizeTruth = true;
 // CONSTANTS
+
 const NODEWIDTH = 15;
 const ARTICLE_RADIUS_MULTIPLIER = 0.8;
 

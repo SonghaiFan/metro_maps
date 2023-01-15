@@ -12,10 +12,81 @@
 // import voiceView from "../archived_data/21_09_2022_1663742238_voice.json";
 
 // loop through the src/data folder and import all json files into METROMAPS array
+
+import { normalizeTruth } from "./util";
+
 const METROMAPS = [];
+
+const normalizeNodeWeight = (data) => {
+  // get the max and min node_weight
+  let MAX_NODE_WEIGHT = data.nodes[0].node_weight;
+  let MIN_NODE_WEIGHT = data.nodes[0].node_weight;
+
+  // loop through all the data, get the max and min node_weight
+  // and store it in the global variable
+  data.nodes.forEach((node) => {
+    if (node.node_weight > MAX_NODE_WEIGHT) {
+      MAX_NODE_WEIGHT = node.node_weight;
+    }
+    if (node.node_weight < MIN_NODE_WEIGHT) {
+      MIN_NODE_WEIGHT = node.node_weight;
+    }
+  });
+
+  // if max and min are the same, set node_weight as it is, otherwise normalize
+  if (MAX_NODE_WEIGHT !== MIN_NODE_WEIGHT) {
+    data.nodes.forEach((node) => {
+      node.node_weight =
+        (node.node_weight - MIN_NODE_WEIGHT) /
+        (MAX_NODE_WEIGHT - MIN_NODE_WEIGHT);
+    });
+  }
+};
+
+const normalizeEdgeWeight = (data) => {
+  // get the max and min edge_weight
+  let MAX_EDGE_WEIGHT = data.links[0].edge_weight;
+  let MIN_EDGE_WEIGHT = data.links[0].edge_weight;
+
+  // loop through all the data, get the max and min edge_weight
+  // and store it in the global variable
+  data.links.forEach((link) => {
+    if (link.edge_weight > MAX_EDGE_WEIGHT) {
+      MAX_EDGE_WEIGHT = link.edge_weight;
+    }
+    if (link.edge_weight < MIN_EDGE_WEIGHT) {
+      MIN_EDGE_WEIGHT = link.edge_weight;
+    }
+  });
+
+  // loop through all the data again and normalize the edge_weight
+  // if max and min are the same, set edge_weight as it is, otherwise normalize
+  if (MAX_EDGE_WEIGHT !== MIN_EDGE_WEIGHT) {
+    data.links.forEach((link) => {
+      link.edge_weight =
+        (link.edge_weight - MIN_EDGE_WEIGHT) /
+        (MAX_EDGE_WEIGHT - MIN_EDGE_WEIGHT);
+    });
+  }
+};
+
 const context = require.context("../data", true, /\.json$/);
+
 context.keys().forEach((key) => {
   const data = context(key);
+
+  // if the data.nodes has a node_weight property, normalize it
+
+  if (normalizeTruth) {
+    if (data.nodes[0].node_weight) {
+      normalizeNodeWeight(data);
+    }
+
+    if (data.links[0].edge_weight) {
+      normalizeEdgeWeight(data);
+    }
+  }
+
   const url = key.replace("./", "").replace(".json", "");
   const title = url.replace(/-/g, " ");
   const description =
