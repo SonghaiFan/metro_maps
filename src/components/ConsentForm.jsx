@@ -32,22 +32,10 @@ const ConsentForm = ({ isConfirmed, setIsConfirmed }) => {
 
       <div className="flex items-center justify-between">
         <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           type="submit"
         >
-          {isConfirmed ? (
-            <input
-              type="checkbox"
-              // simple black and white checkbox
-              className="form-checkbox "
-              checked={isConfirmed}
-              onChange={(event) => {
-                setIsConfirmed(event.target.checked);
-              }}
-            />
-          ) : (
-            "I consent"
-          )}
+          {isConfirmed ? "Consent confirmed" : "I consent"}
         </button>
       </div>
     </form>

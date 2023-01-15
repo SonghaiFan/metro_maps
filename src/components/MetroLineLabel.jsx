@@ -12,6 +12,8 @@ export default function MetroLineLabel({ data, onMetroLineLabelClick }) {
 
   const { id, label, colour, points } = data;
 
+  const content = Array.isArray(label) > 0 ? label[0] : label;
+
   const [{ x0, y0 }, { x1, y1 }] = points.map((coordinate, index) => {
     const keyX = `x${index}`;
     const keyY = `y${index}`;
@@ -31,6 +33,19 @@ export default function MetroLineLabel({ data, onMetroLineLabelClick }) {
   const angleBetweenTwoLinesDegree =
     (angleBetweenTwoLinesRadian * 180) / Math.PI;
 
+  const shiftDist = -50;
+
+  const shifDistAlongX =
+    angleBetweenTwoLinesDegree === 45
+      ? shiftDist * Math.cos(angleBetweenTwoLinesRadian)
+      : 0;
+  const shifDistAlongY =
+    angleBetweenTwoLinesDegree === 45
+      ? shiftDist * Math.sin(angleBetweenTwoLinesRadian)
+      : 0;
+
+  // if angleBetweenTwoLinesDegree is 45 degree, then the label should be shifted to the left by 50px
+
   return (
     <motion.div
       className="absolute flex justify-center items-center pointer-events-none"
@@ -43,8 +58,12 @@ export default function MetroLineLabel({ data, onMetroLineLabelClick }) {
         opacity: 0,
       }}
       animate={{
-        x: Math.min(x0, x1),
-        y: Math.min(y0, y1) - (LINK_LABEL_HEIGHT - METROLINE_WIDTH), // if y1 is smaller than y0 (lines going upwards) may cause bugs without Math.min
+        // change x and y values based on angleBetweenTwoLinesDegree to make the label shift to the left or right
+        x: Math.min(x0, x1) + shifDistAlongX,
+        y:
+          Math.min(y0, y1) -
+          (LINK_LABEL_HEIGHT - METROLINE_WIDTH) +
+          shifDistAlongY, // if y1 is smaller than y0 (lines going upwards) may cause bugs without Math.min
         width: Math.abs(x1 - x0),
         height: Math.abs(y1 - y0),
         rotate: angleBetweenTwoLinesDegree,
@@ -64,10 +83,11 @@ export default function MetroLineLabel({ data, onMetroLineLabelClick }) {
           border: label ? "2px solid white" : null,
           borderBottom: "none",
         }}
-        className={`edge-${id} alerts-border text-black text-sm rounded-md px-2 z-50 cursor-pointer pointer-events-auto`}
+        className={`edge-${id}  text-black text-sm rounded-md px-2 z-50 cursor-pointer pointer-events-auto`}
         onClick={onMetroLineLabelClick}
       >
-        {label}
+        {/* remove empty space in content */}
+        {content.replace(/ /g, "")}
       </motion.div>
     </motion.div>
   );

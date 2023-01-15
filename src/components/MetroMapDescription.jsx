@@ -1,9 +1,17 @@
 import React from "react";
 import { motion } from "framer-motion";
 
+// format time to human readable minutes and seconds
+const formatTime = (time) => {
+  const minutes = Math.floor(time / 60);
+  const seconds = time % 60;
+  return `${minutes} minutes and ${seconds} seconds`;
+};
+
 function MetroMapDescription({
   isDisplayed,
   description,
+  idx,
   subtitle,
   hint,
   height,
@@ -12,24 +20,33 @@ function MetroMapDescription({
   return (
     <>
       {isDisplayed && (
-        <motion.div className="absolute top-[10%] left-[25%] w-[50%] h-[80%] p-5 bg-neutral-800 rounded-lg shadow-lg">
-          <div className="flex  flex-col h-full">
-            <div className="text-3xl flex justify-between items-center h-1/6">
-              {hint}
+        <motion.div className="absolute top-[20%] left-[40%] w-[20%] h-[50%] p-5 bg-neutral-800 rounded-lg shadow-lg">
+          <div className="flex flex-col h-full">
+            <div className="text-2xl text-yellow-400 font-bold text-center h-1/6">
+              Task: {idx + 1}
             </div>
             <div className="flex flex-col justify-center items-center h-4/6">
-              <div className="text-2xl font-bold">
+              <div className="text-lg">
                 The time for this task is
-                <span className="text-yellow-500"> {time} seconds</span>. When
-                you are on this screen, the timer will pause. Take a break! When
-                you are ready to go, click{" "}
-                <span className="text-yellow-500">anywhere</span> to enter task
-                edit mode and start the timer.
+                <span className="text-yellow-500 font-bold">
+                  {" "}
+                  {formatTime(time)}{" "}
+                </span>
+                . When you are on this screen, the timer will pause. Take a
+                break! When you are ready to go, click{" "}
+                <span className="text-yellow-500 font-bold">
+                  anywhere or start
+                </span>{" "}
+                to enter task edit mode and start the timer.
               </div>
             </div>
 
             <div className="flex justify-center items-center h-1/6">
-              <div className="text-2xl font-bold">Start</div>
+              <button>
+                <div className="flex justify-center items-center w-32 h-10 bg-yellow-400 hover:bg-yellow-500 text-black rounded-lg">
+                  <div className="text-xl text-black font-bold">Start</div>
+                </div>
+              </button>
             </div>
           </div>
         </motion.div>

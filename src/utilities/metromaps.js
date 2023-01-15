@@ -17,6 +17,23 @@ import { normalizeTruth } from "./util";
 
 const METROMAPS = [];
 
+// estimate the time to read the data in seconds, convert data to string and count words then sum them up using the formula
+// 0.02 is the average reading speed in words per second
+const estimateTimeToRead = (data) => {
+  // take the article from data, loop through the articles and convert the full_text to string
+  // then split the string by space and count the number of words
+  const article_text = data.articles
+    .map((article) => article.text)
+    .join(" ")
+    .split(" ");
+
+  // count the number of words
+  const words = article_text.length;
+
+  // round to integer
+  return Math.round(words * 0.02);
+};
+
 const normalizeNodeWeight = (data) => {
   // get the max and min node_weight
   let MAX_NODE_WEIGHT = data.nodes[0].node_weight;
@@ -72,7 +89,7 @@ const normalizeEdgeWeight = (data) => {
 
 const context = require.context("../data", true, /\.json$/);
 
-context.keys().forEach((key) => {
+context.keys().forEach((key, index) => {
   const data = context(key);
 
   // if the data.nodes has a node_weight property, normalize it
@@ -89,14 +106,16 @@ context.keys().forEach((key) => {
 
   const url = key.replace("./", "").replace(".json", "");
   const title = url.replace(/-/g, " ");
+  const idx = index;
   const description =
     "This is a dummy description: lorem ipsum dolor sit amet etc.";
   const subtitle = "This is a dummy subtitle: lorem ipsum dolor sit amet etc.";
   const hint = "This is a dummy hint: lorem ipsum dolor sit amet etc.";
-  const time = 60;
+  const time = estimateTimeToRead(data);
   METROMAPS.push({
     url,
     title,
+    idx,
     data,
     description,
     subtitle,

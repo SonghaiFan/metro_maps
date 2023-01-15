@@ -6,9 +6,9 @@ import {
   TIME_AXIS_PADDING,
   MAX_ARTICLES,
   METROSTOP_BOTTOM_PADDING,
-  METROLINE_ANIMATION_DURATION,
+  // METROLINE_ANIMATION_DURATION,
 } from "../utilities/util";
-import { useFirstMountState } from "react-use";
+// import { useFirstMountState } from "react-use";
 
 export default function TimeAxis({
   data,
@@ -17,10 +17,12 @@ export default function TimeAxis({
   paddingX,
   paddingY,
 }) {
-  const isFirstMount = useFirstMountState();
+  // const isFirstMount = useFirstMountState();
   const longestColumnIndex = data.reduce((maxColumnIndex, column, index) => {
     return data[maxColumnIndex].length < column.length ? index : maxColumnIndex;
   }, 0);
+
+  console.log(data);
 
   const timeAxisHeight =
     // article stack height
@@ -40,13 +42,32 @@ export default function TimeAxis({
   return (
     <motion.div>
       {data.map((column, index) => {
-        const { time: startingDate } = column.reduce((nodeWithMinDate, node) =>
-          node.time < nodeWithMinDate.time ? node : nodeWithMinDate
-        );
+        // if time is array, reduce it to an array only contians the min and max time
 
-        const { time: endingDate } = column.reduce((nodeWithMaxDate, node) =>
-          node.time > nodeWithMaxDate.time ? node : nodeWithMaxDate
-        );
+        const isTimeArray = Array.isArray(column[0].time);
+
+        // if isTimeArray, then combine all time array and get the min and max time,
+        // else, get the min and max time directly
+
+        const startingDate = isTimeArray
+          ? new Date(
+              Math.min(
+                ...column.map((node) => {
+                  return Math.min(...node.time);
+                })
+              )
+            )
+          : new Date(Math.min(...column.map((node) => node.time)));
+
+        const endingDate = isTimeArray
+          ? new Date(
+              Math.max(
+                ...column.map((node) => {
+                  return Math.max(...node.time);
+                })
+              )
+            )
+          : new Date(Math.max(...column.map((node) => node.time)));
 
         return (
           <motion.div key={index}>

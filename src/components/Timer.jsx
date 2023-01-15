@@ -2,6 +2,12 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MdTimerOff, MdTimer } from "react-icons/md";
 
+const formatTime = (time) => {
+  const minutes = Math.floor(time / 60);
+  const seconds = time % 60;
+  return `${minutes}m ${seconds}s`;
+};
+
 export default function Timer({ pageState, isValid, isStop, onTimeUp }) {
   const timeToCount = pageState.time;
   const [timeLeft, setTimeLeft] = useState(timeToCount);
@@ -26,7 +32,7 @@ export default function Timer({ pageState, isValid, isStop, onTimeUp }) {
 
     if (!hasAlerted && isValid && timeLeftPercent === 0.2) {
       setHasAlerted(true);
-      alert("Time is closing!");
+      // alert("Time is closing!");
     }
 
     if (isStop) {
@@ -51,20 +57,22 @@ export default function Timer({ pageState, isValid, isStop, onTimeUp }) {
       {isValid && (
         <>
           <motion.div
-            className="fixed w-full h-2 ml-3 "
+            className={"fixed w-full h-2 ml-3"}
             style={{
-              color: timeLeftPercent < 0.2 ? "red" : "white",
+              // color: timeLeftPercent < 0.2 ? "red" : "white",
+              animation:
+                timeLeftPercent < 0.2 && "blink 0.4s ease-out infinite",
             }}
           >
             {isStop ? (
               <div className="flex items-center justify-center align-items-center mt-1">
                 <MdTimerOff size={30} />
-                <span>{`Total Time: ${timeLeft}s`}</span>
+                <span>{`Total Time: ${formatTime(timeLeft)}`}</span>
               </div>
             ) : (
               <div className="flex items-center justify-center align-items-center mt-1">
                 <MdTimer size={30} />
-                <span>{`Time Remaining: ${timeLeft}s`}</span>
+                <span>{`Time Remaining: ${formatTime(timeLeft)}`}</span>
               </div>
             )}
           </motion.div>

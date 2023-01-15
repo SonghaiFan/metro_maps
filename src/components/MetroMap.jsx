@@ -28,6 +28,7 @@ export default function MetroMap({
   screenWidth,
   screenHeight,
   description,
+  idx,
   updateArticleAnimationDelayRef,
   clearArticleAnimationDelayRef,
   hint,
@@ -496,7 +497,7 @@ export default function MetroMap({
             {/* metromap title */}
             <motion.div
               style={{ width: isMapFocused ? width * 3 : width - 64 }}
-              className=" mx-auto text-center whitespace-nowrap overflow-x-auto scrollbar-none text-sm"
+              className=" my-6 mx-auto text-center whitespace-nowrap overflow-x-auto scrollbar-none text-sm"
             >
               <motion.h2
                 animate={isMapFocused ? {} : titleAnimation}
@@ -507,6 +508,7 @@ export default function MetroMap({
             </motion.div>
             <MetroMapDescription
               isDisplayed={!isMapFocused}
+              idx={idx}
               description={description}
               subtitle={subtitle}
               hint={hint}

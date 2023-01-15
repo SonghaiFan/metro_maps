@@ -1,5 +1,5 @@
 import * as d3 from "d3";
-import { sankey } from "d3-sankey";
+import * as d3Sankey from "d3-sankey";
 import { NODEWIDTH, flatMap, MAX_ARTICLES, cutomerInterpolation } from "./util";
 
 import { showTruth } from "./util";
@@ -23,7 +23,8 @@ const generateMetroMapFullViewPositions = (
   });
 
   // Build sankey generator
-  const sankeyLayout = sankey()
+  const sankeyLayout = d3Sankey
+    .sankey()
     .links(metroMapData.links)
     .nodes(metroMapData.nodes)
     .size([paddedMetroMapWidth, paddedMetroMapHeight])
@@ -378,13 +379,7 @@ const calculateMetroMapLayout = (
                   : link.edge_weight
               )
             : "red", // do not use link.edge_weight ? ... since 0 is a falsey value
-        edgeLabel:
-          link.edge_label !== undefined
-            ? // if edge label is an array, use the first element
-              Array.isArray(link.edge_label)
-              ? link.edge_label[0]
-              : link.edge_label
-            : null,
+        edgeLabel: link.edge_label !== undefined ? link.edge_label : null,
       };
     };
 

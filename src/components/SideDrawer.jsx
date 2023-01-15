@@ -6,7 +6,7 @@ import {
   invertCustomerInterpolation,
 } from "../utilities/util";
 import { MdClose } from "react-icons/md";
-// import mixpanel from "mixpanel-browser";
+import mixpanel from "mixpanel-browser";
 
 export const SideDrawer = ({
   isVisible,
@@ -43,9 +43,9 @@ export const SideDrawer = ({
 
   const handleCustomNodesChange = (event) => {
     // console.log("in the drawer: ", whoOpenSideDrawer);
-    // mixpanel.track("Metro label changed", {
-    //   value: event.target.value,
-    // });
+    mixpanel.track("Metro label changed", {
+      value: event.target.value,
+    });
 
     const newColour = cutomerInterpolation(event.target.value);
 
@@ -54,10 +54,10 @@ export const SideDrawer = ({
     const whoId = whoOpenSideDrawer.id;
 
     if (type === "metro-line-label" || type === "metro-line-path") {
-      // mixpanel.track("Metro line label colour changed", {
-      //   lineID: whoId,
-      //   newColour: newColour,
-      // });
+      mixpanel.track("Metro line label colour changed", {
+        lineID: whoId,
+        newColour: newColour,
+      });
       // console.log(`this is a metro line label at ${whoId}`);
       handleCustomLines(whoId, newColour);
 
@@ -79,10 +79,10 @@ export const SideDrawer = ({
       type === "node-number-label" ||
       type === "neighbour-node-label"
     ) {
-      // mixpanel.track("Node word label colour changed", {
-      //   nodeID: whoId,
-      //   newColour: newColour,
-      // });
+      mixpanel.track("Node word label colour changed", {
+        nodeID: whoId,
+        newColour: newColour,
+      });
       // console.log(`this is a node word label at ${whoId}`);
       handleCustomNodes(whoId, newColour);
       // query all dom has the same class name based on whoId and add border
@@ -124,16 +124,12 @@ export const SideDrawer = ({
           >
             <motion.button
               className="absolute top-0 right-0 flex justify-center items-center text-4xl"
-              animate={{
-                width: margin.x * screenWidth,
-                height: 80,
-              }}
               onClick={close}
             >
               <MdClose />
             </motion.button>
 
-            <motion.div className="text-2xl">
+            <motion.div className="text-2xl mx-10">
               {/* range slider with five step, label is very high, high, moderate, weak, very weak */}
               <motion.div className="text-2xl">
                 Please rate the degree of connection
@@ -169,6 +165,20 @@ export const SideDrawer = ({
                 <span>Moderate</span>
                 <span>High</span>
                 <span>Very high</span>
+              </motion.div>
+              <br></br>
+              <motion.button
+                className="absolute bottom-0 right-0 flex justify-center items-center text-4xl"
+                onClick={close}
+              >
+                <MdClose />
+              </motion.button>
+              <motion.div className="text-[10px]">
+                PS: Based on your reading, how relatively strong is the
+                connection in this corpus? Either change it or leave it as it
+                is. confirm your choice by clicking confrim button. Exit the
+                side drawer by clicking the close button or anywhere outside the
+                side drawer.
               </motion.div>
             </motion.div>
           </motion.div>

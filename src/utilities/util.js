@@ -3,6 +3,7 @@ import { differenceEuclideanRGB } from "d3-color-difference";
 
 // FUNCTIONS
 export const timeParse = d3.timeParse("%Y-%m-%d");
+export const timeParse2 = d3.timeParse("%Y%m%d");
 export const timeFormat = d3.timeFormat("%d %b %Y");
 export const nodesCollided = (node1, node2) => {
   const xDifference = node1.x - node2.x;

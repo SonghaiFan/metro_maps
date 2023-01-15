@@ -72,7 +72,7 @@ export default function Menu({
       payload: { map: mapId, mode: FOCUS_MODE.FULL_VIEW },
     });
     // console.log("focusState", focusState);
-    mixpanel.track("MetroMap-onFucousButton clicked", {
+    mixpanel.track("MetroMap-onFucous button clicked", {
       map: mapId,
       mode: FOCUS_MODE.FULL_VIEW,
     });
@@ -100,7 +100,7 @@ export default function Menu({
   };
 
   const onZoomOutButtonClick = () => {
-    mixpanel.track("onZoomOutButton clicked");
+    mixpanel.track("onZoomOut-button clicked");
     setZoomOutButtonClicked(true);
     clearArticleAnimationDelayRef();
     dispatch({ type: ACTION_TYPES.LANDING_PAGE_VIEW });
@@ -158,6 +158,7 @@ export default function Menu({
           screenWidth={screenWidth}
           description={metromap.description}
           subtitle={metromap.subtitle}
+          idx={metromap.idx}
           hint={metromap.hint}
           time={metromap.time}
           updateArticleAnimationDelayRef={updateArticleAnimationDelayRef}
@@ -177,10 +178,12 @@ export default function Menu({
   const onNavigationBtwSessionClick = (direction) => () => {
     // Fake zoomout click to exit the full view
     onZoomOutButtonClick();
+
     mixpanel.track("NavigationButton-onNavigationBtwSession clicked", {
       direction: direction === PAGE_DIRECTION.RIGHT ? "right" : "left",
       pageState: pageState,
     });
+
     if (direction === PAGE_DIRECTION.RIGHT) {
       setPageState(nextPageState(pageState));
     } else {
@@ -252,7 +255,7 @@ export default function Menu({
           onClick={onNavigationBtwSessionClick(PAGE_DIRECTION.RIGHT)}
           className={`right-[2%] top-[50%] `}
           isVisible={
-            // focusState.mode === null &&
+            focusState.mode === FOCUS_MODE.FULL_VIEW &&
             pageState.current !== pageState.total
           }
         >

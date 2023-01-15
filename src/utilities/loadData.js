@@ -1,4 +1,4 @@
-import { timeParse } from "./util";
+import { timeParse, timeParse2 } from "./util";
 
 /**
  * Sorts and formats nodes and creates data object. Sorts lines to create the most intersections and also centers the most dense lines.
@@ -17,7 +17,10 @@ export const loadData = (rawData) => {
     articles,
     nodes: rawData.nodes.map((n) => ({
       ...n,
-      time: timeParse(n.time),
+      // if time is not array, parse it
+      time: Array.isArray(n.time)
+        ? n.time.map((time) => timeParse2(time))
+        : timeParse(n.time),
     })),
   };
 

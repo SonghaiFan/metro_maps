@@ -98,13 +98,14 @@ input[type="range"] {
   background: linear-gradient(to right, #585d91 0%, #48a49e 50%, #fce554 100%);
 }
 
-.alerts-border {
-  /* animation: blink 2s ease-out infinite; */
-}
+/* .alerts-border {
+  animation: blink 2s ease-out infinite;
+} */
 
 @keyframes blink {
   50% {
-    border-color: rgba(255, 255, 255, 0);
-    stroke: rgba(255, 255, 255, 0);
+    border-color: rgba(255, 0, 0, 0.5);
+    stroke: rgba(255, 0, 0, 0.5);
+    color: rgba(255, 0, 0, 0.5);
   }
 }
