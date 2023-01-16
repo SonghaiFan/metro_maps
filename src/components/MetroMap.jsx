@@ -140,6 +140,22 @@ export default function MetroMap({
     }
   };
 
+  const unHighlightConfirmedLines = (lines, pathId) => {
+    const updatedLines = Object.assign({}, lines);
+
+    const [pathStartId, pathEndId] = pathId.split("-");
+    for (let lineId in updatedLines) {
+      const linePathCoords = updatedLines[lineId].pathCoords;
+
+      linePathCoords.forEach((coords) => {
+        if (coords.source === pathStartId && coords.target === pathEndId) {
+          coords.isChanged = true;
+        }
+      });
+    }
+    setCustomLines(updatedLines);
+  };
+
   const unHighlightConfirmedNodes = (nodes, nodeId) => {
     const updatedNodes = Object.assign({}, nodes);
     if (updatedNodes[nodeId]) {
@@ -157,24 +173,6 @@ export default function MetroMap({
     setCustomeNodes(updatedNodes);
   };
 
-  const unHighlightConfirmedEdges = (lines, pathId) => {
-    const updatedLines = Object.assign({}, lines);
-
-    const [pathStartId, pathEndId] = pathId.split("-");
-    for (let lineId in updatedLines) {
-      const linePathCoords = updatedLines[lineId].pathCoords;
-
-      linePathCoords.forEach((coords) => {
-        if (coords.source === pathStartId && coords.target === pathEndId) {
-          console.log("coords before", coords);
-          coords.isChanged = true;
-          console.log("coords after", coords);
-        }
-      });
-    }
-    setCustomLines(updatedLines);
-  };
-
   const handleSideDrawerConfirmed = (who) => {
     const type = who.dataset.type;
     const whoId = who.id;
@@ -188,7 +186,7 @@ export default function MetroMap({
       updatedWhoConfirmedInput.edge.add(whoId);
       setWhoConfirmedInput(updatedWhoConfirmedInput);
 
-      unHighlightConfirmedNodes(customNodes, whoId);
+      unHighlightConfirmedLines(customLines, whoId);
     }
 
     if (
@@ -204,7 +202,7 @@ export default function MetroMap({
       updatedWhoConfirmedInput.node.add(whoId);
       setWhoConfirmedInput(updatedWhoConfirmedInput);
 
-      unHighlightConfirmedEdges(customLines, whoId);
+      unHighlightConfirmedNodes(customNodes, whoId);
     }
 
     setSideDrawerOpen(false);
@@ -618,7 +616,7 @@ export default function MetroMap({
                 animate={isMapFocused ? {} : titleAnimation}
                 ref={titleRef}
               >
-                {title}
+                {/* {title} */}
               </motion.h2>
             </motion.div>
             <MetroMapDescription

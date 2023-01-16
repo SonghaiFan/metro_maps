@@ -51,21 +51,23 @@ export default function MetroLine({
   return (
     <>
       {data.map((path, index) => {
-        // console.log(path);
+        console.log(path);
         return (
           <motion.g key={index}>
-            <motion.path
-              className={`edge-shadow-${path.id}`}
-              d={drawPath(path.path)}
-              style={{
-                fill: "transparent",
-                strokeWidth: strokeWidth + 4 || METROLINE_WIDTH + 4,
-                stroke: path.isChanged ? null : "white",
-              }}
-              variants={metroLineVariantFactory}
-              initial="hidden"
-              animate="default"
-            />
+            {!path.isChanged && (
+              <motion.path
+                className={`edge-shadow-${path.id}`}
+                d={drawPath(path.path)}
+                style={{
+                  fill: "transparent",
+                  strokeWidth: strokeWidth + 4 || METROLINE_WIDTH + 4,
+                  stroke: "white",
+                }}
+                variants={metroLineVariantFactory}
+                initial="hidden"
+                animate="default"
+              />
+            )}
             <motion.path
               data-type="metro-line-path"
               className={`edge-${path.id} hover:cursor-pointer`}

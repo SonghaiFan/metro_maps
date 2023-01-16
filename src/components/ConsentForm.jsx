@@ -32,7 +32,7 @@ const ConsentForm = ({ isConfirmed, setIsConfirmed }) => {
 
       <div className="flex items-center justify-between">
         <button
-          className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          className="bg-slate-500 hover:bg-slate-600  font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           type="submit"
         >
           {isConfirmed ? "Consent confirmed" : "I consent"}

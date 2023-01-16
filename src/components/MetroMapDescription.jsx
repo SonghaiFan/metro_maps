@@ -22,7 +22,7 @@ function MetroMapDescription({
       {isDisplayed && (
         <motion.div className="absolute top-[20%] left-[40%] w-[20%] h-[50%] p-5 bg-neutral-800 rounded-lg shadow-lg">
           <div className="flex flex-col h-full">
-            <div className="text-2xl text-yellow-400 font-bold text-center h-1/6">
+            <div className="text-2xl text-emerald-400 font-bold text-center h-1/6">
               Task: {idx + 1}
             </div>
             <div className="flex flex-col justify-center items-center h-4/6">
@@ -43,8 +43,8 @@ function MetroMapDescription({
 
             <div className="flex justify-center items-center h-1/6">
               <button>
-                <div className="flex justify-center items-center w-32 h-10 bg-yellow-400 hover:bg-yellow-500 text-black rounded-lg">
-                  <div className="text-xl text-black font-bold">Start</div>
+                <div className="flex justify-center items-center w-32 h-10 bg-slate-500 hover:bg-slate-600 rounded-lg">
+                  <div className="text-xl font-bold">Start</div>
                 </div>
               </button>
             </div>

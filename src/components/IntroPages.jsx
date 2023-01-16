@@ -329,7 +329,7 @@ export function WelcomePage({
         A user study to explore the narrative map
       </div>
       <br></br>
-      <div className="text-yellow-400 text-left">
+      <div className="text-emerald-400 text-left">
         Project ID: 36056 <br></br>Project Title: Visually Communicating
         Narratives
       </div>

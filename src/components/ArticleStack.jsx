@@ -142,7 +142,7 @@ export default function ArticleStack({
                 {/* helper onClick layer */}
                 {!clicked && (
                   <motion.div
-                    className="absolute w-full h-full"
+                    className="helper absolute w-full h-full"
                     onClick={onClick}
                   />
                 )}

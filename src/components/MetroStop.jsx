@@ -130,7 +130,11 @@ export default function MetroStop({
               y: height - 40,
               x: -10,
             }}
-            className={`node-${data.id} absolute rounded-xl text-xs flex justify-center items-center hover:border-2 cursor-pointer`}
+            // when hover, scale up the div
+            whileHover={{
+              scale: 1.2,
+            }}
+            className={`node-${data.id} absolute rounded-xl text-xs flex justify-center items-center cursor-pointer`}
             onClick={(event) => onNodeNumberLabelClick(event.target)}
           >
             {data.articles.length}
