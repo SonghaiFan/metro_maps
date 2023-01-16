@@ -29,10 +29,10 @@ export default function MetroStop({
   onNodeWordsLabelClick,
   mapId,
 }) {
-  console.log(data);
+  // console.log("From MetroStop", data);
   const label = data.node_words;
   const { width: screenWidth, height: screenHeight } = useWindowSize();
-  const content = Array.isArray(label) ? label[0].replace(/ /g, "") : label;
+  const content = label.length > 0 ? label[0].replace(/ /g, "_") : "";
 
   const moreContent = Array.isArray(label)
     ? label
@@ -122,7 +122,7 @@ export default function MetroStop({
             id={data.id}
             style={{
               backgroundColor: data.colour, //"white"
-              border: "2px solid white",
+              border: data.isChanged ? null : "2px solid white",
             }}
             animate={{
               width: METROSTOP_CIRCLE_SIZE,
@@ -146,13 +146,16 @@ export default function MetroStop({
               isMapFocused,
               height,
               screenHeight,
-              CLICKED_ARTICLE_CONTAINER_HEIGHT
+              CLICKED_ARTICLE_CONTAINER_HEIGHT,
+              showMore,
+              content,
+              moreContent
             )}
             style={{
               backgroundColor:
                 // "white",
                 data.colour,
-              border: "2px solid white",
+              border: data.isChanged ? null : "2px solid white",
             }}
             className={`node-${data.id}  text-black cursor-pointer  ${
               isMapFocused

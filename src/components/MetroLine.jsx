@@ -51,6 +51,7 @@ export default function MetroLine({
   return (
     <>
       {data.map((path, index) => {
+        // console.log(path);
         return (
           <motion.g key={index}>
             <motion.path
@@ -59,7 +60,7 @@ export default function MetroLine({
               style={{
                 fill: "transparent",
                 strokeWidth: strokeWidth + 4 || METROLINE_WIDTH + 4,
-                stroke: "white",
+                stroke: path.isChanged ? null : "white",
               }}
               variants={metroLineVariantFactory}
               initial="hidden"

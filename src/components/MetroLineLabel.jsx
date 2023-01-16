@@ -10,9 +10,9 @@ import { useFirstMountState } from "react-use";
 export default function MetroLineLabel({ data, onMetroLineLabelClick }) {
   const isFirstMount = useFirstMountState();
 
-  const { id, label, colour, points } = data;
+  const { id, label, colour, points, isChanged } = data;
 
-  const content = Array.isArray(label) ? label[0].replace(/ /g, "") : label;
+  const content = Array.isArray(label) ? label[0].replace(/ /g, "_") : label;
 
   // get the length of the label array
   const labelLength = Math.min(Array.isArray(label) ? label.length : 1, 5);
@@ -89,7 +89,7 @@ export default function MetroLineLabel({ data, onMetroLineLabelClick }) {
         style={{
           wordSpacing: "100vw",
           width: "min-content", // to prevent the label from wrapping
-          border: label ? "2px solid white" : null,
+          border: label ? (isChanged ? null : "2px solid white") : null,
           borderBottom: "none",
           backgroundColor: colour, // "white"
         }}

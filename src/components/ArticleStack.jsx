@@ -103,7 +103,7 @@ export default function ArticleStack({
                 key={article.id}
                 className={`article-${data.id} absolute rounded-md`}
                 style={{
-                  border: "2px solid white",
+                  border: data.isChanged ? null : "2px solid white",
                   backgroundColor: clicked
                     ? "white"
                     : (array.length - articleIndex) % 2 === 0

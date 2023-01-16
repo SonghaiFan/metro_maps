@@ -5,6 +5,7 @@ import {
   margin,
   TOP_FULL_PAGE_PADDING,
   METROLINE_ANIMATION_DURATION,
+  cutomerInterpolation,
 } from "../utilities/util";
 import { motion } from "framer-motion";
 import { metroStopVariantsFactory } from "../utilities/metroStopUtilities";
@@ -60,22 +61,31 @@ export default function MetroMap({
   );
 
   // console.log("nodes from metropStop", nodes);
-
   const [customNodes, setCustomeNodes] = useState(nodes);
   const [customLines, setCustomLines] = useState(lines);
+  const [sideDrawerOpen, setSideDrawerOpen] = useState(false);
+  const [whoOpenSideDrawer, setWhoOpenSideDrawer] = useState();
+  const [whoConfirmedInput, setWhoConfirmedInput] = useState({
+    node: new Set(),
+    edge: new Set(),
+  });
+  /////////////////////////// Side Drawer input change ///////////////////////////
 
   const addCutomNodeColor = (nodes, nodeId, newColour) => {
     const updatedNodes = Object.assign({}, nodes);
-    updatedNodes[nodeId] && (updatedNodes[nodeId].colour = newColour);
+    if (updatedNodes[nodeId]) {
+      updatedNodes[nodeId].colour = newColour;
+    }
     for (let eachNode in updatedNodes) {
       const conNodes = updatedNodes[eachNode].connectedNodes;
 
       conNodes.forEach((node) => {
-        // console.log(node);
-        node.id === nodeId && (node.colour = newColour);
+        if (node.id === nodeId) {
+          node.colour = newColour;
+        }
       });
     }
-    return updatedNodes;
+    setCustomeNodes(updatedNodes);
   };
 
   const addCutomLineColor = (lines, pathId, newColour) => {
@@ -87,21 +97,133 @@ export default function MetroMap({
       const linePathCoords = updatedLines[lineId].pathCoords;
 
       linePathCoords.forEach((coords) => {
-        coords.source === pathStartId &&
-          coords.target === pathEndId &&
-          (coords.edgeColour = newColour);
+        if (coords.source === pathStartId && coords.target === pathEndId) {
+          coords.edgeColour = newColour;
+        }
       });
     }
-    return updatedLines;
+    setCustomLines(updatedLines);
   };
 
-  const handleCustomLines = (pathId, newColour) => {
-    setCustomLines(addCutomLineColor(customLines, pathId, newColour));
+  const handleCustomChange = (event) => {
+    // console.log("in the drawer: ", whoOpenSideDrawer);
+    mixpanel.track("Metro label changed", {
+      value: event.target.value,
+    });
+
+    const newColour = cutomerInterpolation(event.target.value);
+
+    const type = whoOpenSideDrawer.dataset.type;
+    // console.log("type", type);
+    const whoId = whoOpenSideDrawer.id;
+
+    if (type === "metro-line-label" || type === "metro-line-path") {
+      mixpanel.track("Metro line label colour changed", {
+        lineID: whoId,
+        newColour: newColour,
+      });
+      // console.log(`this is a metro line label at ${whoId}`);
+      addCutomLineColor(customLines, whoId, newColour);
+    }
+
+    if (
+      type === "node-words-label" ||
+      type === "node-number-label" ||
+      type === "neighbour-node-label"
+    ) {
+      mixpanel.track("Node word label colour changed", {
+        nodeID: whoId,
+        newColour: newColour,
+      });
+      // console.log(`this is a node word label at ${whoId}`);
+      addCutomNodeColor(customNodes, whoId, newColour);
+    }
   };
 
-  const handleCustomNodes = (nodeId, newColour) => {
-    setCustomeNodes(addCutomNodeColor(customNodes, nodeId, newColour));
+  const unHighlightConfirmedNodes = (nodes, nodeId) => {
+    const updatedNodes = Object.assign({}, nodes);
+    if (updatedNodes[nodeId]) {
+      updatedNodes[nodeId].isChanged = true;
+    }
+    for (let eachNode in updatedNodes) {
+      const conNodes = updatedNodes[eachNode].connectedNodes;
+
+      conNodes.forEach((node) => {
+        if (node.id === nodeId) {
+          node.isChanged = true;
+        }
+      });
+    }
+    setCustomeNodes(updatedNodes);
   };
+
+  const unHighlightConfirmedEdges = (lines, pathId) => {
+    const updatedLines = Object.assign({}, lines);
+
+    const [pathStartId, pathEndId] = pathId.split("-");
+    for (let lineId in updatedLines) {
+      const linePathCoords = updatedLines[lineId].pathCoords;
+
+      linePathCoords.forEach((coords) => {
+        if (coords.source === pathStartId && coords.target === pathEndId) {
+          console.log("coords before", coords);
+          coords.isChanged = true;
+          console.log("coords after", coords);
+        }
+      });
+    }
+    setCustomLines(updatedLines);
+  };
+
+  const handleSideDrawerConfirmed = (who) => {
+    const type = who.dataset.type;
+    const whoId = who.id;
+
+    if (type === "metro-line-label" || type === "metro-line-path") {
+      mixpanel.track("Metro line label confirmed", {
+        lineID: whoId,
+      });
+
+      const updatedWhoConfirmedInput = Object.assign({}, whoConfirmedInput);
+      updatedWhoConfirmedInput.edge.add(whoId);
+      setWhoConfirmedInput(updatedWhoConfirmedInput);
+
+      unHighlightConfirmedNodes(customNodes, whoId);
+    }
+
+    if (
+      type === "node-words-label" ||
+      type === "node-number-label" ||
+      type === "neighbour-node-label"
+    ) {
+      mixpanel.track("Node word label confirmed", {
+        nodeID: whoId,
+      });
+
+      const updatedWhoConfirmedInput = Object.assign({}, whoConfirmedInput);
+      updatedWhoConfirmedInput.node.add(whoId);
+      setWhoConfirmedInput(updatedWhoConfirmedInput);
+
+      unHighlightConfirmedEdges(customLines, whoId);
+    }
+
+    setSideDrawerOpen(false);
+  };
+
+  useEffect(() => {
+    console.log(whoConfirmedInput);
+  }, [whoConfirmedInput]);
+
+  const openSideDrawer = (who) => {
+    setWhoOpenSideDrawer(who);
+    setSideDrawerOpen(true);
+  };
+
+  const closeSideDrawer = () => {
+    setSideDrawerOpen(false);
+  };
+
+  ///////////////////////////////////   animation   ///////////////////////////////////////
 
   const titleRef = useRef();
   const [titleAnimation, setTitleAnimation] = useState({});
@@ -128,6 +250,11 @@ export default function MetroMap({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [screenWidth, screenHeight]);
 
+  const [clickedNode, setClickedNode] = useState(null);
+  const [clickedNodeBuffer, setClickedNodeBuffer] = useState(null);
+  const [previousClickedNode, setPreviousClickedNode] = useState(null);
+  const [foundLinkData, setFoundLinkData] = useState(null);
+
   const metroLineData = useMemo(
     () =>
       Object.keys(customLines).map((lineId) => {
@@ -139,12 +266,6 @@ export default function MetroMap({
       }),
     [customLines]
   );
-
-  const [clickedNode, setClickedNode] = useState(null);
-  const [clickedNodeBuffer, setClickedNodeBuffer] = useState(null);
-  const [previousClickedNode, setPreviousClickedNode] = useState(null);
-  const [foundLinkData, setFoundLinkData] = useState(null);
-
   // needed for transition animation - find out which nodes and link to draw
   useEffect(() => {
     if (previousClickedNode && clickedNodeBuffer) {
@@ -186,15 +307,6 @@ export default function MetroMap({
     }
   }, [previousClickedNode, clickedNodeBuffer, metroLineData, lines]);
 
-  useEffect(() => {
-    if (zoomOutButtonClicked) {
-      onZoomOutButtonClick();
-      // console.log("zoom out button clicked")
-    }
-    // onZoomOutButtonClick will never change
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [zoomOutButtonClicked]);
-
   const onArticleStackAnimationComplete = () => {
     if (clickedNodeBuffer) {
       updateArticleAnimationDelayRef(
@@ -224,6 +336,16 @@ export default function MetroMap({
       nodeId: nodeId,
     });
   };
+  ///////////////////////////////////   animation   ///////////////////////////////////////
+
+  useEffect(() => {
+    if (zoomOutButtonClicked) {
+      onZoomOutButtonClick();
+      // console.log("zoom out button clicked")
+    }
+    // onZoomOutButtonClick will never change
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [zoomOutButtonClicked]);
 
   const onZoomOutButtonClick = () => {
     mixpanel.track("NavigationButtonMetroStop ZoomOut button clicked");
@@ -231,19 +353,6 @@ export default function MetroMap({
     setClickedNodeBuffer(null);
     setClickedNode(null);
     setPreviousClickedNode(null);
-  };
-
-  const [sideDrawerOpen, setSideDrawerOpen] = useState(false);
-
-  const [whoOpenSideDrawer, setWhoOpenSideDrawer] = useState();
-
-  const openSideDrawer = (who) => {
-    setWhoOpenSideDrawer(who);
-    setSideDrawerOpen(true);
-  };
-
-  const closeSideDrawer = () => {
-    setSideDrawerOpen(false);
   };
 
   return (
@@ -280,6 +389,7 @@ export default function MetroMap({
               height={isMapFocused ? screenHeight : height}
             >
               {metroLineData.map((data) => {
+                // console.log("MetropMap to draw MetroLine", data);
                 const [lineId, { paths }] = Object.entries(data)[0];
 
                 return (
@@ -325,6 +435,7 @@ export default function MetroMap({
                         <MetroLineLabel
                           key={`${lineId}-${index}`}
                           data={label}
+                          isChanged={false}
                           onMetroLineLabelClick={(event) => {
                             openSideDrawer(event.target);
                           }}
@@ -539,8 +650,8 @@ export default function MetroMap({
         screenHeight={screenHeight}
         paddingY={paddingY}
         whoOpenSideDrawer={whoOpenSideDrawer}
-        handleCustomNodes={handleCustomNodes}
-        handleCustomLines={handleCustomLines}
+        handleSideDrawerConfirmed={handleSideDrawerConfirmed}
+        handleChange={handleCustomChange}
       ></SideDrawer>
       {/* )} */}
     </motion.div>

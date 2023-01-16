@@ -157,9 +157,10 @@ const colourNodes = (nodes, lines, edges, useNodeWeight, useEdgeWeight) => {
       {}
     );
 
-    Object.values(uniqueNodeColours).forEach(
-      (nodeColour) => (nodes[nodeColour.nodeId].colour = nodeColour.colour)
-    );
+    Object.values(uniqueNodeColours).forEach((nodeColour) => {
+      nodes[nodeColour.nodeId].colour = nodeColour.colour;
+      nodes[nodeColour.nodeId].isChanged = false;
+    });
 
     // console.log("nodeColours", nodeColours);
   };
@@ -230,51 +231,6 @@ const colourNeighbouringNodes = (nodes) => {
     });
   });
 };
-
-// const minimiseDuplicatedNodeWords = (columns, nodes) => {
-//   const nodeWords = [];
-
-//   const getStringLastLetter = (string) => {
-//     return string[string.length - 1];
-//   };
-
-//   columns.forEach((column) => {
-//     column.forEach((node) => {
-//       if (nodes[node.id].node_words.length <= 0) return;
-
-//       // also consider plural version of the word (with s) as duplicates
-//       const regexPattern = `${nodes[node.id].node_words[0]}${
-//         getStringLastLetter(nodes[node.id].node_words[0]) === "s" ? "?" : "s?"
-//       }`;
-
-//       if (!nodeWords.find((word) => new RegExp(regexPattern).test(word))) {
-//         // store in an array since MetroStop assumes that the node words are put inside an array
-//         nodes[node.id].node_words = [nodes[node.id].node_words[0]];
-//         // since the nodes on columns and newNodes are not the same, modify the ones in columns too
-//         node.node_words = [nodes[node.id].node_words[0]];
-//         nodeWords.push(nodes[node.id].node_words[0]);
-//         return;
-//       }
-
-//       const newWord =
-//         nodes[node.id].node_words.find(
-//           (word) =>
-//             !nodeWords.find((duplicatedWord) =>
-//               new RegExp(
-//                 `${duplicatedWord}${
-//                   getStringLastLetter(nodes[node.id].node_words[0]) === "s"
-//                     ? ""
-//                     : "s?"
-//                 }`
-//               ).test(word)
-//             )
-//         ) || [];
-//       nodes[node.id].node_words = [newWord];
-//       node.node_words = [newWord];
-//       nodeWords.push(newWord);
-//     });
-//   });
-// };
 
 const calculateMetroMapLayout = (
   metroMapWidth,
@@ -509,7 +465,8 @@ const calculateMetroMapLayout = (
           : null,
       nodeIDs: getNodesConnectedByOneLine(line.links),
       pathCoords: generatePath(newNodes, line),
-      colour: "white", //cutomerInterpolation(line.weight),
+      colour: line.weight ? cutomerInterpolation(line.weight) : "white",
+      isChanged: false,
     };
   });
 
