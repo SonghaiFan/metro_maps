@@ -1,0 +1,403 @@
+{
+    "nodes": [
+        {
+            "id": "0_3",
+            "articles": [
+                4,
+                5
+            ],
+            "label": "CDC Publication on Bioterrorism",
+            "publisher": "",
+            "node_words": [
+                "bioterrorism",
+                "vastopolis",
+                "biological",
+                "biologist",
+                "organisms"
+            ],
+            "time": [
+                20110418
+            ]
+        },
+        {
+            "id": "1_6",
+            "articles": [
+                3,
+                12,
+                25,
+                30
+            ],
+            "label": "Terror Group Communications Intercepted",
+            "publisher": "",
+            "node_words": [
+                "hazards",
+                "threats",
+                "danger",
+                "vastopolis",
+                "alerted"
+            ],
+            "time": [
+                20110511
+            ]
+        },
+        {
+            "id": "2_6",
+            "articles": [
+                29,
+                26,
+                35
+            ],
+            "label": "Explosions at Smogtown Chemical Plant",
+            "publisher": "",
+            "node_words": [
+                "vastpress",
+                "evacuation",
+                "hazards",
+                "quarantined",
+                "danger"
+            ],
+            "time": [
+                20110515,
+                20110519
+            ]
+        },
+        {
+            "id": "0_5",
+            "articles": [
+                19
+            ],
+            "label": "Mass Animal Deaths",
+            "publisher": "VastPress 2011 Vastopolis",
+            "node_words": [
+                "contamination",
+                "livestock",
+                "agriculture",
+                "farms",
+                "vastopolis"
+            ],
+            "time": [
+                20110401
+            ]
+        },
+        {
+            "id": "1_5",
+            "articles": [
+                8,
+                39
+            ],
+            "label": "Animal Deaths in City Caused by Microbes",
+            "publisher": "VastPress 2011 Vastopolis",
+            "node_words": [
+                "agriculture",
+                "farms",
+                "vastopolis"
+            ],
+            "time": [
+                20110420
+            ]
+        },
+        {
+            "id": "2_0",
+            "articles": [
+                34
+            ],
+            "label": "University Professor Walks out of Class",
+            "publisher": "",
+            "node_words": [
+                "vastopolis",
+                "vastpress",
+                "professor",
+                "vast",
+                "stress"
+            ],
+            "time": [
+                20110518
+            ]
+        }
+    ],
+    "links": [
+        {
+            "source": "0_3",
+            "target": "1_6",
+            "edge_weight": 0.40625000000000017,
+            "edge_label": [
+                "vastopolis"
+            ],
+            "id": 0
+        },
+        {
+            "source": "1_6",
+            "target": "2_6",
+            "edge_weight": 0.99,
+            "edge_label": [
+                "hazards",
+                "threats",
+                "danger"
+            ],
+            "id": 0
+        },
+        {
+            "source": "0_5",
+            "target": "1_5",
+            "edge_weight": 0.8,
+            "edge_label": [
+                "agriculture",
+                "farms",
+                "vastopolis"
+            ],
+            "id": 1
+        },
+        {
+            "source": "1_5",
+            "target": "2_0",
+            "edge_weight": 0.4,
+            "edge_label": [
+                "vastopolis"
+            ],
+            "id": 1
+        },
+        {
+            "source": "0_5",
+            "target": "1_6",
+            "edge_weight": 0.2875,
+            "edge_label": [
+                "vastopolis"
+            ],
+            "id": 3
+        },
+        {
+            "source": "1_6",
+            "target": "2_0",
+            "edge_weight": 0.18,
+            "edge_label": [
+                "vastopolis"
+            ],
+            "id": 8
+        },
+        {
+            "source": "1_5",
+            "target": "2_6",
+            "edge_weight": 0.5,
+            "edge_label": [
+                "vastopolis"
+            ],
+            "id": 2
+        }
+    ],
+    "articles": [
+        {
+            "id": 4,
+            "publisher": "",
+            "title": "CDC Publication on Bioterrorism",
+            "timestamp": "2011-04-18",
+            "text": "Residents of Vastopolis are feeling a bit more anxious today after the Center for Disease Control released a publication on the threats of bioterrorism. The publication focused on many of the more modern day threats due to advanced technology. According to Dr. Bryant Mcfarlane of the CDC, the nation needs to set a priority of preparing a response to acts of bioterrorism. But some experts are still uncertain of what tactics, targets or weapons could be used in such an attack, and are therefore un ...",
+            "full_text": "Residents of Vastopolis are feeling a bit more anxious today after the Center for Disease Control released a publication on the threats of bioterrorism. The publication focused on many of the more modern day threats due to advanced technology. According to Dr. Bryant Mcfarlane of the CDC, the nation needs to set a priority of preparing a response to acts of bioterrorism. But some experts are still uncertain of what tactics, targets or weapons could be used in such an attack, and are therefore unsure of how to prepare properly for them. The publication had a large focus on attacks to the food supply. The CDC believes that the food supply has the highest probability of being a bioterrorism target due to ease of dissemination. They say that targeting the food supply allows for widespread consumption by the populace that can be difficult to identify until it is too late."
+        },
+        {
+            "id": 5,
+            "publisher": "",
+            "title": "Manufacturing Dangerous Microbes",
+            "timestamp": "2011-04-11",
+            "text": "Professor Edward Patino gave a rousing talk today at Vast University in Uptown about the threat of bioterrorism. Patino is a molecular biologist who has been at the university for almost 10 years. He is considered an expert in bioterrorism. Patino was attempting to draw attention to the fact that it is much easier than before to engineer dangerous microbes with the right equipment. This process involves genetic modification of existing organisms to create new biological hazards. He questioned if ...",
+            "full_text": "Professor Edward Patino gave a rousing talk today at Vast University in Uptown about the threat of bioterrorism. Patino is a molecular biologist who has been at the university for almost 10 years. He is considered an expert in bioterrorism. Patino was attempting to draw attention to the fact that it is much easier than before to engineer dangerous microbes with the right equipment. This process involves genetic modification of existing organisms to create new biological hazards. He questioned if Vastopolis was prepared to deal with such threats. He stated that as technology advances, anything is possible and every city has to be prepared.  On a side note, the professor has had numerous encounters with member of the Citizens for the Ethical Treatment of Lab Mice. He said that he has been harassed by the group repeatedly over the last few weeks. They have recently trashed his garage and screamed at his neighbors."
+        },
+        {
+            "id": 3,
+            "publisher": "",
+            "title": "Terror Group Communications Intercepted",
+            "timestamp": "2011-05-01",
+            "text": "VastPress was specifically contacted by Department of Homeland Security Agent Samuel Turman to release an advanced warning for citizens. Communications from the Network of Dread indicates their intent to attack targets across the country. ``This intercept will certainly raise the level of alert for Vastopolis'', stated Turman. Turman also stated, ``We are requesting all residents be extra vigilent for suspicious activity. Report potential threats to any law enforcement officer.'' ...",
+            "full_text": "VastPress was specifically contacted by Department of Homeland Security Agent Samuel Turman to release an advanced warning for citizens. Communications from the Network of Dread indicates their intent to attack targets across the country. ``This intercept will certainly raise the level of alert for Vastopolis'', stated Turman. Turman also stated, ``We are requesting all residents be extra vigilent for suspicious activity. Report potential threats to any law enforcement officer.''"
+        },
+        {
+            "id": 12,
+            "publisher": "",
+            "title": "Shootout in Southville Park",
+            "timestamp": "2011-04-30",
+            "text": "Several 911 calls were made by frantic Vastopolis residents to report a large number of gunshots at a park in Southville last night. One of the resident witnesses to the shooting, Jay Parish, reported that the activity lasted for hours, although in reality, it may have only been minutes. He said that time seems to stop when you are really scared. Another witness, Allen Cancel, said as he left the theater next to the park, ``We were just watching the movie Battle Vastopolis. With all the flashes  ...",
+            "full_text": "Several 911 calls were made by frantic Vastopolis residents to report a large number of gunshots at a park in Southville last night. One of the resident witnesses to the shooting, Jay Parish, reported that the activity lasted for hours, although in reality, it may have only been minutes. He said that time seems to stop when you are really scared. Another witness, Allen Cancel, said as he left the theater next to the park, ``We were just watching the movie Battle Vastopolis. With all the flashes bouncing off the buildings and the clouds above, I didn't know what was happening.``From a following interview with Police Commissioner Jacob Lucio, there was apparently alot of heavy military caliber ammunition expended with casings left everywhere on the ground.  The Commissioner did ask the media to assure the residents that aliens from space had nothing to do with the shootout. Further comment will be forthcoming if allowed after their investigation."
+        },
+        {
+            "id": 25,
+            "publisher": "",
+            "title": "Radioactive Cargo on Ship in Port of Vastopolis",
+            "timestamp": "2011-05-11",
+            "text": "In a surprise move, Department of Homeland Security Agent Samuel Turman called Vastpress to report the interception of radioactive material on a large cargo ship. ``Our inspectors were on their toes when a random electronic search detected radioactive emissions,'' said Turman. Turman said that an external inspection of the container did not identify the intended destination. But the package will soon be opened for additional information. Neither the Captain nor the owner of the vessel had any kn ...",
+            "full_text": "In a surprise move, Department of Homeland Security Agent Samuel Turman called Vastpress to report the interception of radioactive material on a large cargo ship. ``Our inspectors were on their toes when a random electronic search detected radioactive emissions,'' said Turman. Turman said that an external inspection of the container did not identify the intended destination. But the package will soon be opened for additional information. Neither the Captain nor the owner of the vessel had any knowledge of the cargo. Further they appeared enraged by the incident occurring on their ship. Homeland Security procedures required that all members of the crew be quarantined within the vessel until it was determined that their exposure was insignificant. They were then released. Turman wanted the public to know that his department is well aware of the potential shipment of dangerous cargo through our ports and that many measures are constantly employed to detect them."
+        },
+        {
+            "id": 30,
+            "publisher": "",
+            "title": "Terrorism Expert Speaks Out",
+            "timestamp": "2011-04-25",
+            "text": "Jose Thom is a renowned author and terrorism expert. Today, he spoke out with a stern piece of advice to Vastopolis city officials.Thom's warning: the efforts of our officials to protect the residents against well-organized and well-funded terror groups are inadequate. Thom stated that we are potential victims of groups such as Paramurderers of Chaos, Network of Hate, and the Order of the Plague. An issue primarily lacking is the education necessary to prepare the residents for an event. Thom wo ...",
+            "full_text": "Jose Thom is a renowned author and terrorism expert. Today, he spoke out with a stern piece of advice to Vastopolis city officials.Thom's warning: the efforts of our officials to protect the residents against well-organized and well-funded terror groups are inadequate. Thom stated that we are potential victims of groups such as Paramurderers of Chaos, Network of Hate, and the Order of the Plague. An issue primarily lacking is the education necessary to prepare the residents for an event. Thom would also like to know how well the city is stockpiled with emergency services and supplies. Unfortunately, Mr. Thom could not obtain audience with any official on the subject. This was disturbing to say the least. It seems that the intent of city officials is there. What is lacking is action."
+        },
+        {
+            "id": 29,
+            "publisher": "",
+            "title": "Explosions at Smogtown Chemical Plant",
+            "timestamp": "2011-05-17",
+            "text": "Vastpress has been monitoring events around the recent explosion within the chemical plant at Smogtown. A consensus exists among local residents that the explosions were caused by some kind of terrorist act. There appears to be little evidence to support the assertions except that the residents have been observing ``unusual'' activity by people not identified as long time residents. Citizens also claim to be well informed by media information and therefore have come to their own conclusions. Our ...",
+            "full_text": "Vastpress has been monitoring events around the recent explosion within the chemical plant at Smogtown. A consensus exists among local residents that the explosions were caused by some kind of terrorist act. There appears to be little evidence to support the assertions except that the residents have been observing ``unusual'' activity by people not identified as long time residents. Citizens also claim to be well informed by media information and therefore have come to their own conclusions. Our discussions with Fire Chief Philip Stanley continue to show his confidence that the explosion was nothing more than an accident and that terrorism was not involved, despite what the medial has rumored. He indicated that this entire matter has him exhausted. ``I just want to go home to my wife and family'', he said."
+        },
+        {
+            "id": 26,
+            "publisher": "VastPress 2011 Vastopolis",
+            "title": "Flu Season Hits Hard",
+            "timestamp": "2011-05-19",
+            "text": "Vastpress hospital correspondent Janean Richardson has detected a swift increase in flu patients this year in Vastopolis. Local health official Nicole Barns was contacted for comment.  She indicated that the staff has already been put on alert for a bad flu season this year. Her hope is that most everyone else has received the flu shot which should reduce the caseload shortly. In passing, she did remark that this flu season has struck with a vengance. ``It appears to be out of control this year' ...",
+            "full_text": "Vastpress hospital correspondent Janean Richardson has detected a swift increase in flu patients this year in Vastopolis. Local health official Nicole Barns was contacted for comment.  She indicated that the staff has already been put on alert for a bad flu season this year. Her hope is that most everyone else has received the flu shot which should reduce the caseload shortly. In passing, she did remark that this flu season has struck with a vengance. ``It appears to be out of control this year'', she said. Barns also informed us that the doctors will be kept busy but for now we have it under control."
+        },
+        {
+            "id": 35,
+            "publisher": "",
+            "title": "Dangerous Suspect Arrested at Local Plant",
+            "timestamp": "2011-05-15",
+            "text": "Officials from a food preparation plant in Vastopolis informed Vastpress that an individual was arrested for trespassing near the loading docks shortly after midnight.``Our dogs were the primary element alerting the on-duty security'' said Darwin Crocker, head of security. Crocker stated that all he knew was that the individual was dressed like a gang member. The investigating officer stated that the colors represented the Paramurderers of Chaos which required intervention by the FBI. We then co ...",
+            "full_text": "Officials from a food preparation plant in Vastopolis informed Vastpress that an individual was arrested for trespassing near the loading docks shortly after midnight.``Our dogs were the primary element alerting the on-duty security'' said Darwin Crocker, head of security. Crocker stated that all he knew was that the individual was dressed like a gang member. The investigating officer stated that the colors represented the Paramurderers of Chaos which required intervention by the FBI. We then contacted Special Agent Roy Wicker about the matter. Wicker would only say that the FBI is conducting ongoing investigations of radical groups, like this one, that seem to be springing up in this area."
+        },
+        {
+            "id": 37,
+            "publisher": "",
+            "title": "Conspiracy Uncovered",
+            "timestamp": "2011-04-13",
+            "text": "A massive money laundering scheme was exposed today. Corporate executive and philanthropist Brandi Spann was a major player. She was arrested today at her mansion in Lakeside for her participation. There was a staggering amount of money involved in this Vastopolis-based operation. A large amount of it was recovered from a safe in Brandi Spann's basement. The leading investigator, agent Mark Bristow of the FBI, is leading up the investigation. He believes there may be a very large Vastopolis cons ...",
+            "full_text": "A massive money laundering scheme was exposed today. Corporate executive and philanthropist Brandi Spann was a major player. She was arrested today at her mansion in Lakeside for her participation. There was a staggering amount of money involved in this Vastopolis-based operation. A large amount of it was recovered from a safe in Brandi Spann's basement. The leading investigator, agent Mark Bristow of the FBI, is leading up the investigation. He believes there may be a very large Vastopolis conspiracy. There are no further details at this time. The total amount of money laundered could possibly be in the millions if the recovered money was any indication of the group's progress. City officials at the Capitol are cooperating with the investigation."
+        },
+        {
+            "id": 32,
+            "publisher": "",
+            "title": "Computer Hackers Arrested",
+            "timestamp": "2011-04-19",
+            "text": "Today several teens were arrested.The teens, who also happen to be high school dropouts, were arrested for attempting to break into numerous Vastopolis banks by using sophisticated computer hacking tools. The group acts under the name of the F-Alliance, which is no surprise considering their grades the year they dropped out. IT security specialists at the bank detected unusual traffic patterns and alerted authorities immediately. The authorities located the teens based off of their IP address an ...",
+            "full_text": "Today several teens were arrested.The teens, who also happen to be high school dropouts, were arrested for attempting to break into numerous Vastopolis banks by using sophisticated computer hacking tools. The group acts under the name of the F-Alliance, which is no surprise considering their grades the year they dropped out. IT security specialists at the bank detected unusual traffic patterns and alerted authorities immediately. The authorities located the teens based off of their IP address and promptly arrested them. Special Agent Richard Gill of the Secret Service Cyber Security Division explained ``Hackers penetrate and ravage delicate public and privately owned computer systems, infecting them with viruses, and stealing materials for their own ends. These people, they are terrorists.``  Vast Press recommends that teens stay in school."
+        },
+        {
+            "id": 13,
+            "publisher": "VastPress 2011 Vastopolis",
+            "title": "Library Computer Theft",
+            "timestamp": "2011-04-10",
+            "text": "Vastopolis - Today there was a robbery reported at the Vastopolis Libraby in Uptown. A room full of computers was found missing at the library. Librarians have said that there was no type of surveillance system in the room with computers, seeing as how the library has never experienced a robbery of this kind before. Librarians were shocked that so many computers were stolen with no one noticing. The evidence suggests there may have been more than one thief. The scene was also vandalized by the t ...",
+            "full_text": "Vastopolis - Today there was a robbery reported at the Vastopolis Libraby in Uptown. A room full of computers was found missing at the library. Librarians have said that there was no type of surveillance system in the room with computers, seeing as how the library has never experienced a robbery of this kind before. Librarians were shocked that so many computers were stolen with no one noticing. The evidence suggests there may have been more than one thief. The scene was also vandalized by the thieves. The letter ``F'' was written all over the walls of the room that contained the computers. This vandalism suggests that this may have been the work of some group. All of the questioned librarians have said that they saw no one who looked suspicious during the course of the day. Officials are unsure what group this criminal act may be associated with at this time and unsure as to what they may plan to do with the stolen computers."
+        },
+        {
+            "id": 19,
+            "publisher": "VastPress 2011 Vastopolis",
+            "title": "Mass Animal Deaths",
+            "timestamp": "2011-04-01",
+            "text": "Mass deaths of livestock have been reported on farms a short distance outside of the Vastopolis metropolitan area. Officials are unsure of the cause at this time. Many farmers are preparing for tough times ahead since livestock is their main source of income. Meanwhile, nearby food processing plants are warning of a reduced supply of food products for residents of Vastopolis in the coming weeks. Citizens may notice a short term price increase at local supermarkets because of a food shortage. Acc ...",
+            "full_text": "Mass deaths of livestock have been reported on farms a short distance outside of the Vastopolis metropolitan area. Officials are unsure of the cause at this time. Many farmers are preparing for tough times ahead since livestock is their main source of income. Meanwhile, nearby food processing plants are warning of a reduced supply of food products for residents of Vastopolis in the coming weeks. Citizens may notice a short term price increase at local supermarkets because of a food shortage. According to Department of Agriculture Official Tony Grenier, the investigation into the deaths is ongoing. ``The issue now is cleanup'' he said. ``We also need to test the soil and feed for contamination.``He assures residents that every effort is being made to make sure currently stocked food is safe to eat."
+        },
+        {
+            "id": 8,
+            "publisher": "",
+            "title": "Animal Deaths in City Caused by Microbes",
+            "timestamp": "2011-04-20",
+            "text": "The city has received a report from the Department of Agriculture on the deaths of farm animals outside Vastopolis. These animals were autopsied for cause. The report from the department's official Roxanne Faison further shows that a spore-forming microbe was the problem. She emphasizes that the discovered variant is not a threat to humans, asserting: ``We have seen this before and are proceeding with cleanup efforts on the farms affected as an extra precaution''. ...",
+            "full_text": "The city has received a report from the Department of Agriculture on the deaths of farm animals outside Vastopolis. These animals were autopsied for cause. The report from the department's official Roxanne Faison further shows that a spore-forming microbe was the problem. She emphasizes that the discovered variant is not a threat to humans, asserting: ``We have seen this before and are proceeding with cleanup efforts on the farms affected as an extra precaution''."
+        },
+        {
+            "id": 39,
+            "publisher": "",
+            "title": "Health Violations at Local Food Plant",
+            "timestamp": "2011-04-20",
+            "text": "Do you know where your food comes from? This is a question you should ask yourself next time you chow down on some local food. Local food preparation plants have been repeatedly cited for health violations. These were given by an upset health inspector, Christopher Meissner last week. Meissner was upset because he regularity watches reality TV about unsafe kitchens and such and didn't think any of it was real. Meissner said it was deplorable how these food facilities let certain things slide by. ...",
+            "full_text": "Do you know where your food comes from? This is a question you should ask yourself next time you chow down on some local food. Local food preparation plants have been repeatedly cited for health violations. These were given by an upset health inspector, Christopher Meissner last week. Meissner was upset because he regularity watches reality TV about unsafe kitchens and such and didn't think any of it was real. Meissner said it was deplorable how these food facilities let certain things slide by. He indicated he may never eat food again. ``I've had it'' he said."
+        },
+        {
+            "id": 47,
+            "publisher": "",
+            "title": "Suspicious Turkey Found with Man at Airport",
+            "timestamp": "2011-05-14",
+            "text": "Transportation Safety Administration members at the Vastopolis airport coordinated with security personnel to detain a man carrying a frozen turkey. This picture was bad enough, but this turkey (not the man) had wires coming out of it. Official Jerry Loudermilk of the TSA indicated that he did not know what to think. But, whether it was a bomb or a sick joke, they are required to treat the package as a bomb pending further verification. The man carrying the turkey was on his way to the west coas ...",
+            "full_text": "Transportation Safety Administration members at the Vastopolis airport coordinated with security personnel to detain a man carrying a frozen turkey. This picture was bad enough, but this turkey (not the man) had wires coming out of it. Official Jerry Loudermilk of the TSA indicated that he did not know what to think. But, whether it was a bomb or a sick joke, they are required to treat the package as a bomb pending further verification. The man carrying the turkey was on his way to the west coast. His identification is being verified. Loudermilk noted that he could have tried to check the turkey in with his baggage. But we are happy he tried to get it through the terminal check point. We are not sure about this individual and his state of mind but he is being questioned at the present time. Loudermilk stated that no other delay within the airport was set into motion except one. The flight of the intended aircraft will be delayed to verify none of his baggage is in the cargo hold. If all baggage cannot be accounted for, we will have to inspect the entire cargo again and that will cause a serious delay for the flight. More to come on the case of the suspicious turkey."
+        },
+        {
+            "id": 2,
+            "publisher": "VastPress 2011 Vastopolis",
+            "title": "Military Weapons Discovered at Airport",
+            "timestamp": "2011-05-20",
+            "text": "The Transportation Safety Administration seized a large container with 20 military grade rifles today at Vastopolis airport. TSA official Jerry Loudermilk was not able to disclose the destination of the contraband other than the fact it was found in the cargo hold of an international carrier. The owner of the container has not been identified. Vastopolis airport official Treasa Fields told VastPress that finding this type of contraband is a rare occurence. ``We sometimes find drugs and other ban ...",
+            "full_text": "The Transportation Safety Administration seized a large container with 20 military grade rifles today at Vastopolis airport. TSA official Jerry Loudermilk was not able to disclose the destination of the contraband other than the fact it was found in the cargo hold of an international carrier. The owner of the container has not been identified. Vastopolis airport official Treasa Fields told VastPress that finding this type of contraband is a rare occurence. ``We sometimes find drugs and other banned substances, but never a shipment like this.'' Fields states. Airport security was put on alert and travelers should allow for extra time to pass through checkpoints."
+        },
+        {
+            "id": 34,
+            "publisher": "",
+            "title": "University Professor Walks out of Class",
+            "timestamp": "2011-05-18",
+            "text": "Vastopolis -- Vastpress has learned that a Vast University professor, Edward Patino, walked out in the middle of teaching a class. This was not considered newsworthy but later conversations with university officials indicated that his stress level appeared to be much higher that normal. Officials said that the professor kicked a door completely off its hinges on the way out while yelling something about locks and tenureship. Later that day one of his students spotted him at a consumer electronic ...",
+            "full_text": "Vastopolis -- Vastpress has learned that a Vast University professor, Edward Patino, walked out in the middle of teaching a class. This was not considered newsworthy but later conversations with university officials indicated that his stress level appeared to be much higher that normal. Officials said that the professor kicked a door completely off its hinges on the way out while yelling something about locks and tenureship. Later that day one of his students spotted him at a consumer electronics store purchasing a laptop computer. At that time he appeared to be calm yet his face was a \"deep red\", she said. Vastpress hopes the professor is feeling better."
+        }
+    ],
+    "lines": [
+        {
+            "id": 0,
+            "links": [
+                {
+                    "source": "0_3",
+                    "target": "1_6"
+                },
+                {
+                    "source": "1_6",
+                    "target": "2_6"
+                }
+            ],
+            "line_label_start": "CDC Publication on Bioterrorism",
+            "line_label_end": "Explosions at Smogtown Chemical Plant",
+            "weight": 0.6361594498157501
+        },
+        {
+            "id": 1,
+            "links": [
+                {
+                    "source": "0_5",
+                    "target": "1_5"
+                },
+                {
+                    "source": "1_5",
+                    "target": "2_0"
+                }
+            ],
+            "line_label_start": "Conspiracy Uncovered",
+            "line_label_end": "Terror Group Communications Intercepted",
+            "weight": 0.6283358931541443
+        },
+        {
+            "id": 3,
+            "links": [
+                {
+                    "source": "0_5",
+                    "target": "1_6"
+                }
+            ],
+            "line_label_start": "Mass Animal Deaths",
+            "line_label_end": "Terror Group Communications Intercepted",
+            "weight": 0.5993974506855011
+        },
+        {
+            "id": 8,
+            "links": [
+                {
+                    "source": "1_6",
+                    "target": "2_0"
+                }
+            ],
+            "line_label_start": "Terror Group Communications Intercepted",
+            "line_label_end": "University Professor Walks out of Class",
+            "weight": 0.4763660132884979
+        },
+        {
+            "id": 2,
+            "links": [
+                {
+                    "source": "1_5",
+                    "target": "2_6"
+                }
+            ],
+            "line_label_start": "Terror Group Communications Intercepted",
+            "line_label_end": "University Professor Walks out of Class",
+            "weight": 0.4763660132884979
+        }
+    ]
+}
