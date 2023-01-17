@@ -25,7 +25,8 @@
                 3,
                 12,
                 25,
-                30
+                30,
+                2
             ],
             "label": "Terror Group Communications Intercepted",
             "publisher": "",
@@ -45,7 +46,11 @@
             "articles": [
                 29,
                 26,
-                35
+                35,
+                42,
+                13,
+                32,
+                37
             ],
             "label": "Explosions at Smogtown Chemical Plant",
             "publisher": "",
@@ -186,6 +191,38 @@
     ],
     "articles": [
         {
+            "id": 42,
+            "publisher": "",
+            "title": "Comic Convention Comes to Town",
+            "timestamp": "2011-05-16",
+            "text": "The Vastopolis Convention Center in Uptown is host to the Comic Convention. Opening ceremonies were conducted early in the day to celebrate a first for the city. Many celebrities were present dressed in full garb to honor their favorite comic character. The convention was honored to have in attendance the great Mayor Douglas Lark and his dog. Many attendees appeared shocked to see the mayor's dog in a full coat of hair. The dog was adorned with a cape made like a cashmere sweater with purple lac ...",
+            "full_text": "The Vastopolis Convention Center in Uptown is host to the Comic Convention. Opening ceremonies were conducted early in the day to celebrate a first for the city. Many celebrities were present dressed in full garb to honor their favorite comic character. The convention was honored to have in attendance the great Mayor Douglas Lark and his dog. Many attendees appeared shocked to see the mayor's dog in a full coat of hair. The dog was adorned with a cape made like a cashmere sweater with purple lace applicas and white trim around the collar and its coat fully extending to the floor. Diamond earrings were also accented by light emitting diodes blinking the colors of the city flag. Not to be outdone were dog escorts carrying a variety of dog treats. This convention will truely be the talk of the town. Enjoy!"
+        },
+        {
+            "id": 13,
+            "publisher": "",
+            "title": "Library Computer Theft",
+            "timestamp": "2011-05-18",
+            "text": "Vastopolis - Today there was a robbery reported at the Vastopolis Libraby in Uptown. A room full of computers was found missing at the library. Librarians have said that there was no type of surveillance system in the room with computers, seeing as how the library has never experienced a robbery of this kind before. Librarians were shocked that so many computers were stolen with no one noticing. The evidence suggests there may have been more than one thief. The scene was also vandalized by the t ...",
+            "full_text": "Vastopolis - Today there was a robbery reported at the Vastopolis Libraby in Uptown. A room full of computers was found missing at the library. Librarians have said that there was no type of surveillance system in the room with computers, seeing as how the library has never experienced a robbery of this kind before. Librarians were shocked that so many computers were stolen with no one noticing. The evidence suggests there may have been more than one thief. The scene was also vandalized by the thieves. The letter ``F'' was written all over the walls of the room that contained the computers. This vandalism suggests that this may have been the work of some group. All of the questioned librarians have said that they saw no one who looked suspicious during the course of the day. Officials are unsure what group this criminal act may be associated with at this time and unsure as to what they may plan to do with the stolen computers."
+        },
+        {
+            "id": 32,
+            "publisher": "",
+            "title": "Computer Hackers Arrested",
+            "timestamp": "2011-05-19",
+            "text": "Today several teens were arrested.The teens, who also happen to be high school dropouts, were arrested for attempting to break into numerous Vastopolis banks by using sophisticated computer hacking tools. The group acts under the name of the F-Alliance, which is no surprise considering their grades the year they dropped out. IT security specialists at the bank detected unusual traffic patterns and alerted authorities immediately. The authorities located the teens based off of their IP address an ...",
+            "full_text": "Today several teens were arrested.The teens, who also happen to be high school dropouts, were arrested for attempting to break into numerous Vastopolis banks by using sophisticated computer hacking tools. The group acts under the name of the F-Alliance, which is no surprise considering their grades the year they dropped out. IT security specialists at the bank detected unusual traffic patterns and alerted authorities immediately. The authorities located the teens based off of their IP address and promptly arrested them. Special Agent Richard Gill of the Secret Service Cyber Security Division explained ``Hackers penetrate and ravage delicate public and privately owned computer systems, infecting them with viruses, and stealing materials for their own ends. These people, they are terrorists.``  Vast Press recommends that teens stay in school."
+        },
+        {
+            "id": 37,
+            "publisher": "",
+            "title": "Conspiracy Uncovered",
+            "timestamp": "2011-05-17",
+            "text": "A massive money laundering scheme was exposed today. Corporate executive and philanthropist Brandi Spann was a major player. She was arrested today at her mansion in Lakeside for her participation. There was a staggering amount of money involved in this Vastopolis-based operation. A large amount of it was recovered from a safe in Brandi Spann's basement. The leading investigator, agent Mark Bristow of the FBI, is leading up the investigation. He believes there may be a very large Vastopolis cons ...",
+            "full_text": "A massive money laundering scheme was exposed today. Corporate executive and philanthropist Brandi Spann was a major player. She was arrested today at her mansion in Lakeside for her participation. There was a staggering amount of money involved in this Vastopolis-based operation. A large amount of it was recovered from a safe in Brandi Spann's basement. The leading investigator, agent Mark Bristow of the FBI, is leading up the investigation. He believes there may be a very large Vastopolis conspiracy. There are no further details at this time. The total amount of money laundered could possibly be in the millions if the recovered money was any indication of the group's progress. City officials at the Capitol are cooperating with the investigation."
+        },
+        {
             "id": 4,
             "publisher": "",
             "title": "CDC Publication on Bioterrorism",
@@ -243,7 +280,7 @@
         },
         {
             "id": 26,
-            "publisher": "VastPress 2011 Vastopolis",
+            "publisher": "",
             "title": "Flu Season Hits Hard",
             "timestamp": "2011-05-19",
             "text": "Vastpress hospital correspondent Janean Richardson has detected a swift increase in flu patients this year in Vastopolis. Local health official Nicole Barns was contacted for comment.  She indicated that the staff has already been put on alert for a bad flu season this year. Her hope is that most everyone else has received the flu shot which should reduce the caseload shortly. In passing, she did remark that this flu season has struck with a vengance. ``It appears to be out of control this year' ...",
@@ -258,32 +295,8 @@
             "full_text": "Officials from a food preparation plant in Vastopolis informed Vastpress that an individual was arrested for trespassing near the loading docks shortly after midnight.``Our dogs were the primary element alerting the on-duty security'' said Darwin Crocker, head of security. Crocker stated that all he knew was that the individual was dressed like a gang member. The investigating officer stated that the colors represented the Paramurderers of Chaos which required intervention by the FBI. We then contacted Special Agent Roy Wicker about the matter. Wicker would only say that the FBI is conducting ongoing investigations of radical groups, like this one, that seem to be springing up in this area."
         },
         {
-            "id": 37,
-            "publisher": "",
-            "title": "Conspiracy Uncovered",
-            "timestamp": "2011-04-13",
-            "text": "A massive money laundering scheme was exposed today. Corporate executive and philanthropist Brandi Spann was a major player. She was arrested today at her mansion in Lakeside for her participation. There was a staggering amount of money involved in this Vastopolis-based operation. A large amount of it was recovered from a safe in Brandi Spann's basement. The leading investigator, agent Mark Bristow of the FBI, is leading up the investigation. He believes there may be a very large Vastopolis cons ...",
-            "full_text": "A massive money laundering scheme was exposed today. Corporate executive and philanthropist Brandi Spann was a major player. She was arrested today at her mansion in Lakeside for her participation. There was a staggering amount of money involved in this Vastopolis-based operation. A large amount of it was recovered from a safe in Brandi Spann's basement. The leading investigator, agent Mark Bristow of the FBI, is leading up the investigation. He believes there may be a very large Vastopolis conspiracy. There are no further details at this time. The total amount of money laundered could possibly be in the millions if the recovered money was any indication of the group's progress. City officials at the Capitol are cooperating with the investigation."
-        },
-        {
-            "id": 32,
-            "publisher": "",
-            "title": "Computer Hackers Arrested",
-            "timestamp": "2011-04-19",
-            "text": "Today several teens were arrested.The teens, who also happen to be high school dropouts, were arrested for attempting to break into numerous Vastopolis banks by using sophisticated computer hacking tools. The group acts under the name of the F-Alliance, which is no surprise considering their grades the year they dropped out. IT security specialists at the bank detected unusual traffic patterns and alerted authorities immediately. The authorities located the teens based off of their IP address an ...",
-            "full_text": "Today several teens were arrested.The teens, who also happen to be high school dropouts, were arrested for attempting to break into numerous Vastopolis banks by using sophisticated computer hacking tools. The group acts under the name of the F-Alliance, which is no surprise considering their grades the year they dropped out. IT security specialists at the bank detected unusual traffic patterns and alerted authorities immediately. The authorities located the teens based off of their IP address and promptly arrested them. Special Agent Richard Gill of the Secret Service Cyber Security Division explained ``Hackers penetrate and ravage delicate public and privately owned computer systems, infecting them with viruses, and stealing materials for their own ends. These people, they are terrorists.``  Vast Press recommends that teens stay in school."
-        },
-        {
-            "id": 13,
-            "publisher": "VastPress 2011 Vastopolis",
-            "title": "Library Computer Theft",
-            "timestamp": "2011-04-10",
-            "text": "Vastopolis - Today there was a robbery reported at the Vastopolis Libraby in Uptown. A room full of computers was found missing at the library. Librarians have said that there was no type of surveillance system in the room with computers, seeing as how the library has never experienced a robbery of this kind before. Librarians were shocked that so many computers were stolen with no one noticing. The evidence suggests there may have been more than one thief. The scene was also vandalized by the t ...",
-            "full_text": "Vastopolis - Today there was a robbery reported at the Vastopolis Libraby in Uptown. A room full of computers was found missing at the library. Librarians have said that there was no type of surveillance system in the room with computers, seeing as how the library has never experienced a robbery of this kind before. Librarians were shocked that so many computers were stolen with no one noticing. The evidence suggests there may have been more than one thief. The scene was also vandalized by the thieves. The letter ``F'' was written all over the walls of the room that contained the computers. This vandalism suggests that this may have been the work of some group. All of the questioned librarians have said that they saw no one who looked suspicious during the course of the day. Officials are unsure what group this criminal act may be associated with at this time and unsure as to what they may plan to do with the stolen computers."
-        },
-        {
             "id": 19,
-            "publisher": "VastPress 2011 Vastopolis",
+            "publisher": "",
             "title": "Mass Animal Deaths",
             "timestamp": "2011-04-01",
             "text": "Mass deaths of livestock have been reported on farms a short distance outside of the Vastopolis metropolitan area. Officials are unsure of the cause at this time. Many farmers are preparing for tough times ahead since livestock is their main source of income. Meanwhile, nearby food processing plants are warning of a reduced supply of food products for residents of Vastopolis in the coming weeks. Citizens may notice a short term price increase at local supermarkets because of a food shortage. Acc ...",
@@ -315,9 +328,9 @@
         },
         {
             "id": 2,
-            "publisher": "VastPress 2011 Vastopolis",
+            "publisher": "",
             "title": "Military Weapons Discovered at Airport",
-            "timestamp": "2011-05-20",
+            "timestamp": "2011-04-20",
             "text": "The Transportation Safety Administration seized a large container with 20 military grade rifles today at Vastopolis airport. TSA official Jerry Loudermilk was not able to disclose the destination of the contraband other than the fact it was found in the cargo hold of an international carrier. The owner of the container has not been identified. Vastopolis airport official Treasa Fields told VastPress that finding this type of contraband is a rare occurence. ``We sometimes find drugs and other ban ...",
             "full_text": "The Transportation Safety Administration seized a large container with 20 military grade rifles today at Vastopolis airport. TSA official Jerry Loudermilk was not able to disclose the destination of the contraband other than the fact it was found in the cargo hold of an international carrier. The owner of the container has not been identified. Vastopolis airport official Treasa Fields told VastPress that finding this type of contraband is a rare occurence. ``We sometimes find drugs and other banned substances, but never a shipment like this.'' Fields states. Airport security was put on alert and travelers should allow for extra time to pass through checkpoints."
         },
