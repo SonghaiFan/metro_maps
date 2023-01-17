@@ -89,8 +89,8 @@ export default function MetroLineLabel({ data, onMetroLineLabelClick }) {
         style={{
           wordSpacing: "100vw",
           width: "min-content", // to prevent the label from wrapping
-          borderColor: label ? (isChanged ? null : "white") : null,
-          borderWidth: "2px",
+          borderColor: "white",
+          borderWidth: label ? (isChanged ? "0px" : "2px") : null,
           borderStyle: "solid",
           borderBottom: "none",
           backgroundColor: colour, // "white"
@@ -100,7 +100,7 @@ export default function MetroLineLabel({ data, onMetroLineLabelClick }) {
             ? LINK_LABEL_HEIGHT * labelLength
             : LINK_LABEL_HEIGHT, // 20 from line height of text-sm
         }}
-        className={`edge-${id}  text-black text-sm rounded-md px-2 z-50 cursor-pointer pointer-events-auto`}
+        className={`edge-${id} alerts-border  text-black text-sm rounded-md px-2 z-50 cursor-pointer pointer-events-auto`}
         onClick={onMetroLineLabelClick}
         onMouseEnter={() => setShowMore(true)}
         onMouseLeave={() => setShowMore(false)}

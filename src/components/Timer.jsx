@@ -30,8 +30,9 @@ export default function Timer({ pageState, isValid, isStop, onTimeUp }) {
       return onTimeUp();
     }
 
-    if (!hasAlerted && isValid && timeLeftPercent === 0.2) {
+    if (!hasAlerted && isValid && timeLeftPercent === 0.9) {
       setHasAlerted(true);
+
       // alert("Time is closing!");
     }
 
