@@ -99,13 +99,12 @@ input[type="range"] {
 }
 
 /* .alerts-border {
-  animation: blink 2s ease-out infinite;
+  animation: blink 1s ease-out infinite;
 } */
 
 @keyframes blink {
   50% {
     border-color: rgba(255, 0, 0, 0.5);
     stroke: rgba(255, 0, 0, 0.5);
-    color: rgba(255, 0, 0, 0.5);
   }
 }
