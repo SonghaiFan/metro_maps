@@ -104,7 +104,18 @@ input[type="range"] {
 
 @keyframes blink {
   50% {
-    border-color: rgba(255, 0, 0, 0.5);
-    stroke: rgba(255, 0, 0, 0.5);
+    border-color: rgb(255, 255, 255);
+    stroke: rgb(255, 255, 255);
+    background-color: rgb(255, 255, 255);
   }
+}
+
+@keyframes alerts-blink {
+  50% {
+    color: rgba(250, 0, 0, 0.5);
+  }
+}
+
+.highlight {
+  animation: blink 1s ease-out infinite;
 }

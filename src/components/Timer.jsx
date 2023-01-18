@@ -58,11 +58,11 @@ export default function Timer({ pageState, isValid, isStop, onTimeUp }) {
       {isValid && (
         <>
           <motion.div
-            className={"fixed w-full h-2 ml-3"}
+            className={"fixed w-full h-2"}
             style={{
-              // color: timeLeftPercent < 0.2 ? "red" : "white",
+              color: timeLeftPercent < 0.2 ? "red" : "white",
               animation:
-                timeLeftPercent < 0.2 && "blink 0.4s ease-out infinite",
+                timeLeftPercent < 0.2 && "alerts-blink 0.4s ease-out infinite",
             }}
           >
             {isStop ? (

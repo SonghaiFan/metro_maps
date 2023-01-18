@@ -17,21 +17,17 @@ import { normalizeTruth } from "./util";
 
 const METROMAPS = [];
 
-// estimate the time to read the data in seconds, convert data to string and count words then sum them up using the formula
-// 0.02 is the average reading speed in words per second
+// estimate the time to read the data in seconds,
 const estimateTimeToRead = (data) => {
-  // take the article from data, loop through the articles and convert the full_text to string
-  // then split the string by space and count the number of words
-  const article_text = data.articles
-    .map((article) => article.text)
-    .join(" ")
-    .split(" ");
+  // count the length of the node,links and articles
+  const nodeLength = data.nodes.length;
+  const linkLength = data.links.length;
+  const articleLength = data.articles.length;
 
-  // count the number of words
-  const words = article_text.length;
+  // estimate the time to read the data in seconds
+  const time = Math.round(nodeLength * linkLength + articleLength);
 
-  // round to integer
-  return Math.round(words * 0.02);
+  return time;
 };
 
 const normalizeNodeWeight = (data) => {

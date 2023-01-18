@@ -205,6 +205,7 @@ export default function MetroMap({
       unHighlightConfirmedNodes(customNodes, whoId);
     }
 
+    who.classList.remove("highlight");
     setSideDrawerOpen(false);
   };
 
@@ -213,11 +214,16 @@ export default function MetroMap({
   }, [whoConfirmedInput]);
 
   const openSideDrawer = (who) => {
+    // highlight who dom element by adding a class
+    who.classList.add("highlight");
+
     setWhoOpenSideDrawer(who);
     setSideDrawerOpen(true);
   };
 
   const closeSideDrawer = () => {
+    // remove highlight class from who dom element
+    whoOpenSideDrawer.classList.remove("highlight");
     setSideDrawerOpen(false);
   };
 
@@ -498,6 +504,7 @@ export default function MetroMap({
                   onNeighbourNodeLabelClick={openSideDrawer}
                   onNodeNumberLabelClick={openSideDrawer}
                   onNodeWordsLabelClick={openSideDrawer}
+                  onZoomOutClick={onZoomOutButtonClick}
                   mapId={mapId}
                 />
               </motion.div>
@@ -636,6 +643,7 @@ export default function MetroMap({
         onClick={onZoomOutButtonClick}
         className={`right-[1%] top-[3%] z-50`}
         isVisible={clickedNode !== null || clickedNodeBuffer !== null}
+        isConfirmNeeded={true}
       >
         <AiOutlineFullscreenExit size={40} />
       </NavigationButton>

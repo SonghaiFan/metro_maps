@@ -49,8 +49,8 @@ export const SideDrawer = ({
       {isVisible && (
         <>
           <motion.div
-            className="absolute w-screen h-screen bg-black z-50"
-            style={{ opacity: 0.2 }}
+            className="drawer-modal absolute w-screen h-screen bg-black z-50"
+            style={{ opacity: 0.3 }}
             exit={{ opacity: 0 }}
             onClick={close}
             transition={{ duration: 0.2 }}
@@ -58,12 +58,12 @@ export const SideDrawer = ({
           <motion.div
             className={
               isOnTopHalf
-                ? `absolute bottom-0 right-[25%] flex items-center justify-center bg-black z-50`
-                : `absolute top-0 right-[25%] flex items-center justify-center bg-black z-50`
+                ? `absolute bottom-0 right-[25%] flex items-center justify-center bg-neutral-900 rounded-2xl z-50`
+                : `absolute top-0 right-[25%] flex items-center justify-center bg-neutral-900 rounded-2xl z-50`
             }
-            style={{ width: drawerWidth / 2 }}
+            style={{ width: drawerWidth / 2, overflow: "hidden" }}
             animate={{ height: drawerHeight }}
-            exit={{ height: 0 }}
+            exit={{ height: 0, capacity: 0 }}
             transition={{ duration: 0.2 }}
           >
             <motion.button
@@ -75,9 +75,9 @@ export const SideDrawer = ({
 
             <motion.div className="text-2xl mx-10">
               {/* range slider with five step, label is very high, high, moderate, weak, very weak */}
-              <motion.div className="text-2xl">
+              <motion.h1 className="text-2xl">
                 Please rate the degree of connection
-              </motion.div>
+              </motion.h1>
               <motion.input
                 id="range-slider"
                 type="range"
@@ -117,13 +117,13 @@ export const SideDrawer = ({
               >
                 <MdCheck />
               </motion.button>
-              <motion.div className="text-sm max-w-xl ">
+              <motion.h1 className="text-sm max-w-xl ">
                 PS: Based on your reading, how relatively strong is the
                 connection in this corpus? Either change it or leave it as it
                 is. confirm your choice by clicking confrim button. Exit the
                 side drawer by clicking the close button or anywhere outside the
                 side drawer.
-              </motion.div>
+              </motion.h1>
             </motion.div>
           </motion.div>
         </>

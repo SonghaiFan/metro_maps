@@ -18,7 +18,7 @@ export const flatMap = (array, mapFunction) => {
 };
 
 export const showTruth = true;
-export const normalizeTruth = true;
+export const normalizeTruth = false;
 // CONSTANTS
 
 const NODEWIDTH = 15;
@@ -76,26 +76,26 @@ export {
 export const margin = { x: 0.05, y: 0.15 };
 
 export const colours = ["#585d91", "#48a49e", "#fce554"];
+//slate-500,emerald-400, yellow-300
+export const cutomerInterpolation = (Weight) => {
+  const ind = Weight * (colours.length - 1);
+  const colour1 = colours[Math.floor(ind)];
+  const colour2 = colours[Math.ceil(ind)];
+  return d3.interpolateRgb(colour1, colour2)(ind - Math.floor(ind));
+};
 
-// export const cutomerInterpolation = (Weight) => {
-//   const ind = Weight * (colours.length - 1);
-//   const colour1 = colours[Math.floor(ind)];
-//   const colour2 = colours[Math.ceil(ind)];
-//   return d3.interpolateRgb(colour1, colour2)(ind - Math.floor(ind));
-// };
+// const domain = [0];
+// var increment = 1 / (colours.length - 1);
+// for (var i = 0; i < colours.length - 2; i++) {
+//   var previous = domain[domain.length - 1];
+//   domain.push(previous + increment);
+// }
+// domain.push(1);
 
-const domain = [0];
-var increment = 1 / (colours.length - 1);
-for (var i = 0; i < colours.length - 2; i++) {
-  var previous = domain[domain.length - 1];
-  domain.push(previous + increment);
-}
-domain.push(1);
-
-export const cutomerInterpolation = d3
-  .scaleLinear()
-  .domain(domain)
-  .range(colours);
+// export const cutomerInterpolation = d3
+//   .scaleLinear()
+//   .domain(domain)
+//   .range(colours);
 
 export const invertCustomerInterpolation = (Color) => {
   const leftDist = differenceEuclideanRGB(colours[0], colours[1]);

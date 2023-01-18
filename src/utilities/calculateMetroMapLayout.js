@@ -318,7 +318,7 @@ const calculateMetroMapLayout = (
 
     // generates basic coordinate object
     const getEndPoint = (link) => (node) => {
-      // console.log("edgeLabel", link.edge_label);
+      // console.log("link", link);
       return {
         source: link.source,
         target: link.target,
@@ -330,11 +330,11 @@ const calculateMetroMapLayout = (
         edgeColour:
           link.edge_weight !== undefined
             ? cutomerInterpolation(
-                showTruth && link["node_weight-truth"] !== undefined
+                showTruth && link["edge_weight-truth"] !== undefined
                   ? link["edge_weight-truth"]
                   : link.edge_weight
               )
-            : "red", // do not use link.edge_weight ? ... since 0 is a falsey value
+            : "white", // do not use link.edge_weight ? ... since 0 is a falsey value
         edgeLabel: link.edge_label !== undefined ? link.edge_label : null,
       };
     };

@@ -27,6 +27,7 @@ export default function MetroStop({
   onNeighbourNodeLabelClick,
   onNodeNumberLabelClick,
   onNodeWordsLabelClick,
+  onZoomOutClick,
   mapId,
 }) {
   // console.log("From MetroStop", data);
@@ -104,16 +105,20 @@ export default function MetroStop({
         </>
       )}
       <motion.div
+        data-type="modal"
         style={{
           backgroundColor: isMapFocused
             ? clicked
-              ? "rgba(0, 0, 0, 0.9)"
+              ? "rgba(0, 0, 0, 0.8)"
               : "rgba(0, 0, 0, 0)"
             : data.colour, //"white"
         }}
         className={`w-fll ml-5 mt-10 h-full text-black flex justify-center -z-40 ${
-          clicked || isMapFocused ? "truncate" : "items-center"
+          clicked || isMapFocused ? "truncate " : "items-center"
         } rounded-md`}
+        onClick={(event) => {
+          event.target.dataset.type === "modal" && onZoomOutClick();
+        }}
       >
         {/* node number label */}
         {isMapFocused && !clicked && (

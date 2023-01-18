@@ -258,11 +258,12 @@ export default function Menu({
             focusState.mode === FOCUS_MODE.FULL_VIEW &&
             pageState.current !== pageState.total
           }
+          isConfirmNeeded={true}
         >
           Next Map
           <FaArrowAltCircleRight size={40} color={"#b1babf"} />
         </NavigationButton>
-        {/* 
+
         <NavigationButton
           onClick={onNavigationBtwSessionClick(PAGE_DIRECTION.LEFT)}
           className={`left-[2%] top-[50%] `}
@@ -273,7 +274,7 @@ export default function Menu({
         >
           Prev Map
           <FaArrowAltCircleLeft size={40} color={"#b1babf"} />
-        </NavigationButton> */}
+        </NavigationButton>
       </motion.div>
       <motion.div className="absolute left-[50%] bottom-0">
         {pageState.current}/{pageState.total}
