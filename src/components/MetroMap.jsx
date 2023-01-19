@@ -5,7 +5,7 @@ import {
   margin,
   TOP_FULL_PAGE_PADDING,
   METROLINE_ANIMATION_DURATION,
-  cutomerInterpolation,
+  customerInterpolation,
 } from "../utilities/util";
 import { motion } from "framer-motion";
 import { metroStopVariantsFactory } from "../utilities/metroStopUtilities";
@@ -111,7 +111,7 @@ export default function MetroMap({
       value: event.target.value,
     });
 
-    const newColour = cutomerInterpolation(event.target.value);
+    const newColour = customerInterpolation(event.target.value);
 
     const type = whoOpenSideDrawer.dataset.type;
     // console.log("type", type);
@@ -643,7 +643,6 @@ export default function MetroMap({
         onClick={onZoomOutButtonClick}
         className={`right-[1%] top-[3%] z-50`}
         isVisible={clickedNode !== null || clickedNodeBuffer !== null}
-        isConfirmNeeded={true}
       >
         <AiOutlineFullscreenExit size={40} />
       </NavigationButton>

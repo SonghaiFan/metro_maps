@@ -1,6 +1,11 @@
 import * as d3 from "d3";
 import * as d3Sankey from "d3-sankey";
-import { NODEWIDTH, flatMap, MAX_ARTICLES, cutomerInterpolation } from "./util";
+import {
+  NODEWIDTH,
+  flatMap,
+  MAX_ARTICLES,
+  customerInterpolation,
+} from "./util";
 
 import { showTruth } from "./util";
 
@@ -172,7 +177,7 @@ const colourNodes = (nodes, lines, edges, useNodeWeight, useEdgeWeight) => {
       let currentObj = nodes[key];
       nodeColours.push({
         nodeId: currentObj.id,
-        colour: cutomerInterpolation(
+        colour: customerInterpolation(
           showTruth && currentObj["node_weight-truth"] !== undefined
             ? currentObj["node_weight-truth"]
             : currentObj.node_weight
@@ -208,12 +213,12 @@ const colourNodes = (nodes, lines, edges, useNodeWeight, useEdgeWeight) => {
         return accumulated.concat(
           {
             nodeId: edge.source.id,
-            colour: cutomerInterpolation(edge.edge_weight),
+            colour: customerInterpolation(edge.edge_weight),
             weight: edge.edge_weight,
           },
           {
             nodeId: edge.target.id,
-            colour: cutomerInterpolation(edge.edge_weight),
+            colour: customerInterpolation(edge.edge_weight),
             weight: edge.edge_weight,
           }
         );
@@ -329,7 +334,7 @@ const calculateMetroMapLayout = (
         endPoint: true,
         edgeColour:
           link.edge_weight !== undefined
-            ? cutomerInterpolation(
+            ? customerInterpolation(
                 showTruth && link["edge_weight-truth"] !== undefined
                   ? link["edge_weight-truth"]
                   : link.edge_weight
@@ -465,7 +470,7 @@ const calculateMetroMapLayout = (
           : null,
       nodeIDs: getNodesConnectedByOneLine(line.links),
       pathCoords: generatePath(newNodes, line),
-      colour: line.weight ? cutomerInterpolation(line.weight) : "white",
+      colour: line.weight ? customerInterpolation(line.weight) : "white",
       isChanged: false,
     };
   });

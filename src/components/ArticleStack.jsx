@@ -101,7 +101,7 @@ export default function ArticleStack({
             return (
               <motion.div
                 key={article.id}
-                className={`article-${data.id} alerts-border  absolute rounded-md`}
+                className={`article-${data.id} alerts-border absolute rounded-md overflow-hidden`}
                 style={{
                   border: data.isChanged ? null : "2px solid white",
                   backgroundColor: clicked

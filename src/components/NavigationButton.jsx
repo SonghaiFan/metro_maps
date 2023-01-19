@@ -55,12 +55,16 @@ export default function NavigationButton({
       )}
       {isVisible && showConfirm && (
         <motion.div
-          className={`absolute top-[35%] right-0  p-5 bg-rose-800 rounded-lg shadow-lg`}
+          key={"confirm"}
+          className={`absolute top-[30%] right-2  p-5 bg-rose-800 rounded-lg shadow-lg`}
           variants={buttonPupVariants}
           initial="hidden"
           animate="entry"
         >
-          <h1 className="mb-2">Are you sure you want to proceed?</h1>
+          <h1 className="mb-2 font-bold">
+            Are you sure you want to proceed to next map?
+          </h1>
+          <h1 className="mb-2"> You can not come back anymore.</h1>
           <div className="flex items-center justify-between ">
             <button
               className="p-2 text-xl font-bold bg-rose-800 hover:bg-rose-900 rounded-lg"

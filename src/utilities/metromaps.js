@@ -13,7 +13,7 @@
 
 // loop through the src/data folder and import all json files into METROMAPS array
 
-import { normalizeTruth } from "./util";
+import { isNormalize } from "./util";
 
 const METROMAPS = [];
 
@@ -30,83 +30,21 @@ const estimateTimeToRead = (data) => {
   return time;
 };
 
-const normalizeNodeWeight = (data) => {
-  // get the max and min node_weight
-  let MAX_NODE_WEIGHT = data.nodes[0].node_weight;
-  let MIN_NODE_WEIGHT = data.nodes[0].node_weight;
+// const dataUrl = isNormalize ? "../data_norm" : "../data";
 
-  // loop through all the data, get the max and min node_weight
-  // and store it in the global variable
-  data.nodes.forEach((node) => {
-    if (node.node_weight > MAX_NODE_WEIGHT) {
-      MAX_NODE_WEIGHT = node.node_weight;
-    }
-    if (node.node_weight < MIN_NODE_WEIGHT) {
-      MIN_NODE_WEIGHT = node.node_weight;
-    }
-  });
-
-  // if max and min are the same, set node_weight as it is, otherwise normalize
-  if (MAX_NODE_WEIGHT !== MIN_NODE_WEIGHT) {
-    data.nodes.forEach((node) => {
-      node.node_weight =
-        (node.node_weight - MIN_NODE_WEIGHT) /
-        (MAX_NODE_WEIGHT - MIN_NODE_WEIGHT);
-    });
-  }
-};
-
-const normalizeEdgeWeight = (data) => {
-  // get the max and min edge_weight
-  let MAX_EDGE_WEIGHT = data.links[0].edge_weight;
-  let MIN_EDGE_WEIGHT = data.links[0].edge_weight;
-
-  // loop through all the data, get the max and min edge_weight
-  // and store it in the global variable
-  data.links.forEach((link) => {
-    if (link.edge_weight > MAX_EDGE_WEIGHT) {
-      MAX_EDGE_WEIGHT = link.edge_weight;
-    }
-    if (link.edge_weight < MIN_EDGE_WEIGHT) {
-      MIN_EDGE_WEIGHT = link.edge_weight;
-    }
-  });
-
-  // loop through all the data again and normalize the edge_weight
-  // if max and min are the same, set edge_weight as it is, otherwise normalize
-  if (MAX_EDGE_WEIGHT !== MIN_EDGE_WEIGHT) {
-    data.links.forEach((link) => {
-      link.edge_weight =
-        (link.edge_weight - MIN_EDGE_WEIGHT) /
-        (MAX_EDGE_WEIGHT - MIN_EDGE_WEIGHT);
-    });
-  }
-};
-
-const context = require.context("../data", true, /\.json$/);
+const context = require.context("../data_norm", true, /\.json$/);
 
 context.keys().forEach((key, index) => {
   const data = context(key);
 
   // if the data.nodes has a node_weight property, normalize it
 
-  if (normalizeTruth) {
-    if (data.nodes[0].node_weight) {
-      normalizeNodeWeight(data);
-    }
-
-    if (data.links[0].edge_weight) {
-      normalizeEdgeWeight(data);
-    }
-  }
-
   const url = key.replace("./", "").replace(".json", "");
   const title = url.replace(/-/g, " ");
   const idx = index;
-  const description =
-    "This is a dummy description: lorem ipsum dolor sit amet etc.";
-  const subtitle = "This is a dummy subtitle: lorem ipsum dolor sit amet etc.";
-  const hint = "This is a dummy hint: lorem ipsum dolor sit amet etc.";
+  const description = "This is a dummy description";
+  const subtitle = "This is a dummy subtitle";
+  const hint = "This is a dummy hint";
   const time = estimateTimeToRead(data);
   METROMAPS.push({
     url,
@@ -136,11 +74,5 @@ const findAndModify = (url, { title, time, description, subtitle, hint }) => {
 findAndModify("1-dummy-1x4-14_29", {
   time: 10,
 });
-
-const METROMAPS_URLS = METROMAPS.map((m) => m.url);
-const METROMAPS_LENGTH = METROMAPS.length;
-const METROMAPS_TIME = METROMAPS.map((m) => m.time);
-
-export { METROMAPS_URLS, METROMAPS_LENGTH, METROMAPS_TIME };
 
 export default METROMAPS;
