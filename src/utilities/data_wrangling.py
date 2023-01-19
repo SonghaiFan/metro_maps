@@ -147,7 +147,6 @@ if __name__ == '__main__':
     minmax, weight = find_min_max_all(data, is_dummy_ignore)
     print("=====================================")
     print("The min and max value for each weight type are: ", minmax)
-    # plot_histograms(weight, 'original')
 
     # normalize the data
     norm_data = normalize_data(data, minmax, is_dummy_ignore)
@@ -156,6 +155,8 @@ if __name__ == '__main__':
     print("The min and max value in normalized data are : ", norm_minmax)
     plot_histograms(weight, norm_weight, 'histogram', is_dummy_ignore)
     plot_density(weight, norm_weight, 'density', is_dummy_ignore)
+    print("Normalized data histogram and density plot saved in src/img, please check the plot")
+    print("=====================================")
 
     # save the normalized data
     write_data(norm_data, 'src/data_norm')

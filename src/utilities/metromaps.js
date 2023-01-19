@@ -1,20 +1,3 @@
-// @satyaborg TODO: read data instead of importing
-// import noFilterView1 from "../archived_data/05_04_2022/metromap_no_filter_n_neighbour_10_min_cluster_10.json";
-// import noFilterView2 from "../archived_data/04_05_2022/20220503_no_filter_no_chunk_minlm.json";
-// import ukrRus from "../archived_data/05_04_2022/ukr_rus_war.json";
-// import electionView from "../archived_data/04_05_2022/election2.json";
-// import domesticViolence from "../archived_data/01_07_2022/01_07_2022_1656654308.json";
-// import domesticViolencePre2014 from "../archived_data/01_07_2022/01_07_2022_1656653072.json";
-// import domesticViolencePost2014 from "../archived_data/01_07_2022/01_07_2022_1656653417.json";
-// import introPage from "../archived_data/intro_page.json";
-// import allView from "../archived_data/31_08_2022_1661913079_all_REDUCED.json";
-// import govView from "../archived_data/21_09_2022_1663741409_gov.json";
-// import voiceView from "../archived_data/21_09_2022_1663742238_voice.json";
-
-// loop through the src/data folder and import all json files into METROMAPS array
-
-// import { isNormalize } from "./util";
-
 const METROMAPS = [];
 
 // estimate the time to read the data in seconds,
