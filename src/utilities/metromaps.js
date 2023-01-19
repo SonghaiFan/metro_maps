@@ -13,7 +13,7 @@
 
 // loop through the src/data folder and import all json files into METROMAPS array
 
-import { isNormalize } from "./util";
+// import { isNormalize } from "./util";
 
 const METROMAPS = [];
 
@@ -30,14 +30,12 @@ const estimateTimeToRead = (data) => {
   return time;
 };
 
-// const dataUrl = isNormalize ? "../data_norm" : "../data";
+// const context = require.context("../data", true, /\.json$/);
 
 const context = require.context("../data_norm", true, /\.json$/);
 
 context.keys().forEach((key, index) => {
   const data = context(key);
-
-  // if the data.nodes has a node_weight property, normalize it
 
   const url = key.replace("./", "").replace(".json", "");
   const title = url.replace(/-/g, " ");

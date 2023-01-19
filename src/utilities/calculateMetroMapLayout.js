@@ -172,6 +172,7 @@ const colourNodes = (nodes, lines, edges, useNodeWeight, useEdgeWeight) => {
 
   if (useNodeWeight) {
     let nodeColours = [];
+    console.log("useNodeWeight", useNodeWeight);
 
     Object.keys(nodes).forEach((key) => {
       let currentObj = nodes[key];
@@ -192,6 +193,7 @@ const colourNodes = (nodes, lines, edges, useNodeWeight, useEdgeWeight) => {
     processNodeColours(nodeColours);
   } else {
     if (!useEdgeWeight) {
+      console.log("useEdgeWeight", useEdgeWeight, useNodeWeight);
       const lineOrder = Object.keys(lines);
 
       const linesColoursAndNodes = lineOrder.map((lineId) => {
@@ -480,8 +482,9 @@ const calculateMetroMapLayout = (
     newNodes,
     newLines,
     metroMapData.links,
-    metroMapData.nodes[0].node_weight,
-    metroMapData.links[0].edge_weight
+    metroMapData.nodes[0].node_weight !== undefined,
+    metroMapData.links[0].edge_weight !== undefined
+    // can not use node_weight ? ... since 0 is a falsey value as well
   );
 
   colourNeighbouringNodes(newNodes);
