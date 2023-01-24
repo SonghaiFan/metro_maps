@@ -19,16 +19,16 @@ export default function App() {
 
   return (
     <>
-      {/* {start ? ( */}
-      <Menu
-        metromaps={METROMAPS}
-        width={width}
-        height={height}
-        setStart={setStart}
-      />
-      {/* ) : (
+      {start ? (
+        <Menu
+          metromaps={METROMAPS}
+          width={width}
+          height={height}
+          setStart={setStart}
+        />
+      ) : (
         <IntroMetroMapWrapper setStart={setStart} />
-      )} */}
+      )}
     </>
   );
 }
