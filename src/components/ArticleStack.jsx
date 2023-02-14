@@ -1,11 +1,14 @@
 import React, { useLayoutEffect, useState } from "react";
+import * as d3 from "d3";
 import { motion } from "framer-motion";
 import Article from "./Article";
 import { articleVariantsFactory } from "../utilities/articleStackUtilities";
 import { useWindowSize } from "react-use";
+import { dodge } from "../utilities/articleDogeUtilities";
 import {
   ARTICALSTACK_TOP_PADDING,
   ARTICALSTACK_INNER_PADDING,
+  NODEWIDTH,
 } from "../utilities/util";
 import _ from "lodash";
 
@@ -63,6 +66,36 @@ export default function ArticleStack({
     }
   }, [mostRecentClickedArticle, zoomedInArticleHeight]);
 
+  // Parse date strings to date objects
+  // -----------------------------------
+  // GET X VALUES AND Y VALUES BASED ON DATE
+
+  const timeParse3 = d3.timeParse("%B %d, %Y");
+
+  const datesParsed = articles.map((obj) => timeParse3(obj.timestamp));
+
+  // Get min and max dates
+  const minDate = d3.min(datesParsed);
+  const maxDate = d3.max(datesParsed);
+
+  // Create linear scale mapping dates to a range of 0 to 1
+  const scale = d3.scaleTime().domain([minDate, maxDate]).range([0, 1]);
+
+  // Map each date to a value between 0 and 1
+  const X = datesParsed.map((d) => scale(d) * articleWidth);
+
+  const Y = dodge(X, NODEWIDTH);
+
+  // add value into articles
+  articles.forEach((article, index) => {
+    article.x_value = X[index];
+    article.y_value = 0; //Y[index];
+  });
+
+  // console.log(articles);
+
+  // -----------------------------------
+
   return (
     <motion.div
       className={`${
@@ -70,7 +103,7 @@ export default function ArticleStack({
           ? `absolute top-0 left-0 w-full h-full overflow-y-scroll ${
               articles.length > articleLimit ? "scrollbar" : "scrollbar-none"
             }`
-          : ""
+          : "absolute z-50"
       }`}
       style={{
         maxHeight: clicked ? clickedArticleContainerHeight : "100%",
@@ -98,17 +131,18 @@ export default function ArticleStack({
             const zoomedArticleHeight = articlesHeight.find(
               (_, index) => index === articles.length - articleIndex - 1
             );
+
             return (
               <motion.div
                 key={article.id}
                 className={`article-${data.id} alerts-border absolute rounded-md overflow-hidden`}
                 style={{
                   border: data.isChanged ? null : "2px solid white",
-                  backgroundColor: clicked
-                    ? "white"
-                    : (array.length - articleIndex) % 2 === 0
-                    ? "white"
-                    : colour,
+                  backgroundColor: clicked ? "white" : "black",
+                  borderRadius: clicked ? "6px" : "15px",
+                  // (array.length - articleIndex) % 2 === 0
+                  // ? "white"
+                  // : colour,
                 }}
                 variants={articleVariantsFactory(
                   array.length,
@@ -119,7 +153,10 @@ export default function ArticleStack({
                   articleHeight,
                   zoomedInArticleWidth,
                   zoomedArticleHeight,
-                  clickedArticleYPosition
+                  clickedArticleYPosition,
+                  article.timestamp,
+                  article.x_value,
+                  article.y_value
                 )}
                 animate={clicked ? "clicked" : "default"}
                 onAnimationComplete={() => {

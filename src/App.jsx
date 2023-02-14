@@ -18,17 +18,26 @@ export default function App() {
   const { width, height } = useWindowSize();
 
   return (
-    <>
-      {start ? (
-        <Menu
-          metromaps={METROMAPS}
-          width={width}
-          height={height}
-          setStart={setStart}
-        />
-      ) : (
-        <IntroMetroMapWrapper setStart={setStart} />
-      )}
-    </>
+    <Menu
+      metromaps={METROMAPS}
+      width={width}
+      height={height}
+      setStart={setStart}
+    />
   );
+
+  // return (
+  //   <>
+  //     {start ? (
+  //       <Menu
+  //         metromaps={METROMAPS}
+  //         width={width}
+  //         height={height}
+  //         setStart={setStart}
+  //       />
+  //     ) : (
+  //       <IntroMetroMapWrapper setStart={setStart} />
+  //     )}
+  //   </>
+  // );
 }

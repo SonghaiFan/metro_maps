@@ -61,7 +61,7 @@ const nodeWordsVariantsFactory = (
 ) => {
   return {
     default: {
-      y: isMapFocused ? height + METROSTOP_CIRCLE_SIZE - 40 : 0,
+      y: isMapFocused ? height + METROSTOP_CIRCLE_SIZE - 30 : 0,
       x: -10,
       width: showMore
         ? calculateNodeWordsLabelWidth(moreContent)
@@ -106,13 +106,17 @@ const metroStopVariantsFactory = (
     },
     default: {
       x: (isMapFocused ? node.x : landingX) + paddingX,
+      // y:
+      //   (isMapFocused ? node.y - METROSTOP_BOTTOM_PADDING : landingY) +
+      //   paddingY,
       y:
-        (isMapFocused ? node.y - METROSTOP_BOTTOM_PADDING : landingY) +
+        (isMapFocused ? node.y - METROSTOP_CIRCLE_SIZE / 2 : landingY) +
         paddingY,
       width: isMapFocused ? nodeWidth : landingWidth,
-      height: isMapFocused ? nodeHeight : landingHeight,
+      height: isMapFocused ? METROSTOP_CIRCLE_SIZE : landingHeight,
       zIndex: 0,
       transition: { ease: "easeOut", when: "afterChildren" },
+      // background: "gray",
     },
   };
 };

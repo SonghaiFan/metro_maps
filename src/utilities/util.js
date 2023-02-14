@@ -4,6 +4,7 @@ import { differenceEuclideanRGB } from "d3-color-difference";
 // FUNCTIONS
 export const timeParse = d3.timeParse("%Y-%m-%d");
 export const timeParse2 = d3.timeParse("%Y%m%d");
+
 export const timeFormat = d3.timeFormat("%d %b %Y");
 export const nodesCollided = (node1, node2) => {
   const xDifference = node1.x - node2.x;
@@ -87,7 +88,7 @@ const createColorScale = (colors, range) => {
     (_, i) => range[0] + i * increment
   );
   domain.push(range[1]);
-  console.log(domain);
+  // console.log(domain);
 
   return d3.scaleLinear().domain(domain).range(colors);
 };

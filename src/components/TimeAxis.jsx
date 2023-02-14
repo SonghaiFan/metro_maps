@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
+import * as d3 from "d3";
 import { motion } from "framer-motion";
 import {
   timeFormat,
@@ -16,14 +17,56 @@ export default function TimeAxis({
   nodeHeight,
   paddingX,
   paddingY,
+  screenWidth,
+  screenHeight,
 }) {
   // const isFirstMount = useFirstMountState();
   const longestColumnIndex = data.reduce((maxColumnIndex, column, index) => {
     return data[maxColumnIndex].length < column.length ? index : maxColumnIndex;
   }, 0);
 
-  // console.log(data);
+  console.log(data);
 
+  const times = data.map((column, index) => {
+    const isTimeArray = Array.isArray(column[0].time);
+    const startingDate = isTimeArray
+      ? new Date(
+          Math.min(
+            ...column.map((node) => {
+              return Math.min(...node.time);
+            })
+          )
+        )
+      : new Date(Math.min(...column.map((node) => node.time)));
+
+    const endingDate = isTimeArray
+      ? new Date(
+          Math.max(
+            ...column.map((node) => {
+              return Math.max(...node.time);
+            })
+          )
+        )
+      : new Date(Math.max(...column.map((node) => node.time)));
+
+    // add startingDate and endingDate to the column
+    return {
+      startingDate,
+      endingDate,
+    };
+  });
+
+  const startingDates = times.map((d) => d.startingDate);
+  const endingDates = times.map((d) => d.endingDate);
+  const minStartingDate = d3.min(startingDates);
+  const maxEndingDate = d3.max(endingDates);
+
+  const scale = d3
+    .scaleTime()
+    .domain([minStartingDate, maxEndingDate])
+    .range([paddingX + nodeWidth, screenWidth - paddingX - nodeWidth]);
+
+  // create time axis
   const timeAxisHeight =
     // article stack height
     MAX_ARTICLES +
@@ -42,33 +85,15 @@ export default function TimeAxis({
   return (
     <motion.div>
       {data.map((column, index) => {
-        // if time is array, reduce it to an array only contians the min and max time
+        const startingDate = times[index].startingDate;
+        const endingDate = times[index].endingDate;
+        // get middle day of the time range
+        // const middleDate = new Date(
+        //   startingDate.getTime() +
+        //     (endingDate.getTime() - startingDate.getTime()) / 2
+        // );
 
-        const isTimeArray = Array.isArray(column[0].time);
-
-        // if isTimeArray, then combine all time array and get the min and max time,
-        // else, get the min and max time directly
-
-        const startingDate = isTimeArray
-          ? new Date(
-              Math.min(
-                ...column.map((node) => {
-                  return Math.min(...node.time);
-                })
-              )
-            )
-          : new Date(Math.min(...column.map((node) => node.time)));
-
-        const endingDate = isTimeArray
-          ? new Date(
-              Math.max(
-                ...column.map((node) => {
-                  return Math.max(...node.time);
-                })
-              )
-            )
-          : new Date(Math.max(...column.map((node) => node.time)));
-
+        const timeVaryNodeWidth = scale(endingDate) - scale(startingDate);
         return (
           <motion.div key={index}>
             <motion.div
@@ -84,14 +109,15 @@ export default function TimeAxis({
                 height: 0,
               }}
               animate={{
-                x: column[0].x - (nodeWidth + MAX_ARTICLES) * 0.25,
+                x: scale(startingDate),
                 y:
                   paddingY -
                   METROSTOP_BOTTOM_PADDING -
                   MAX_ARTICLES -
                   TIME_AXIS_PADDING,
-                width: (nodeWidth + MAX_ARTICLES) * 1.5,
+                width: timeVaryNodeWidth,
                 height: timeAxisHeight,
+                border: "1px solid darkgray",
                 // transition: {
                 //   duration: isFirstMount ? METROLINE_ANIMATION_DURATION : 0,
                 // },

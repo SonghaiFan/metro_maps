@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import ArticleStack from "./ArticleStack";
-import { nodeWordsVariantsFactory } from "../utilities/metroStopUtilities";
+import {
+  nodeWordsVariantsFactory,
+  MAX_ARTICLES,
+  NODE_WIDTH,
+} from "../utilities/metroStopUtilities";
 import { useWindowSize } from "react-use";
 import {
   ARTICALSTACK_INNER_PADDING,
@@ -99,7 +103,7 @@ export default function MetroStop({
               className={"absolute text-sm m-1 line-clamp-2 font-bold"}
               onClick={onClick}
             >
-              {title}
+              {/* {title} */}
             </motion.div>
           )}
         </>
@@ -130,7 +134,7 @@ export default function MetroStop({
               border: data.isChanged ? null : "2px solid white",
             }}
             animate={{
-              width: METROSTOP_CIRCLE_SIZE,
+              width: width * 1.8,
               height: METROSTOP_CIRCLE_SIZE,
               y: height - 40,
               x: -10,

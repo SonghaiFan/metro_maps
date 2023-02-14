@@ -375,6 +375,8 @@ export default function MetroMap({
             <TimeAxis
               data={columns}
               nodeWidth={NODE_WIDTH}
+              screenWidth={screenWidth}
+              screenHeight={screenHeight}
               nodeHeight={NODE_HEIGHT}
               paddingX={paddingX}
               paddingY={paddingY}
