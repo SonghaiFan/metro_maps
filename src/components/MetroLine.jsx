@@ -51,7 +51,7 @@ export default function MetroLine({
   return (
     <>
       {data.map((path, index) => {
-        console.log(path);
+        // console.log(path);
         return (
           <motion.g key={index}>
             {!path.isChanged && (

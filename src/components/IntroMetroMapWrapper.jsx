@@ -190,6 +190,7 @@ export default function IntroMetroMapWrapper({ setStart }) {
             onClick={() => setStart(true)}
             className={`right-[2%] top-[50%]`}
             isVisible={true}
+       
           >
             Start
             <FaArrowAltCircleRight size={40} />

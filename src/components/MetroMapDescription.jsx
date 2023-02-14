@@ -20,7 +20,7 @@ function MetroMapDescription({
   return (
     <>
       {isDisplayed && (
-        <motion.div className="absolute top-[20%] left-[40%] w-[20%] h-[50%] p-5 bg-neutral-800 rounded-lg shadow-lg">
+        <motion.div className="absolute top-[20%] left-[40%] w-[20%] h-[50%] p-5 bg-neutral-900 rounded-lg shadow-lg">
           <div className="flex flex-col h-full">
             <div className="text-2xl text-emerald-400 font-bold text-center h-1/6">
               Task: {idx + 1}

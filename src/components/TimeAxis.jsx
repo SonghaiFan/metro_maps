@@ -72,7 +72,7 @@ export default function TimeAxis({
         return (
           <motion.div key={index}>
             <motion.div
-              className="absolute bg-neutral-800 rounded-2xl"
+              className="absolute bg-neutral-900 rounded-2xl"
               initial={{
                 x: column[0].x - (nodeWidth + MAX_ARTICLES) * 0.25,
                 y:

@@ -5,7 +5,7 @@ import {
   margin,
   TOP_FULL_PAGE_PADDING,
   METROLINE_ANIMATION_DURATION,
-  cutomerInterpolation,
+  customerInterpolation,
 } from "../utilities/util";
 import { motion } from "framer-motion";
 import { metroStopVariantsFactory } from "../utilities/metroStopUtilities";
@@ -111,7 +111,7 @@ export default function MetroMap({
       value: event.target.value,
     });
 
-    const newColour = cutomerInterpolation(event.target.value);
+    const newColour = customerInterpolation(event.target.value);
 
     const type = whoOpenSideDrawer.dataset.type;
     // console.log("type", type);
@@ -205,6 +205,7 @@ export default function MetroMap({
       unHighlightConfirmedNodes(customNodes, whoId);
     }
 
+    who.classList.remove("highlight");
     setSideDrawerOpen(false);
   };
 
@@ -213,11 +214,16 @@ export default function MetroMap({
   }, [whoConfirmedInput]);
 
   const openSideDrawer = (who) => {
+    // highlight who dom element by adding a class
+    who.classList.add("highlight");
+
     setWhoOpenSideDrawer(who);
     setSideDrawerOpen(true);
   };
 
   const closeSideDrawer = () => {
+    // remove highlight class from who dom element
+    whoOpenSideDrawer.classList.remove("highlight");
     setSideDrawerOpen(false);
   };
 
@@ -498,6 +504,7 @@ export default function MetroMap({
                   onNeighbourNodeLabelClick={openSideDrawer}
                   onNodeNumberLabelClick={openSideDrawer}
                   onNodeWordsLabelClick={openSideDrawer}
+                  onZoomOutClick={onZoomOutButtonClick}
                   mapId={mapId}
                 />
               </motion.div>

@@ -126,7 +126,8 @@
             "target": "1_6",
             "edge_weight": 0.40625000000000017,
             "edge_label": [
-                "vastopolis"
+                "vastopolis",
+                "hazards"
             ],
             "id": 0
         },
@@ -157,7 +158,8 @@
             "target": "2_0",
             "edge_weight": 0.4,
             "edge_label": [
-                "vastopolis"
+                "vastopolis",
+                "hazards"
             ],
             "id": 1
         },
@@ -166,7 +168,8 @@
             "target": "1_6",
             "edge_weight": 0.2875,
             "edge_label": [
-                "vastopolis"
+                "vastopolis",
+                "hazards"
             ],
             "id": 3
         },
@@ -175,7 +178,8 @@
             "target": "2_0",
             "edge_weight": 0.18,
             "edge_label": [
-                "vastopolis"
+                "vastopolis",
+                "hazards"
             ],
             "id": 8
         },
@@ -184,7 +188,8 @@
             "target": "2_6",
             "edge_weight": 0.5,
             "edge_label": [
-                "vastopolis"
+                "vastopolis",
+                "safe"
             ],
             "id": 2
         }

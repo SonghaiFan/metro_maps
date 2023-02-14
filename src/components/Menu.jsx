@@ -6,7 +6,6 @@ import {
   FOCUS_MODE,
   metroMapContainerVariantsFactory,
 } from "../utilities/menuUtilities";
-import { METROMAPS_LENGTH, METROMAPS_TIME } from "../utilities/metromaps";
 import { AnimatePresence, motion } from "framer-motion";
 import NavigationButton from "./NavigationButton";
 import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from "react-icons/fa";
@@ -14,14 +13,15 @@ import { METROMAPS_PER_PAGE, PAGE_DIRECTION, margin } from "../utilities/util";
 import Timer from "./Timer";
 import mixpanel from "mixpanel-browser";
 
-const TOTAL_PAGES = Math.ceil(METROMAPS_LENGTH / METROMAPS_PER_PAGE);
-
 export default function Menu({
   metromaps,
   width: screenWidth,
   height: screenHeight,
   setStart,
 }) {
+  const TOTAL_PAGES = Math.ceil(metromaps.length / METROMAPS_PER_PAGE);
+  const METROMAPS_TIME = metromaps.map((m) => m.time);
+
   const metromapsDetails = useMemo(() => {
     return metromaps.reduce((accumulatedDimensions, metromap, index) => {
       return {
@@ -258,12 +258,13 @@ export default function Menu({
             focusState.mode === FOCUS_MODE.FULL_VIEW &&
             pageState.current !== pageState.total
           }
+          isConfirmNeeded={true}
         >
           Next Map
           <FaArrowAltCircleRight size={40} color={"#b1babf"} />
         </NavigationButton>
-        {/* 
-        <NavigationButton
+
+        {/* <NavigationButton
           onClick={onNavigationBtwSessionClick(PAGE_DIRECTION.LEFT)}
           className={`left-[2%] top-[50%] `}
           isVisible={

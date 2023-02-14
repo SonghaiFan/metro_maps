@@ -18,7 +18,6 @@ export const flatMap = (array, mapFunction) => {
 };
 
 export const showTruth = true;
-export const normalizeTruth = true;
 // CONSTANTS
 
 const NODEWIDTH = 15;
@@ -74,28 +73,34 @@ export {
 
 // metromap container margin
 export const margin = { x: 0.05, y: 0.15 };
-
 export const colours = ["#585d91", "#48a49e", "#fce554"];
 
-// export const cutomerInterpolation = (Weight) => {
+const createColorScale = (colors, range) => {
+  if (colors.length < 2) throw new Error("At least 2 colors are required");
+  if (range[0] >= range[1])
+    throw new Error("Invalid range, min value must be less than max value");
+
+  const steps = colors.length - 1;
+  const increment = (range[1] - range[0]) / steps;
+  const domain = Array.from(
+    { length: steps },
+    (_, i) => range[0] + i * increment
+  );
+  domain.push(range[1]);
+  console.log(domain);
+
+  return d3.scaleLinear().domain(domain).range(colors);
+};
+
+//slate-500,emerald-400, yellow-300
+// export const customerInterpolation = (Weight) => {
 //   const ind = Weight * (colours.length - 1);
 //   const colour1 = colours[Math.floor(ind)];
 //   const colour2 = colours[Math.ceil(ind)];
 //   return d3.interpolateRgb(colour1, colour2)(ind - Math.floor(ind));
 // };
 
-const domain = [0];
-var increment = 1 / (colours.length - 1);
-for (var i = 0; i < colours.length - 2; i++) {
-  var previous = domain[domain.length - 1];
-  domain.push(previous + increment);
-}
-domain.push(1);
-
-export const cutomerInterpolation = d3
-  .scaleLinear()
-  .domain(domain)
-  .range(colours);
+export const customerInterpolation = createColorScale(colours, [0, 1]);
 
 export const invertCustomerInterpolation = (Color) => {
   const leftDist = differenceEuclideanRGB(colours[0], colours[1]);
