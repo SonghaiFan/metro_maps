@@ -13,9 +13,9 @@ const estimateTimeToRead = (data) => {
   return time;
 };
 
-// const context = require.context("../data", true, /\.json$/);
+const context = require.context("../data", true, /\.json$/);
 
-const context = require.context("../data_norm", true, /\.json$/);
+// const context = require.context("../data_norm", true, /\.json$/);
 
 context.keys().forEach((key, index) => {
   const data = context(key);
@@ -52,8 +52,8 @@ const findAndModify = (url, { title, time, description, subtitle, hint }) => {
   if (hint) METROMAPS[index].hint = hint;
 };
 
-findAndModify("1-dummy-1x4-14_29", {
-  time: 10,
-});
+// findAndModify("1-dummy-1x4-14_29", {
+//   time: 10,
+// });
 
 export default METROMAPS;

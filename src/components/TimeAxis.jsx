@@ -106,22 +106,19 @@ export default function TimeAxis({
                   MAX_ARTICLES -
                   TIME_AXIS_PADDING,
                 width: (nodeWidth + MAX_ARTICLES) * 1.5,
-                height: 0,
-              }}
-              animate={{
-                x: scale(startingDate),
-                y:
-                  paddingY -
-                  METROSTOP_BOTTOM_PADDING -
-                  MAX_ARTICLES -
-                  TIME_AXIS_PADDING,
-                width: timeVaryNodeWidth,
                 height: timeAxisHeight,
-                border: "1px solid darkgray",
-                // transition: {
-                //   duration: isFirstMount ? METROLINE_ANIMATION_DURATION : 0,
-                // },
               }}
+              // initial={{
+              //   x: scale(startingDate),
+              //   y:
+              //     paddingY -
+              //     METROSTOP_BOTTOM_PADDING -
+              //     MAX_ARTICLES -
+              //     TIME_AXIS_PADDING,
+              //   width: timeVaryNodeWidth,
+              //   height: timeAxisHeight,
+              //   border: "1px solid darkgray",
+              // }}
             />
             <motion.div
               className="absolute p-2 flex justify-center"

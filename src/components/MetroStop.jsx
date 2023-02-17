@@ -10,8 +10,7 @@ import { useWindowSize } from "react-use";
 import {
   ARTICALSTACK_INNER_PADDING,
   METROSTOP_CIRCLE_SIZE,
-  // LEFT_MARGIN,
-  // TOP_MARGIN,
+  ARTICLE_SIZE_MULTIPLIER,
 } from "../utilities/util";
 import NeighbouringNodes from "./NeighbouringNodes";
 
@@ -46,7 +45,6 @@ export default function MetroStop({
         .join(", ")
     : label;
 
-  const ARTICLE_SIZE_MULTIPLIER = 1.25;
   const ARTICLE_HEIGHT = (screenHeight / 18) * ARTICLE_SIZE_MULTIPLIER;
   const ARTICLE_WIDTH = (screenWidth / 13) * ARTICLE_SIZE_MULTIPLIER;
   const ZOOMED_IN_ARTICLE_HEIGHT =
@@ -124,8 +122,8 @@ export default function MetroStop({
           event.target.dataset.type === "modal" && onZoomOutClick();
         }}
       >
-        {/* node number label */}
-        {isMapFocused && !clicked && (
+        {/* node number label#### */}
+        {/* {isMapFocused && !clicked && (
           <motion.div
             data-type="node-number-label"
             id={data.id}
@@ -148,7 +146,7 @@ export default function MetroStop({
           >
             {data.articles.length}
           </motion.div>
-        )}
+        )} */}
 
         {/* node words label */}
         {shouldRenderContent && (
@@ -167,12 +165,13 @@ export default function MetroStop({
             style={{
               backgroundColor:
                 // "white",
-                data.colour,
-              border: data.isChanged ? null : "2px solid white",
+                // data.colour,
+                "#acab9f",
+              // border: data.isChanged ? null : "2px solid white", //####
             }}
             className={`node-${
               data.id
-            } alerts-border  text-black cursor-pointer  ${
+            } alerts-border  text-black cursor-pointer overflow-hidden  ${
               isMapFocused
                 ? `absolute rounded-md px-2 ${clicked ? "text-4xl" : "text-sm"}`
                 : ""

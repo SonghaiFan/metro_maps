@@ -5,9 +5,10 @@ import {
   METROLINE_ANIMATION_DURATION,
   LINK_LABEL_HEIGHT,
 } from "../utilities/util";
+import { NODEWIDTH } from "../utilities/util";
 import { useFirstMountState } from "react-use";
 
-export default function MetroLineLabel({ data, onMetroLineLabelClick }) {
+export default function MetroLineLabel({ data, onMetroLineLabelClick, width }) {
   const isFirstMount = useFirstMountState();
 
   const { id, label, colour, points, isChanged } = data;
@@ -26,7 +27,7 @@ export default function MetroLineLabel({ data, onMetroLineLabelClick }) {
     : label;
   // join the label array into a string with space as separator
 
-  const [{ x0, y0 }, { x1, y1 }] = points.map((coordinate, index) => {
+  let [{ x0, y0 }, { x1, y1 }] = points.map((coordinate, index) => {
     const keyX = `x${index}`;
     const keyY = `y${index}`;
 
@@ -35,6 +36,11 @@ export default function MetroLineLabel({ data, onMetroLineLabelClick }) {
       [keyY]: coordinate.y,
     };
   });
+
+  console.log(
+    "🚀 ~ file: MetroLineLabel.jsx:38 ~ const[{x0,y0},{x1,y1}]=points.map ~ points",
+    points
+  );
 
   // reference: https://www.cuemath.com/geometry/angle-between-two-lines/
   const line1Gradient = 0; // assume the text is on a line with gradient=0
@@ -90,7 +96,7 @@ export default function MetroLineLabel({ data, onMetroLineLabelClick }) {
           wordSpacing: "100vw",
           width: "min-content", // to prevent the label from wrapping
           borderColor: "white",
-          borderWidth: label ? (isChanged ? "0px" : "2px") : null,
+          // borderWidth: label ? (isChanged ? "0px" : "2px") : null, //###
           borderStyle: "solid",
           borderBottom: "none",
           backgroundColor: colour, // "white"

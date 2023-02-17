@@ -4,11 +4,13 @@ import { motion } from "framer-motion";
 import Article from "./Article";
 import { articleVariantsFactory } from "../utilities/articleStackUtilities";
 import { useWindowSize } from "react-use";
-import { dodge } from "../utilities/articleDogeUtilities";
+import { dodge, dodgem } from "../utilities/articleDogeUtilities";
+import { timeParse, timeParse2, timeParse3 } from "../utilities/util";
 import {
   ARTICALSTACK_TOP_PADDING,
   ARTICALSTACK_INNER_PADDING,
   NODEWIDTH,
+  METROLINE_WIDTH,
 } from "../utilities/util";
 import _ from "lodash";
 
@@ -70,10 +72,13 @@ export default function ArticleStack({
   // -----------------------------------
   // GET X VALUES AND Y VALUES BASED ON DATE
 
-  const timeParse3 = d3.timeParse("%B %d, %Y");
-
-  const datesParsed = articles.map((obj) => timeParse3(obj.timestamp));
-
+  const datesParsed = articles.map((obj) => {
+    return (
+      timeParse(obj.timestamp) ||
+      timeParse2(obj.timestamp) ||
+      timeParse3(obj.timestamp)
+    );
+  });
   // Get min and max dates
   const minDate = d3.min(datesParsed);
   const maxDate = d3.max(datesParsed);
@@ -84,13 +89,16 @@ export default function ArticleStack({
   // Map each date to a value between 0 and 1
   const X = datesParsed.map((d) => scale(d) * articleWidth);
 
-  const Y = dodge(X, NODEWIDTH);
+  const Y = dodgem(X, NODEWIDTH);
 
   // add value into articles
   articles.forEach((article, index) => {
     article.x_value = X[index];
-    article.y_value = 0; //Y[index];
+    article.y_value = Y[index];
+    // article.y_value = 0;
   });
+
+  const [showDoge, setShowDoge] = useState(false);
 
   // console.log(articles);
 
@@ -107,6 +115,7 @@ export default function ArticleStack({
       }`}
       style={{
         maxHeight: clicked ? clickedArticleContainerHeight : "100%",
+        backgroundColor: clicked ? "" : "#d1cfbf",
       }}
       animate={{
         x: clicked ? screenWidth / 2 - zoomedInArticleWidth / 2 : 0,
@@ -114,6 +123,22 @@ export default function ArticleStack({
         width: zoomedInArticleWidth + ARTICALSTACK_INNER_PADDING * 2,
       }}
     >
+      {/* article stack panel */}
+      <motion.div
+        className="absolute rounded-full "
+        style={{
+          backgroundColor: clicked ? null : "#9d9b8e",
+        }}
+        animate={{
+          x: clicked ? 0 : 0,
+          y: clicked ? 0 : articleHeight + METROLINE_WIDTH / 2,
+          width: articleWidth + NODEWIDTH,
+          height: METROLINE_WIDTH,
+        }}
+        onMouseEnter={() => setShowDoge(true)}
+        onMouseLeave={() => setShowDoge(false)}
+      ></motion.div>
+
       {
         // reversing an array of objects: https://stackoverflow.com/questions/51479338/reverse-array-of-objects-gives-same-output-2
         []
@@ -135,10 +160,10 @@ export default function ArticleStack({
             return (
               <motion.div
                 key={article.id}
-                className={`article-${data.id} alerts-border absolute rounded-md overflow-hidden`}
+                className={`article-${data.id} alerts-border absolute rounded-md overflow-hidden cursor-zoom-in`}
                 style={{
-                  border: data.isChanged ? null : "2px solid white",
-                  backgroundColor: clicked ? "white" : "black",
+                  border: data.isChanged ? null : "2px solid white", //###
+                  backgroundColor: clicked ? "white" : "#d1cfbf",
                   borderRadius: clicked ? "6px" : "15px",
                   // (array.length - articleIndex) % 2 === 0
                   // ? "white"
@@ -156,7 +181,7 @@ export default function ArticleStack({
                   clickedArticleYPosition,
                   article.timestamp,
                   article.x_value,
-                  article.y_value
+                  showDoge ? article.y_value : 0
                 )}
                 animate={clicked ? "clicked" : "default"}
                 onAnimationComplete={() => {
@@ -164,6 +189,8 @@ export default function ArticleStack({
                     onAnimationComplete();
                   }
                 }}
+                onMouseEnter={() => setShowDoge(true)}
+                onMouseLeave={() => setShowDoge(false)}
               >
                 <Article
                   article={article}

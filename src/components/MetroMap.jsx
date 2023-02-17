@@ -5,6 +5,7 @@ import {
   margin,
   TOP_FULL_PAGE_PADDING,
   METROLINE_ANIMATION_DURATION,
+  ARTICLE_SIZE_MULTIPLIER,
   customerInterpolation,
 } from "../utilities/util";
 import { motion } from "framer-motion";
@@ -47,6 +48,8 @@ export default function MetroMap({
     : margin.y * screenHeight + TOP_FULL_PAGE_PADDING;
   // const fullPageYPadding = margin.y * screenHeight + TOP_FULL_PAGE_PADDING;
   const fullPageXPadding = margin.x * screenWidth;
+
+  const ARTICLE_WIDTH = (screenWidth / 13) * ARTICLE_SIZE_MULTIPLIER;
 
   const paddingX = fullPageXPadding - NODE_WIDTH / 2;
   const paddingY = fullPageYPadding - NODE_HEIGHT;
@@ -412,6 +415,7 @@ export default function MetroMap({
                   >
                     <MetroLine
                       data={paths}
+                      width={ARTICLE_WIDTH}
                       onClickToOpenDrawer={(event) => {
                         openSideDrawer(event.target);
                       }}
@@ -424,8 +428,6 @@ export default function MetroMap({
             {/* link labels */}
             <motion.div className="absolute">
               {metroLineData.map((data) => {
-                // console.log("Object.entries(data)", Object.entries(data));
-                // console.log("Object.entries(data)[0]", Object.entries(data)[0]);
                 const [lineId, { labels }] = Object.entries(data)[0];
 
                 return (
@@ -445,6 +447,7 @@ export default function MetroMap({
                           onMetroLineLabelClick={(event) => {
                             openSideDrawer(event.target);
                           }}
+                          width={ARTICLE_WIDTH}
                         />
                       );
                     })}
@@ -466,7 +469,7 @@ export default function MetroMap({
             return (
               <motion.div
                 className={`metro-stop-wrapper absolute ${
-                  clickedNode === nodeId ? "cursor-default" : "cursor-zoom-in"
+                  "cursor-default" // clickedNode === nodeId ? "cursor-default" : "cursor-zoom-in"###
                 }`}
                 variants={metroStopVariantsFactory(
                   screenWidth,
@@ -540,6 +543,7 @@ export default function MetroMap({
                   >
                     <MetroLine
                       data={foundLinkData.data}
+                      width={ARTICLE_WIDTH}
                       reversed={foundLinkData.reversed}
                     />
                   </motion.g>
@@ -625,7 +629,7 @@ export default function MetroMap({
                 animate={isMapFocused ? {} : titleAnimation}
                 ref={titleRef}
               >
-                {/* {title} */}
+                {title}
               </motion.h2>
             </motion.div>
             <MetroMapDescription

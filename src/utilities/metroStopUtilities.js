@@ -4,51 +4,36 @@ import {
   ARTICALSTACK_INNER_PADDING,
   ARTICALSTACK_TOP_PADDING,
 } from "../utilities/util";
-// TOP_MARGIN
 
-const calculateNodeWordsLabelWidth = (content) => {
-  // create a hidden div
-  const div = document.createElement("div");
-  div.style.visibility = "hidden";
-  div.style.whiteSpace = "nowrap";
-  div.style.width = "fit-content";
-  div.style.paddingLeft = "0.5rem";
-  div.style.paddingRight = "0.5rem";
-  div.style.fontSize = "0.875rem";
-  div.style.lineHeight = "1.25rem";
-  div.innerText = content;
-  document.body.appendChild(div);
-
-  // calculate the width of the string
-  const nodeWordsLabelWidth = div.clientWidth;
-
-  // remove the div
-  document.body.removeChild(div);
-
-  return nodeWordsLabelWidth;
+const createCalculateNodeWordsLabelWidth = (fontSize, lineHeight) => {
+  return (nodeLabel) => {
+    const div = document.createElement("div");
+    Object.assign(div.style, {
+      visibility: "hidden",
+      whiteSpace: "nowrap",
+      width: "fit-content",
+      paddingLeft: "0.5rem",
+      paddingRight: "0.5rem",
+      fontSize,
+      lineHeight,
+    });
+    div.innerText = nodeLabel;
+    document.body.appendChild(div);
+    const nodeWordsLabelWidth = div.clientWidth;
+    document.body.removeChild(div);
+    return nodeWordsLabelWidth;
+  };
 };
 
-const calculateNodeWordsLabelWidthClicked = (content) => {
-  // create a hidden div
-  const div = document.createElement("div");
-  div.style.visibility = "hidden";
-  div.style.whiteSpace = "nowrap";
-  div.style.width = "fit-content";
-  div.style.paddingLeft = "0.5rem";
-  div.style.paddingRight = "0.5rem";
-  div.style.fontSize = "2.25rem";
-  div.style.lineHeight = "2.5rem";
-  div.innerText = content;
-  document.body.appendChild(div);
-
-  // calculate the width of the string
-  const nodeWordsLabelWidth = div.clientWidth;
-
-  // remove the div
-  document.body.removeChild(div);
-
-  return nodeWordsLabelWidth;
-};
+// Create functions for calculating node label width with different styles
+const calculateNodeWordsLabelWidth = createCalculateNodeWordsLabelWidth(
+  "0.875rem",
+  "1.25rem"
+);
+const calculateNodeWordsLabelWidthClicked = createCalculateNodeWordsLabelWidth(
+  "2.25rem",
+  "2.5rem"
+);
 
 const nodeWordsVariantsFactory = (
   isMapFocused,
@@ -61,8 +46,8 @@ const nodeWordsVariantsFactory = (
 ) => {
   return {
     default: {
-      y: isMapFocused ? height + METROSTOP_CIRCLE_SIZE - 30 : 0,
-      x: -10,
+      y: isMapFocused ? height : 0,
+      x: 0,
       width: showMore
         ? calculateNodeWordsLabelWidth(moreContent)
         : calculateNodeWordsLabelWidth(content),
@@ -106,14 +91,11 @@ const metroStopVariantsFactory = (
     },
     default: {
       x: (isMapFocused ? node.x : landingX) + paddingX,
-      // y:
-      //   (isMapFocused ? node.y - METROSTOP_BOTTOM_PADDING : landingY) +
-      //   paddingY,
       y:
-        (isMapFocused ? node.y - METROSTOP_CIRCLE_SIZE / 2 : landingY) +
+        (isMapFocused ? node.y - METROSTOP_BOTTOM_PADDING : landingY) +
         paddingY,
       width: isMapFocused ? nodeWidth : landingWidth,
-      height: isMapFocused ? METROSTOP_CIRCLE_SIZE : landingHeight,
+      height: isMapFocused ? nodeHeight : landingHeight,
       zIndex: 0,
       transition: { ease: "easeOut", when: "afterChildren" },
       // background: "gray",
