@@ -16,7 +16,7 @@ def load_json_files(path):
     return json_files
 
 
-# loop through the data and find the max and min value for all the values in data with key '
+# loop through the data and find the max and min value for all the values in data with key
 
 def update_min_max(item, weightType, minmax, type):
     if item[weightType] > minmax[type][weightType]["max"]:

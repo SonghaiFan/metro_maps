@@ -32,6 +32,7 @@ const generateMetroMapFullViewPositions = (
     .sankey()
     .links(metroMapData.links)
     .nodes(metroMapData.nodes)
+    .nodeAlign(d3Sankey.sankeyCenter)
     .size([paddedMetroMapWidth, paddedMetroMapHeight])
     .nodeId((node) => node.id);
 

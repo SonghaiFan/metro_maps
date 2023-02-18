@@ -5,7 +5,6 @@ import {
   METROLINE_ANIMATION_DURATION,
   LINK_LABEL_HEIGHT,
 } from "../utilities/util";
-import { NODEWIDTH } from "../utilities/util";
 import { useFirstMountState } from "react-use";
 
 export default function MetroLineLabel({ data, onMetroLineLabelClick, width }) {
@@ -37,11 +36,6 @@ export default function MetroLineLabel({ data, onMetroLineLabelClick, width }) {
     };
   });
 
-  console.log(
-    "🚀 ~ file: MetroLineLabel.jsx:38 ~ const[{x0,y0},{x1,y1}]=points.map ~ points",
-    points
-  );
-
   // reference: https://www.cuemath.com/geometry/angle-between-two-lines/
   const line1Gradient = 0; // assume the text is on a line with gradient=0
   const line2Gradient = x1 - x0 !== 0 ? (y1 - y0) / (x1 - x0) : 0; // avoid div by 0
@@ -51,7 +45,7 @@ export default function MetroLineLabel({ data, onMetroLineLabelClick, width }) {
   const angleBetweenTwoLinesDegree =
     (angleBetweenTwoLinesRadian * 180) / Math.PI;
 
-  const shiftDist = -50;
+  const shiftDist = -30;
 
   const shifDistAlongX =
     angleBetweenTwoLinesDegree === 45

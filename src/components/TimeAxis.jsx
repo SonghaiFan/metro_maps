@@ -7,6 +7,7 @@ import {
   TIME_AXIS_PADDING,
   MAX_ARTICLES,
   METROSTOP_BOTTOM_PADDING,
+  ARTICLE_SIZE_MULTIPLIER,
   // METROLINE_ANIMATION_DURATION,
 } from "../utilities/util";
 // import { useFirstMountState } from "react-use";
@@ -93,19 +94,19 @@ export default function TimeAxis({
         //     (endingDate.getTime() - startingDate.getTime()) / 2
         // );
 
-        const timeVaryNodeWidth = scale(endingDate) - scale(startingDate);
+        // const timeVaryNodeWidth = scale(endingDate) - scale(startingDate);
         return (
           <motion.div key={index}>
             <motion.div
               className="absolute bg-neutral-900 rounded-2xl"
               initial={{
-                x: column[0].x - (nodeWidth + MAX_ARTICLES) * 0.25,
+                x: column[0].x - nodeWidth * 0.25,
                 y:
                   paddingY -
                   METROSTOP_BOTTOM_PADDING -
                   MAX_ARTICLES -
                   TIME_AXIS_PADDING,
-                width: (nodeWidth + MAX_ARTICLES) * 1.5,
+                width: nodeWidth * ARTICLE_SIZE_MULTIPLIER,
                 height: timeAxisHeight,
               }}
               // initial={{
@@ -117,7 +118,6 @@ export default function TimeAxis({
               //     TIME_AXIS_PADDING,
               //   width: timeVaryNodeWidth,
               //   height: timeAxisHeight,
-              //   border: "1px solid darkgray",
               // }}
             />
             <motion.div
