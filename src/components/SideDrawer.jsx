@@ -19,6 +19,17 @@ export const SideDrawer = ({
 
   const [isOnTopHalf, setIsOnTopHalf] = useState(false);
 
+  const [comment, setComment] = useState("");
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setComment("");
+  };
+
+  const handleTextChange = (event) => {
+    setComment(event.target.value);
+  };
+
   useEffect(() => {
     setIsOnTopHalf(
       whoOpenSideDrawer
@@ -72,10 +83,19 @@ export const SideDrawer = ({
             >
               <MdClose />
             </motion.button>
-
+            <motion.button
+              className="absolute bottom-0 right-0 flex justify-center items-center text-4xl"
+              onClick={() => handleSideDrawerConfirmed(whoOpenSideDrawer)}
+            >
+              <MdCheck />
+            </motion.button>
             <motion.div className="text-2xl mx-10">
               {/* range slider with five step, label is very high, high, moderate, weak, very weak */}
+
               <motion.h1 className="text-2xl">
+                Please write the narrative/story
+              </motion.h1>
+              {/* <motion.h1 className="text-2xl">
                 Please rate the degree of connection
               </motion.h1>
               <motion.input
@@ -109,7 +129,14 @@ export const SideDrawer = ({
                 <span>Moderate</span>
                 <span>High</span>
                 <span>Very high</span>
-              </motion.div>
+              </motion.div> */}
+
+              <textarea
+                value={comment}
+                onChange={handleTextChange}
+                rows={3}
+                className="w-full px-4 py-2 text-gray-700 border rounded-lg focus:outline-none focus:shadow-outline"
+              />
               <br></br>
               <motion.button
                 className="absolute bottom-0 right-0 flex justify-center items-center text-4xl"
@@ -118,11 +145,8 @@ export const SideDrawer = ({
                 <MdCheck />
               </motion.button>
               <motion.h1 className="text-sm max-w-xl ">
-                PS: Based on your reading, how relatively strong is the
-                connection in this corpus? Either change it or leave it as it
-                is. confirm your choice by clicking confrim button. Exit the
-                side drawer by clicking the close button or anywhere outside the
-                side drawer.
+                PS: Based on your reading, what is the overall story of the
+                links you selected? Write with your own words.
               </motion.h1>
             </motion.div>
           </motion.div>
