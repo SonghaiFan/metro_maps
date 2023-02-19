@@ -264,7 +264,7 @@ export default function Menu({
           <FaArrowAltCircleRight size={40} color={"#b1babf"} />
         </NavigationButton>
 
-        {/* <NavigationButton
+        <NavigationButton
           onClick={onNavigationBtwSessionClick(PAGE_DIRECTION.LEFT)}
           className={`left-[2%] top-[50%] `}
           isVisible={
@@ -274,7 +274,7 @@ export default function Menu({
         >
           Prev Map
           <FaArrowAltCircleLeft size={40} color={"#b1babf"} />
-        </NavigationButton> */}
+        </NavigationButton>
       </motion.div>
       <motion.div className="absolute left-[50%] bottom-0">
         {pageState.current}/{pageState.total}
