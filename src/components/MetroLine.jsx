@@ -70,11 +70,6 @@ export default function MetroLine({
     <>
       {data.map((path, index) => {
         // console.log(path);
-        console.log(
-          "🚀 ~ file: MetroLine.jsx:77 ~ {data.map ~ path.path",
-          path.path
-        );
-
         return (
           <motion.g key={index}>
             {/* ###line border */}

@@ -40,6 +40,7 @@ export default function ArticleStack({
   const [articlesClicked, setArticlesClicked] = useState(
     _.range(articles.length).map(() => false)
   );
+
   const [mostRecentClickedArticle, setMostRecentClickedArticle] =
     useState(null);
 
@@ -160,7 +161,7 @@ export default function ArticleStack({
             return (
               <motion.div
                 key={article.id}
-                className={`article-${data.id} alerts-border absolute rounded-md overflow-hidden cursor-zoom-in`}
+                className={`article-${data.id} alerts-border absolute rounded-md overflow-hidden cursor-zoom-in `}
                 style={{
                   border: data.isChanged ? null : "2px solid white", //###
                   backgroundColor: clicked ? "white" : "#d1cfbf",
@@ -189,6 +190,7 @@ export default function ArticleStack({
                     onAnimationComplete();
                   }
                 }}
+                whileHover={clicked ? {} : { scale: 1.5 }}
                 onMouseEnter={() => setShowDoge(true)}
                 onMouseLeave={() => setShowDoge(false)}
               >
