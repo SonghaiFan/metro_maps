@@ -57,12 +57,9 @@ export default function MetroStop({
 
   const [focusArticleID, setFocusArticleID] = useState(null);
 
-  // setFocusArticle({`${mapId}-${article.id}`,
-  // articles.length - articleIndex - 1})
-
   function getTitle() {
     const article = articles.find((article) => article.id === focusArticleID);
-    return article ? article.title : null;
+    return article ? article.timestamp + ": " + article.title : null;
   }
 
   const title = getTitle();
@@ -104,7 +101,7 @@ export default function MetroStop({
           {!clicked && (
             <motion.div
               className={
-                "absolute text-white text-sm m-1 line-clamp-2 font-bold"
+                "absolute text-white text-sm m-1 line-clamp-3 font-bold rounded-md px-2 bg-neutral-900 opacity-50 filter drop-shadow-md"
               }
               onClick={onClick}
             >
