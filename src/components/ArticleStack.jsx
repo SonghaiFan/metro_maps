@@ -215,13 +215,14 @@ export default function ArticleStack({
                         "article-container"
                       );
                     if (articleContainer.length > 0) {
-                      articleContainer[0].style.visibility = "hidden";
+                      articleContainer[0].style.backgroundColor = "#9d9b8e";
                     }
                   }
 
-                  // change the clicked article to visible
+                  // set the parent of the clicked article to be red
+                  const theArticleContainer = theArticle.parentElement;
 
-                  theArticle.style.visibility = "visible";
+                  theArticleContainer.style.backgroundColor = "white";
                 }}
               >
                 <Article

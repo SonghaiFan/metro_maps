@@ -9,7 +9,7 @@ export default function Article({
 }) {
   return (
     <motion.div
-      className=" absolute bg-inherit w-full h-full rounded-md"
+      className="article-container absolute bg-inherit w-full h-full rounded-md"
       // onClick={onClick}
     >
       <motion.div
@@ -18,7 +18,6 @@ export default function Article({
           color: "var(--primaryDark)",
         }}
         id={id}
-        className="article-container"
       >
         {metroStopClicked && (
           <>
