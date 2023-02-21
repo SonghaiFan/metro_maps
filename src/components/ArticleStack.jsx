@@ -141,6 +141,15 @@ export default function ArticleStack({
       ></motion.div>
 
       {
+        /* find the mostRecentClickedArticle and put it in at the first item in articles array*/
+        // articles
+        //   .filter((article) => article.id === mostRecentClickedArticle?.id)
+        //   .concat(
+        //     articles.filter((article) => article.id !== mostRecentClickedArticle?.id)
+        //   )
+      }
+
+      {
         // reversing an array of objects: https://stackoverflow.com/questions/51479338/reverse-array-of-objects-gives-same-output-2
         []
           .concat(articles)
