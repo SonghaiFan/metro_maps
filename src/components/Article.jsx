@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { MdUnfoldLess, MdUnfoldMore } from "react-icons/md";
 export default function Article({
   article,
   metroStopClicked,
@@ -10,7 +9,7 @@ export default function Article({
 }) {
   return (
     <motion.div
-      className="absolute bg-inherit w-full h-full rounded-md"
+      className=" absolute bg-inherit w-full h-full rounded-md"
       // onClick={onClick}
     >
       <motion.div
@@ -19,6 +18,7 @@ export default function Article({
           color: "var(--primaryDark)",
         }}
         id={id}
+        className="article-container"
       >
         {metroStopClicked && (
           <>

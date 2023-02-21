@@ -109,7 +109,7 @@ export default function ArticleStack({
     <motion.div
       className={`${
         clicked
-          ? `absolute top-0 left-0 w-full h-full overflow-y-scroll ${
+          ? `absolute top-0 left-0 w-full h-full overflow-y-scroll  ${
               articles.length > articleLimit ? "scrollbar" : "scrollbar-none"
             }`
           : "absolute z-50"
@@ -202,6 +202,27 @@ export default function ArticleStack({
                 whileHover={clicked ? {} : { scale: 1.5 }}
                 onMouseEnter={() => setShowDoge(true)}
                 onMouseLeave={() => setShowDoge(false)}
+                onClick={() => {
+                  const theArticleId = `${mapId}-${article.id}`;
+                  const theArticlesClass = `article-${data.id}`;
+                  const theArticle = document.getElementById(theArticleId);
+                  const allArticles =
+                    document.getElementsByClassName(theArticlesClass);
+                  for (let i = 0; i < allArticles.length; i++) {
+                    // find all children with class name "article-container", set it invisible
+                    const articleContainer =
+                      allArticles[i].getElementsByClassName(
+                        "article-container"
+                      );
+                    if (articleContainer.length > 0) {
+                      articleContainer[0].style.visibility = "hidden";
+                    }
+                  }
+
+                  // change the clicked article to visible
+
+                  theArticle.style.visibility = "visible";
+                }}
               >
                 <Article
                   article={article}

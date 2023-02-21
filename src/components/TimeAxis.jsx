@@ -26,8 +26,6 @@ export default function TimeAxis({
     return data[maxColumnIndex].length < column.length ? index : maxColumnIndex;
   }, 0);
 
-  console.log(data);
-
   const times = data.map((column, index) => {
     const isTimeArray = Array.isArray(column[0].time);
     const startingDate = isTimeArray
