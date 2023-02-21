@@ -28,6 +28,8 @@ export default function ArticleStack({
   articleLimit,
   onAnimationComplete,
   mapId,
+  focusArticle,
+  setFocusArticleID,
 }) {
   const { width: screenWidth, height: screenHeight } = useWindowSize();
   // console.log(data);
@@ -42,7 +44,7 @@ export default function ArticleStack({
   );
 
   const [mostRecentClickedArticle, setMostRecentClickedArticle] =
-    useState(null);
+    useState(focusArticle);
 
   const handleArticleClick = (id, articleIndex) => () => {
     setMostRecentClickedArticle({ id, articleIndex });
@@ -136,6 +138,9 @@ export default function ArticleStack({
           width: articleWidth + NODEWIDTH,
           height: METROLINE_WIDTH,
         }}
+        // onMouseOver={(e) =>
+        //   console.log(e.relatedTarget.getAttribute("data-title"))
+        // }
         onMouseEnter={() => setShowDoge(true)}
         onMouseLeave={() => setShowDoge(false)}
       ></motion.div>
@@ -170,6 +175,7 @@ export default function ArticleStack({
             return (
               <motion.div
                 key={article.id}
+                data-title={article.title}
                 className={`article-${data.id} alerts-border absolute rounded-md overflow-hidden cursor-zoom-in `}
                 style={{
                   border: data.isChanged ? null : "2px solid white", //###
@@ -200,6 +206,9 @@ export default function ArticleStack({
                   }
                 }}
                 whileHover={clicked ? {} : { scale: 1.5 }}
+                onMouseOver={() => {
+                  setFocusArticleID(article.id);
+                }}
                 onMouseEnter={() => setShowDoge(true)}
                 onMouseLeave={() => setShowDoge(false)}
                 onClick={() => {

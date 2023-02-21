@@ -55,10 +55,17 @@ export default function MetroStop({
     ZOOMED_IN_ARTICLE_HEIGHT * ARTICLE_LIMIT +
     ARTICALSTACK_INNER_PADDING * (ARTICLE_LIMIT - 1);
 
-  // filter out title such as Herald Sun
-  const { title } = articles.find(
-    (article) => !EXCLUDED_TITLES.includes(article.title.toLowerCase())
-  );
+  const [focusArticleID, setFocusArticleID] = useState(null);
+
+  // setFocusArticle({`${mapId}-${article.id}`,
+  // articles.length - articleIndex - 1})
+
+  function getTitle() {
+    const article = articles.find((article) => article.id === focusArticleID);
+    return article ? article.title : null;
+  }
+
+  const title = getTitle();
 
   const [showMore, setShowMore] = useState(false);
 
@@ -91,17 +98,17 @@ export default function MetroStop({
             articleLimit={ARTICLE_LIMIT}
             onAnimationComplete={onArticleStackAnimationComplete}
             mapId={mapId}
+            focusArticleID={focusArticleID}
+            setFocusArticleID={setFocusArticleID}
           />
           {!clicked && (
             <motion.div
-              style={{
-                fontFamily: "var(--font-serif)",
-                color: "var(--primaryDark)",
-              }}
-              className={"absolute text-sm m-1 line-clamp-2 font-bold"}
+              className={
+                "absolute text-white text-sm m-1 line-clamp-2 font-bold"
+              }
               onClick={onClick}
             >
-              {/* {title} */}
+              {title}
             </motion.div>
           )}
         </>
