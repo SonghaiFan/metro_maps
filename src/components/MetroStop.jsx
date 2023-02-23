@@ -1,20 +1,13 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import ArticleStack from "./ArticleStack";
-import {
-  nodeWordsVariantsFactory,
-  MAX_ARTICLES,
-  NODE_WIDTH,
-} from "../utilities/metroStopUtilities";
+import { nodeWordsVariantsFactory } from "../utilities/metroStopUtilities";
 import { useWindowSize } from "react-use";
 import {
   ARTICALSTACK_INNER_PADDING,
-  METROSTOP_CIRCLE_SIZE,
   ARTICLE_SIZE_MULTIPLIER,
 } from "../utilities/util";
 import NeighbouringNodes from "./NeighbouringNodes";
-
-const EXCLUDED_TITLES = ["herald sun", "opinion"];
 
 export default function MetroStop({
   data,
@@ -167,11 +160,8 @@ export default function MetroStop({
               moreContent
             )}
             style={{
-              backgroundColor:
-                // "white",
-                // data.colour,
-                "#acab9f",
-              // border: data.isChanged ? null : "2px solid white", //####
+              backgroundColor: "#acab9f", // "white", // data.colour,
+              border: data.isChanged ? "2px solid white" : null, //####
             }}
             className={`node-${
               data.id

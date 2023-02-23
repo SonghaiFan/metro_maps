@@ -92,7 +92,7 @@ export default function MetroLineLabel({ data, onMetroLineLabelClick, width }) {
           wordSpacing: "100vw",
           width: "min-content", // to prevent the label from wrapping
           borderColor: "white",
-          // borderWidth: label ? (isChanged ? "0px" : "2px") : null, //###
+          borderWidth: label ? (isChanged ? "2px" : "0px") : null, //###
           borderStyle: "solid",
           borderBottom: "none",
           backgroundColor: colour, // "white"

@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Article from "./Article";
 import { articleVariantsFactory } from "../utilities/articleStackUtilities";
 import { useWindowSize } from "react-use";
-import { dodge, dodgem } from "../utilities/articleDogeUtilities";
+import { dodgem } from "../utilities/articleDogeUtilities";
 import { timeParse, timeParse2, timeParse3 } from "../utilities/util";
 import {
   ARTICALSTACK_TOP_PADDING,
@@ -101,7 +101,7 @@ export default function ArticleStack({
     // article.y_value = 0;
   });
 
-  const [showDoge, setShowDoge] = useState(false);
+  const [showDoge, setShowDoge] = useState(true);
 
   // console.log(articles);
 
@@ -109,12 +109,12 @@ export default function ArticleStack({
 
   return (
     <motion.div
-      className={`${
+      className={`absolute  ${
         clicked
-          ? `absolute top-0 left-0 w-full h-full overflow-y-scroll  ${
+          ? ` top-0 left-0 w-full h-full overflow-y-scroll  ${
               articles.length > articleLimit ? "scrollbar" : "scrollbar-none"
             }`
-          : "absolute z-50"
+          : " z-50"
       }`}
       style={{
         maxHeight: clicked ? clickedArticleContainerHeight : "100%",
@@ -128,7 +128,7 @@ export default function ArticleStack({
     >
       {/* article stack panel */}
       <motion.div
-        className="absolute rounded-full "
+        className="article--stack--panel absolute rounded-full "
         style={{
           backgroundColor: clicked ? null : "#9d9b8e",
         }}
@@ -138,21 +138,9 @@ export default function ArticleStack({
           width: articleWidth + NODEWIDTH,
           height: METROLINE_WIDTH,
         }}
-        // onMouseOver={(e) =>
-        //   console.log(e.relatedTarget.getAttribute("data-title"))
-        // }
-        onMouseEnter={() => setShowDoge(true)}
-        onMouseLeave={() => setShowDoge(false)}
+        // onMouseEnter={() => setShowDoge(true)}
+        // onMouseLeave={() => setShowDoge(false)}
       ></motion.div>
-
-      {
-        /* find the mostRecentClickedArticle and put it in at the first item in articles array*/
-        // articles
-        //   .filter((article) => article.id === mostRecentClickedArticle?.id)
-        //   .concat(
-        //     articles.filter((article) => article.id !== mostRecentClickedArticle?.id)
-        //   )
-      }
 
       {
         // reversing an array of objects: https://stackoverflow.com/questions/51479338/reverse-array-of-objects-gives-same-output-2
@@ -178,12 +166,9 @@ export default function ArticleStack({
                 data-title={article.title}
                 className={`article-${data.id} alerts-border absolute rounded-md overflow-hidden cursor-zoom-in `}
                 style={{
-                  border: data.isChanged ? null : "2px solid white", //###
+                  border: data.isChanged ? "2px solid white" : null, //###
                   backgroundColor: clicked ? "white" : "#d1cfbf",
                   borderRadius: clicked ? "6px" : "15px",
-                  // (array.length - articleIndex) % 2 === 0
-                  // ? "white"
-                  // : colour,
                 }}
                 variants={articleVariantsFactory(
                   array.length,
@@ -205,12 +190,13 @@ export default function ArticleStack({
                     onAnimationComplete();
                   }
                 }}
-                whileHover={clicked ? {} : { scale: 1.5 }}
-                onMouseOver={() => {
+                whileHover={clicked ? { scale: 1 } : { scale: 1.5 }}
+                onMouseEnter={() => {
                   setFocusArticleID(article.id);
                 }}
-                onMouseEnter={() => setShowDoge(true)}
-                onMouseLeave={() => setShowDoge(false)}
+                onMouseLeave={() => {
+                  setFocusArticleID(null);
+                }}
                 onClick={() => {
                   const theArticleId = `${mapId}-${article.id}`;
                   const theArticlesClass = `article-${data.id}`;
@@ -224,7 +210,7 @@ export default function ArticleStack({
                         "article-container"
                       );
                     if (articleContainer.length > 0) {
-                      articleContainer[0].style.backgroundColor = "#9d9b8e";
+                      articleContainer[0].style.backgroundColor = "#d1cfbf";
                     }
                   }
 

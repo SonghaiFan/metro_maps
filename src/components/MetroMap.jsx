@@ -468,7 +468,7 @@ export default function MetroMap({
 
             return (
               <motion.div
-                className={`metro-stop-wrapper absolute ${
+                className={`metro--stop--wrapper absolute ${
                   "cursor-default" // clickedNode === nodeId ? "cursor-default" : "cursor-zoom-in"###
                 }`}
                 variants={metroStopVariantsFactory(
@@ -606,7 +606,7 @@ export default function MetroMap({
 
           {/* metromap title */}
           <motion.div
-            className={`absolute ${
+            className={`metromap--title absolute ${
               isMapFocused
                 ? "text-2xl"
                 : `bg-black flex flex-col justify-start mt-10 pt-14 content-center `

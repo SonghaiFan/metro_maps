@@ -27,7 +27,6 @@ export default function MetroLine({
   width,
 }) {
   const drawPath = (coords) => {
-    // console.log("🚀 ~ file: MetroLine.jsx:30 ~ drawPath ~ coords", coords);
     let res = "";
 
     // Draws svg path through given coords
