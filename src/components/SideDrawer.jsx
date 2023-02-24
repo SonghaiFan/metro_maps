@@ -93,9 +93,6 @@ export const SideDrawer = ({
               {/* range slider with five step, label is very high, high, moderate, weak, very weak */}
 
               <motion.h1 className="text-2xl">
-                Please write the narrative/story
-              </motion.h1>
-              {/* <motion.h1 className="text-2xl">
                 Please rate the degree of connection
               </motion.h1>
               <motion.input
@@ -129,14 +126,17 @@ export const SideDrawer = ({
                 <span>Moderate</span>
                 <span>High</span>
                 <span>Very high</span>
-              </motion.div> */}
-
+              </motion.div>
+              {/* <motion.h1 className="text-2xl">
+                Please write the narrative/story
+              </motion.h1>
+              <br></br>
               <textarea
                 value={comment}
                 onChange={handleTextChange}
                 rows={3}
                 className="w-full px-4 py-2 text-gray-700 border rounded-lg focus:outline-none focus:shadow-outline"
-              />
+              /> */}
               <br></br>
               <motion.button
                 className="absolute bottom-0 right-0 flex justify-center items-center text-4xl"

@@ -71,11 +71,6 @@ export default function Menu({
       type: ACTION_TYPES.FULL_MAP_VIEW,
       payload: { map: mapId, mode: FOCUS_MODE.FULL_VIEW },
     });
-    // console.log("focusState", focusState);
-    mixpanel.track("MetroMap-onFucous button clicked", {
-      map: mapId,
-      mode: FOCUS_MODE.FULL_VIEW,
-    });
   };
 
   const articleAnimationDelayRef = useRef();
@@ -178,11 +173,6 @@ export default function Menu({
   const onNavigationBtwSessionClick = (direction) => () => {
     // Fake zoomout click to exit the full view
     onZoomOutButtonClick();
-
-    mixpanel.track("NavigationButton-onNavigationBtwSession clicked", {
-      direction: direction === PAGE_DIRECTION.RIGHT ? "right" : "left",
-      pageState: pageState,
-    });
 
     if (direction === PAGE_DIRECTION.RIGHT) {
       setPageState(nextPageState(pageState));

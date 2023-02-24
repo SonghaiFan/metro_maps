@@ -32,6 +32,7 @@ const generateMetroMapFullViewPositions = (
     .sankey()
     .links(metroMapData.links)
     .nodes(metroMapData.nodes)
+    .nodeAlign(d3Sankey.sankeyCenter)
     .size([paddedMetroMapWidth, paddedMetroMapHeight])
     .nodeId((node) => node.id);
 
@@ -166,8 +167,6 @@ const colourNodes = (nodes, lines, edges, useNodeWeight, useEdgeWeight) => {
       nodes[nodeColour.nodeId].colour = nodeColour.colour;
       nodes[nodeColour.nodeId].isChanged = false;
     });
-
-    // console.log("nodeColours", nodeColours);
   };
 
   if (useNodeWeight) {
@@ -488,10 +487,6 @@ const calculateMetroMapLayout = (
   );
 
   colourNeighbouringNodes(newNodes);
-
-  // minimiseDuplicatedNodeWords(columns, newNodes);
-
-  // console.log("newNodes from calculateMetroMap", newNodes);
 
   return [newNodes, newLines, columns];
 };

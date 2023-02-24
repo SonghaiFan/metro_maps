@@ -14,8 +14,8 @@ const estimateTimeToRead = (data) => {
 };
 
 const context = require.context("../data_norm", true, /\.json$/);
-
 // const context = require.context("../data", true, /\.json$/);
+// const context = require.context("../data_gbt", true, /\.json$/);
 
 context.keys().forEach((key, index) => {
   const data = context(key);
@@ -51,7 +51,6 @@ context.keys().forEach((key, index) => {
 //   if (subtitle) METROMAPS[index].subtitle = subtitle;
 //   if (hint) METROMAPS[index].hint = hint;
 // };
-
 // findAndModify("1-dummy-1x4-14_29", {
 //   time: 10,
 // });

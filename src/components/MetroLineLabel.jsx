@@ -45,7 +45,7 @@ export default function MetroLineLabel({ data, onMetroLineLabelClick }) {
   const angleBetweenTwoLinesDegree =
     (angleBetweenTwoLinesRadian * 180) / Math.PI;
 
-  const shiftDist = -60;
+  const shiftDist = 50;
 
   const shifDistAlongX =
     angleBetweenTwoLinesDegree > 0 &&

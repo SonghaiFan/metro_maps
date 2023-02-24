@@ -16,7 +16,7 @@ def load_json_files(path):
     return json_files
 
 
-# loop through the data and find the max and min value for all the values in data with key '
+# loop through the data and find the max and min value for all the values in data with key
 
 def update_min_max(item, weightType, minmax, type):
     if item[weightType] > minmax[type][weightType]["max"]:
@@ -143,7 +143,7 @@ if __name__ == '__main__':
         "Do you want to ignore the dummy data? (y/n): ") == 'y'
 
     # load the data
-    data = load_json_files('src/data')
+    data = load_json_files('src/data_gbt')
     minmax, weight = find_min_max_all(data, is_dummy_ignore)
     print("=====================================")
     print("The min and max value for each weight type are: ", minmax)

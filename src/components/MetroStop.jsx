@@ -6,6 +6,7 @@ import { useWindowSize } from "react-use";
 import {
   ARTICALSTACK_INNER_PADDING,
   METROSTOP_CIRCLE_SIZE,
+  ARTICLE_SIZE_MULTIPLIER,
   // LEFT_MARGIN,
   // TOP_MARGIN,
 } from "../utilities/util";
@@ -42,7 +43,6 @@ export default function MetroStop({
         .join(", ")
     : label;
 
-  const ARTICLE_SIZE_MULTIPLIER = 1.25;
   const ARTICLE_HEIGHT = (screenHeight / 18) * ARTICLE_SIZE_MULTIPLIER;
   const ARTICLE_WIDTH = (screenWidth / 13) * ARTICLE_SIZE_MULTIPLIER;
   const ZOOMED_IN_ARTICLE_HEIGHT =
@@ -96,10 +96,10 @@ export default function MetroStop({
                 fontFamily: "var(--font-serif)",
                 color: "var(--primaryDark)",
               }}
-              className={"absolute text-sm m-1 line-clamp-2 font-bold"}
+              className={"absolute text-sm m-1 line-clamp-3 font-bold"}
               onClick={onClick}
             >
-              {title}
+              {data.headline || data.label}
             </motion.div>
           )}
         </>

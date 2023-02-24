@@ -6,6 +6,7 @@ import {
   TOP_FULL_PAGE_PADDING,
   METROLINE_ANIMATION_DURATION,
   customerInterpolation,
+  ARTICLE_SIZE_MULTIPLIER,
 } from "../utilities/util";
 import { motion } from "framer-motion";
 import { metroStopVariantsFactory } from "../utilities/metroStopUtilities";
@@ -38,8 +39,8 @@ export default function MetroMap({
   zoomOutButtonClicked,
   mapId,
 }) {
-  const NODE_HEIGHT = (screenHeight / 18) * 1.25;
-  const NODE_WIDTH = (screenWidth / 13) * 1.25;
+  const NODE_HEIGHT = (screenHeight / 18) * ARTICLE_SIZE_MULTIPLIER;
+  const NODE_WIDTH = (screenWidth / 13) * ARTICLE_SIZE_MULTIPLIER;
   const LANDING_HEIGHT = screenHeight / 28;
   const LANDING_WIDTH = screenWidth / 23;
   const fullPageYPadding = title.startsWith("1")
