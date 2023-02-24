@@ -103,7 +103,7 @@ export default function ArticleStack({
                 key={article.id}
                 className={`article-${data.id} alerts-border absolute rounded-md overflow-hidden`}
                 style={{
-                  border: data.isChanged ? null : "2px solid white",
+                  border: data.isChanged ? "2px solid white" : null,
                   backgroundColor: clicked
                     ? "white"
                     : (array.length - articleIndex) % 2 === 0

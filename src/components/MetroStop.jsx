@@ -127,7 +127,7 @@ export default function MetroStop({
             id={data.id}
             style={{
               backgroundColor: data.colour, //"white"
-              border: data.isChanged ? null : "2px solid white",
+              border: data.isChanged ? "2px solid white" : null,
             }}
             animate={{
               width: METROSTOP_CIRCLE_SIZE,
@@ -164,7 +164,7 @@ export default function MetroStop({
               backgroundColor:
                 // "white",
                 data.colour,
-              border: data.isChanged ? null : "2px solid white",
+              border: data.isChanged ? "2px solid white" : null,
             }}
             className={`node-${
               data.id
