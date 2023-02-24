@@ -108,7 +108,7 @@ export default function ArticleStack({
                     ? "white"
                     : (array.length - articleIndex) % 2 === 0
                     ? "white"
-                    : colour,
+                    : "#d1cfbf",
                 }}
                 variants={articleVariantsFactory(
                   array.length,

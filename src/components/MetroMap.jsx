@@ -12,7 +12,7 @@ import { motion } from "framer-motion";
 import { metroStopVariantsFactory } from "../utilities/metroStopUtilities";
 import { generatePaths } from "../utilities/metroMapUtilities";
 import NavigationButton from "./NavigationButton";
-import { AiOutlineFullscreenExit } from "react-icons/ai";
+import { AiOutlineFullscreenExit, AiOutlineMenu } from "react-icons/ai";
 import MetroMapDescription from "./MetroMapDescription";
 import MetroLine from "./MetroLine";
 import MetroLineLabel from "./MetroLineLabel";
@@ -150,7 +150,7 @@ export default function MetroMap({
 
       linePathCoords.forEach((coords) => {
         if (coords.source === pathStartId && coords.target === pathEndId) {
-          coords.isChanged = true;
+          coords.isChanged = !coords.isChanged;
         }
       });
     }
@@ -160,14 +160,14 @@ export default function MetroMap({
   const unHighlightConfirmedNodes = (nodes, nodeId) => {
     const updatedNodes = Object.assign({}, nodes);
     if (updatedNodes[nodeId]) {
-      updatedNodes[nodeId].isChanged = true;
+      updatedNodes[nodeId].isChanged = !updatedNodes[nodeId].isChanged;
     }
     for (let eachNode in updatedNodes) {
       const conNodes = updatedNodes[eachNode].connectedNodes;
 
       conNodes.forEach((node) => {
         if (node.id === nodeId) {
-          node.isChanged = true;
+          node.isChanged = !node.isChanged;
         }
       });
     }
@@ -216,15 +216,15 @@ export default function MetroMap({
 
   const openSideDrawer = (who) => {
     // highlight who dom element by adding a class
-    who.classList.add("highlight");
+    // who.classList.add("highlight");
 
-    setWhoOpenSideDrawer(who);
+    // setWhoOpenSideDrawer(who);
     setSideDrawerOpen(true);
   };
 
   const closeSideDrawer = () => {
     // remove highlight class from who dom element
-    whoOpenSideDrawer.classList.remove("highlight");
+    // whoOpenSideDrawer.classList.remove("highlight");
     setSideDrawerOpen(false);
   };
 
@@ -412,7 +412,7 @@ export default function MetroMap({
                     <MetroLine
                       data={paths}
                       onClickToOpenDrawer={(event) => {
-                        openSideDrawer(event.target);
+                        handleSideDrawerConfirmed(event.target);
                       }}
                     />
                   </motion.g>
@@ -442,7 +442,7 @@ export default function MetroMap({
                           data={label}
                           isChanged={false}
                           onMetroLineLabelClick={(event) => {
-                            openSideDrawer(event.target);
+                            handleSideDrawerConfirmed(event.target);
                           }}
                         />
                       );
@@ -502,9 +502,9 @@ export default function MetroMap({
                   onArticleStackAnimationComplete={
                     onArticleStackAnimationComplete
                   }
-                  onNeighbourNodeLabelClick={openSideDrawer}
-                  onNodeNumberLabelClick={openSideDrawer}
-                  onNodeWordsLabelClick={openSideDrawer}
+                  onNeighbourNodeLabelClick={handleSideDrawerConfirmed}
+                  onNodeNumberLabelClick={handleSideDrawerConfirmed}
+                  onNodeWordsLabelClick={handleSideDrawerConfirmed}
                   onZoomOutClick={onZoomOutButtonClick}
                   mapId={mapId}
                 />
@@ -624,7 +624,7 @@ export default function MetroMap({
                 animate={isMapFocused ? {} : titleAnimation}
                 ref={titleRef}
               >
-                {/* {title} */}
+                {title}
               </motion.h2>
             </motion.div>
             <MetroMapDescription
@@ -648,6 +648,15 @@ export default function MetroMap({
         <AiOutlineFullscreenExit size={40} />
       </NavigationButton>
 
+      {/* button that open the drawer */}
+      <NavigationButton
+        onClick={openSideDrawer}
+        className={`right-[1%] bottom-[3%] z-50`}
+        isVisible={isMapFocused}
+      >
+        <AiOutlineMenu size={40} />
+      </NavigationButton>
+
       {/* {isMapFocused && ( */}
       <SideDrawer
         isVisible={sideDrawerOpen}
@@ -658,6 +667,7 @@ export default function MetroMap({
         whoOpenSideDrawer={whoOpenSideDrawer}
         handleSideDrawerConfirmed={handleSideDrawerConfirmed}
         handleChange={handleCustomChange}
+        handleSideDrawerClose={closeSideDrawer}
       ></SideDrawer>
       {/* )} */}
     </motion.div>

@@ -60,7 +60,7 @@ export default function MetroLine({
                 d={drawPath(path.path)}
                 style={{
                   fill: "transparent",
-                  strokeWidth: strokeWidth + 4 || METROLINE_WIDTH + 4,
+                  strokeWidth: strokeWidth + 4 || METROLINE_WIDTH + 6,
                   stroke: "white",
                 }}
                 variants={metroLineVariantFactory}

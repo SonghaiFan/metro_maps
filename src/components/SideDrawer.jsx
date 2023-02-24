@@ -24,6 +24,7 @@ export const SideDrawer = ({
   const handleSubmit = (event) => {
     event.preventDefault();
     setComment("");
+    close();
   };
 
   const handleTextChange = (event) => {
@@ -85,65 +86,21 @@ export const SideDrawer = ({
             </motion.button>
             <motion.button
               className="absolute bottom-0 right-0 flex justify-center items-center text-4xl"
-              onClick={() => handleSideDrawerConfirmed(whoOpenSideDrawer)}
+              onClick={handleSubmit}
             >
               <MdCheck />
             </motion.button>
             <motion.div className="text-2xl mx-10">
-              {/* range slider with five step, label is very high, high, moderate, weak, very weak */}
-
               <motion.h1 className="text-2xl">
-                Please rate the degree of connection
-              </motion.h1>
-              <motion.input
-                id="range-slider"
-                type="range"
-                className="w-full h-3 bg-gray-70 rounded-lg appearance-none cursor-pointer range-lg"
-                min="0"
-                max="1"
-                step="0.25"
-                defaultValue={whoValue}
-                list="tickmarks"
-                onChange={handleChange}
-              />
-              <motion.datalist id="tickmarks" className="felex flex-col ">
-                <option>Very high</option>
-                <option>High</option>
-                <option>Moderate</option>
-                <option>Weak</option>
-                <option>Very weak</option>
-              </motion.datalist>
-              <motion.div className="w-full flex justify-between text-xs px-2">
-                <span>|</span>
-                <span>|</span>
-                <span>|</span>
-                <span>|</span>
-                <span>|</span>
-              </motion.div>
-              <motion.div className="w-full flex justify-between text-xs px-2">
-                <span>Very weak</span>
-                <span>Weak</span>
-                <span>Moderate</span>
-                <span>High</span>
-                <span>Very high</span>
-              </motion.div>
-              {/* <motion.h1 className="text-2xl">
                 Please write the narrative/story
               </motion.h1>
-              <br></br>
               <textarea
                 value={comment}
                 onChange={handleTextChange}
                 rows={3}
                 className="w-full px-4 py-2 text-gray-700 border rounded-lg focus:outline-none focus:shadow-outline"
-              /> */}
+              />
               <br></br>
-              <motion.button
-                className="absolute bottom-0 right-0 flex justify-center items-center text-4xl"
-                onClick={() => handleSideDrawerConfirmed(whoOpenSideDrawer)}
-              >
-                <MdCheck />
-              </motion.button>
               <motion.h1 className="text-sm max-w-xl ">
                 PS: Based on your reading, what is the overall story of the
                 links you selected? Write with your own words.
