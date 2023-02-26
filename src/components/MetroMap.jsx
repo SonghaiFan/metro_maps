@@ -13,6 +13,7 @@ import { metroStopVariantsFactory } from "../utilities/metroStopUtilities";
 import { generatePaths } from "../utilities/metroMapUtilities";
 import NavigationButton from "./NavigationButton";
 import { AiOutlineFullscreenExit, AiOutlineMenu } from "react-icons/ai";
+import { TbWriting } from "react-icons/tb";
 import MetroMapDescription from "./MetroMapDescription";
 import MetroLine from "./MetroLine";
 import MetroLineLabel from "./MetroLineLabel";
@@ -70,6 +71,10 @@ export default function MetroMap({
     node: new Set(),
     edge: new Set(),
   });
+  console.log(
+    "🚀 ~ file: MetroMap.jsx:73 ~ whoConfirmedInput:",
+    whoConfirmedInput
+  );
   /////////////////////////// Side Drawer input change ///////////////////////////
 
   const addCutomNodeColor = (nodes, nodeId, newColour) => {
@@ -184,7 +189,11 @@ export default function MetroMap({
       });
 
       const updatedWhoConfirmedInput = Object.assign({}, whoConfirmedInput);
-      updatedWhoConfirmedInput.edge.add(whoId);
+      if (whoConfirmedInput.edge.has(whoId)) {
+        whoConfirmedInput.edge.delete(whoId);
+      } else {
+        whoConfirmedInput.edge.add(whoId);
+      }
       setWhoConfirmedInput(updatedWhoConfirmedInput);
 
       unHighlightConfirmedLines(customLines, whoId);
@@ -200,7 +209,11 @@ export default function MetroMap({
       });
 
       const updatedWhoConfirmedInput = Object.assign({}, whoConfirmedInput);
-      updatedWhoConfirmedInput.node.add(whoId);
+      if (whoConfirmedInput.node.has(whoId)) {
+        whoConfirmedInput.node.delete(whoId);
+      } else {
+        whoConfirmedInput.node.add(whoId);
+      }
       setWhoConfirmedInput(updatedWhoConfirmedInput);
 
       unHighlightConfirmedNodes(customNodes, whoId);
@@ -651,10 +664,10 @@ export default function MetroMap({
       {/* button that open the drawer */}
       <NavigationButton
         onClick={openSideDrawer}
-        className={`right-[1%] bottom-[3%] z-50`}
+        className={`right-[1%] bottom-[3%] z-50 bg-neutral-800 p-2`}
         isVisible={isMapFocused}
       >
-        <AiOutlineMenu size={40} />
+        <TbWriting size={40} />
       </NavigationButton>
 
       {/* {isMapFocused && ( */}
@@ -664,10 +677,9 @@ export default function MetroMap({
         screenWidth={screenWidth}
         screenHeight={screenHeight}
         paddingY={paddingY}
-        whoOpenSideDrawer={whoOpenSideDrawer}
+        whoOpenSideDrawer={whoConfirmedInput}
         handleSideDrawerConfirmed={handleSideDrawerConfirmed}
         handleChange={handleCustomChange}
-        handleSideDrawerClose={closeSideDrawer}
       ></SideDrawer>
       {/* )} */}
     </motion.div>

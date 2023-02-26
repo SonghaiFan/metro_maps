@@ -92,9 +92,12 @@ export default function MetroLineLabel({ data, onMetroLineLabelClick }) {
           wordSpacing: "100vw",
           width: "min-content", // to prevent the label from wrapping
           borderColor: "white",
-          borderWidth: label ? (isChanged ? "2px" : "0px") : null,
+          // Updating a style property during rerender (borderWidth) when a conflicting property is set (borderBottomWidth) can lead to styling bugs. To avoid this, don't mix shorthand and non-shorthand properties for the same value; instead, replace the shorthand with separate values.
+          borderTopWidth: label ? (isChanged ? "2px" : "0px") : null,
+          borderLeftWidth: label ? (isChanged ? "2px" : "0px") : null,
+          borderRightWidth: label ? (isChanged ? "2px" : "0px") : null,
+          borderBottomWidth: "0",
           borderStyle: "solid",
-          borderBottom: "none",
           backgroundColor: colour, // "white"
         }}
         animate={{

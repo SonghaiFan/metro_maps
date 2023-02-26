@@ -17,7 +17,7 @@ export const SideDrawer = ({
   const drawerHeight = screenHeight / 4;
   // check if whoOpenSideDrawer dom element is on top half of the screen
 
-  const [isOnTopHalf, setIsOnTopHalf] = useState(false);
+  const [isOnTopHalf, setIsOnTopHalf] = useState(true);
 
   const [comment, setComment] = useState("");
 
@@ -31,35 +31,37 @@ export const SideDrawer = ({
     setComment(event.target.value);
   };
 
-  useEffect(() => {
-    setIsOnTopHalf(
-      whoOpenSideDrawer
-        ? whoOpenSideDrawer.getBoundingClientRect().top < screenHeight / 2
-        : false
-    );
-  }, [whoOpenSideDrawer, screenHeight]);
+  // useEffect(() => {
+  //   setIsOnTopHalf(
+  //     whoOpenSideDrawer
+  //       ? whoOpenSideDrawer.getBoundingClientRect().top < screenHeight / 2
+  //       : false
+  //   );
+  // }, [whoOpenSideDrawer, screenHeight]);
 
-  const getColour = (whoOpenSideDrawer) => {
-    if (whoOpenSideDrawer) {
-      const type = whoOpenSideDrawer.dataset.type;
-      // console.log("type", type);
-      if (type === "metro-line-path") {
-        // return path element stroke properties
+  // const getColour = (whoOpenSideDrawer) => {
+  //   if (whoOpenSideDrawer) {
+  //     const type = whoOpenSideDrawer.dataset.type;
+  //     // console.log("type", type);
+  //     if (type === "metro-line-path") {
+  //       // return path element stroke properties
 
-        return getComputedStyle(whoOpenSideDrawer).stroke;
-      } else {
-        return whoOpenSideDrawer.style.backgroundColor;
-      }
-    }
-  };
+  //       return getComputedStyle(whoOpenSideDrawer).stroke;
+  //     } else {
+  //       return whoOpenSideDrawer.style.backgroundColor;
+  //     }
+  //   }
+  // };
 
-  const whoColour = getColour(whoOpenSideDrawer);
-  const whoValue = invertCustomerInterpolation(whoColour);
+  // const whoColour = getColour(whoOpenSideDrawer);
+  // const whoValue = invertCustomerInterpolation(whoColour);
 
   return (
     <AnimatePresence>
       {isVisible && (
         <>
+          {/* print out whoOpenSideDrawer as stirng */}
+
           <motion.div
             className="drawer-modal absolute w-screen h-screen bg-black z-50"
             style={{ opacity: 0.3 }}
@@ -91,9 +93,7 @@ export const SideDrawer = ({
               <MdCheck />
             </motion.button>
             <motion.div className="text-2xl mx-10">
-              <motion.h1 className="text-2xl">
-                Please write the narrative/story
-              </motion.h1>
+              <h1 className="text-2xl">Please write the narrative/story</h1>
               <textarea
                 value={comment}
                 onChange={handleTextChange}
@@ -101,10 +101,10 @@ export const SideDrawer = ({
                 className="w-full px-4 py-2 text-gray-700 border rounded-lg focus:outline-none focus:shadow-outline"
               />
               <br></br>
-              <motion.h1 className="text-sm max-w-xl ">
+              <h1 className="text-sm max-w-xl ">
                 PS: Based on your reading, what is the overall story of the
                 links you selected? Write with your own words.
-              </motion.h1>
+              </h1>
             </motion.div>
           </motion.div>
         </>
