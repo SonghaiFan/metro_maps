@@ -99,7 +99,7 @@ export default function MetroStop({
               className={"absolute text-sm m-1 line-clamp-3 font-bold"}
               onClick={onClick}
             >
-              {data.headline || data.label}
+              {data.headline}
             </motion.div>
           )}
         </>
