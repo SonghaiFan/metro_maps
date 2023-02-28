@@ -152,7 +152,7 @@ export default function MetroMap({
 
       linePathCoords.forEach((coords) => {
         if (coords.source === pathStartId && coords.target === pathEndId) {
-          coords.isChanged = true;
+          coords.isChanged = !coords.isChanged;
         }
       });
     }
@@ -162,14 +162,14 @@ export default function MetroMap({
   const unHighlightConfirmedNodes = (nodes, nodeId) => {
     const updatedNodes = Object.assign({}, nodes);
     if (updatedNodes[nodeId]) {
-      updatedNodes[nodeId].isChanged = true;
+      updatedNodes[nodeId].isChanged = !updatedNodes[nodeId].isChanged;
     }
     for (let eachNode in updatedNodes) {
       const conNodes = updatedNodes[eachNode].connectedNodes;
 
       conNodes.forEach((node) => {
         if (node.id === nodeId) {
-          node.isChanged = true;
+          node.isChanged = !node.isChanged;
         }
       });
     }
