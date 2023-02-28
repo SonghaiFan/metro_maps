@@ -17,51 +17,37 @@ export const SideDrawer = ({
   const drawerHeight = screenHeight / 4;
   // check if whoOpenSideDrawer dom element is on top half of the screen
 
-  const [isOnTopHalf, setIsOnTopHalf] = useState(true);
+  const [isOnTopHalf, setIsOnTopHalf] = useState(false);
 
-  const [comment, setComment] = useState("");
+  useEffect(() => {
+    setIsOnTopHalf(
+      whoOpenSideDrawer
+        ? whoOpenSideDrawer.getBoundingClientRect().top < screenHeight / 2
+        : false
+    );
+  }, [whoOpenSideDrawer, screenHeight]);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setComment("");
-    close();
+  const getColour = (whoOpenSideDrawer) => {
+    if (whoOpenSideDrawer) {
+      const type = whoOpenSideDrawer.dataset.type;
+      // console.log("type", type);
+      if (type === "metro-line-path") {
+        // return path element stroke properties
+
+        return getComputedStyle(whoOpenSideDrawer).stroke;
+      } else {
+        return whoOpenSideDrawer.style.backgroundColor;
+      }
+    }
   };
 
-  const handleTextChange = (event) => {
-    setComment(event.target.value);
-  };
-
-  // useEffect(() => {
-  //   setIsOnTopHalf(
-  //     whoOpenSideDrawer
-  //       ? whoOpenSideDrawer.getBoundingClientRect().top < screenHeight / 2
-  //       : false
-  //   );
-  // }, [whoOpenSideDrawer, screenHeight]);
-
-  // const getColour = (whoOpenSideDrawer) => {
-  //   if (whoOpenSideDrawer) {
-  //     const type = whoOpenSideDrawer.dataset.type;
-  //     // console.log("type", type);
-  //     if (type === "metro-line-path") {
-  //       // return path element stroke properties
-
-  //       return getComputedStyle(whoOpenSideDrawer).stroke;
-  //     } else {
-  //       return whoOpenSideDrawer.style.backgroundColor;
-  //     }
-  //   }
-  // };
-
-  // const whoColour = getColour(whoOpenSideDrawer);
-  // const whoValue = invertCustomerInterpolation(whoColour);
+  const whoColour = getColour(whoOpenSideDrawer);
+  const whoValue = invertCustomerInterpolation(whoColour);
 
   return (
     <AnimatePresence>
       {isVisible && (
         <>
-          {/* print out whoOpenSideDrawer as stirng */}
-
           <motion.div
             className="drawer-modal absolute w-screen h-screen bg-black z-50"
             style={{ opacity: 0.3 }}
@@ -86,25 +72,58 @@ export const SideDrawer = ({
             >
               <MdClose />
             </motion.button>
-            <motion.button
-              className="absolute bottom-0 right-0 flex justify-center items-center text-4xl"
-              onClick={handleSubmit}
-            >
-              <MdCheck />
-            </motion.button>
+
             <motion.div className="text-2xl mx-10">
-              <h1 className="text-2xl">Please write the narrative/story</h1>
-              <textarea
-                value={comment}
-                onChange={handleTextChange}
-                rows={3}
-                className="w-full px-4 py-2 text-gray-700 border rounded-lg focus:outline-none focus:shadow-outline"
+              {/* range slider with five step, label is very high, high, moderate, weak, very weak */}
+              <motion.h1 className="text-2xl">
+                Please rate the degree of connection
+              </motion.h1>
+              <motion.input
+                id="range-slider"
+                type="range"
+                className="w-full h-3 bg-gray-70 rounded-lg appearance-none cursor-pointer range-lg"
+                min="0"
+                max="1"
+                step="0.25"
+                defaultValue={whoValue}
+                list="tickmarks"
+                onChange={handleChange}
               />
+              <motion.datalist id="tickmarks" className="felex flex-col ">
+                <option>Very high</option>
+                <option>High</option>
+                <option>Moderate</option>
+                <option>Weak</option>
+                <option>Very weak</option>
+              </motion.datalist>
+              <motion.div className="w-full flex justify-between text-xs px-2">
+                <span>|</span>
+                <span>|</span>
+                <span>|</span>
+                <span>|</span>
+                <span>|</span>
+              </motion.div>
+              <motion.div className="w-full flex justify-between text-xs px-2">
+                <span>Very weak</span>
+                <span>Weak</span>
+                <span>Moderate</span>
+                <span>High</span>
+                <span>Very high</span>
+              </motion.div>
               <br></br>
-              <h1 className="text-sm max-w-xl ">
-                PS: Based on your reading, what is the overall story of the
-                links you selected? Write with your own words.
-              </h1>
+              <motion.button
+                className="absolute bottom-0 right-0 flex justify-center items-center text-4xl"
+                onClick={() => handleSideDrawerConfirmed(whoOpenSideDrawer)}
+              >
+                <MdCheck />
+              </motion.button>
+              <motion.h1 className="text-sm max-w-xl ">
+                PS: Based on your reading, how relatively strong is the
+                connection in this corpus? Either change it or leave it as it
+                is. confirm your choice by clicking confrim button. Exit the
+                side drawer by clicking the close button or anywhere outside the
+                side drawer.
+              </motion.h1>
             </motion.div>
           </motion.div>
         </>
