@@ -5,14 +5,15 @@ import {
   margin,
   TOP_FULL_PAGE_PADDING,
   METROLINE_ANIMATION_DURATION,
-  ARTICLE_SIZE_MULTIPLIER,
   customerInterpolation,
+  ARTICLE_SIZE_MULTIPLIER,
 } from "../utilities/util";
 import { motion } from "framer-motion";
 import { metroStopVariantsFactory } from "../utilities/metroStopUtilities";
 import { generatePaths } from "../utilities/metroMapUtilities";
 import NavigationButton from "./NavigationButton";
 import { AiOutlineFullscreenExit } from "react-icons/ai";
+import { TbWriting } from "react-icons/tb";
 import MetroMapDescription from "./MetroMapDescription";
 import MetroLine from "./MetroLine";
 import MetroLineLabel from "./MetroLineLabel";
@@ -49,8 +50,6 @@ export default function MetroMap({
   // const fullPageYPadding = margin.y * screenHeight + TOP_FULL_PAGE_PADDING;
   const fullPageXPadding = margin.x * screenWidth;
 
-  const ARTICLE_WIDTH = (screenWidth / 13) * ARTICLE_SIZE_MULTIPLIER;
-
   const paddingX = fullPageXPadding - NODE_WIDTH / 2;
   const paddingY = fullPageYPadding - NODE_HEIGHT;
 
@@ -72,6 +71,10 @@ export default function MetroMap({
     node: new Set(),
     edge: new Set(),
   });
+  console.log(
+    "🚀 ~ file: MetroMap.jsx:73 ~ whoConfirmedInput:",
+    whoConfirmedInput
+  );
   /////////////////////////// Side Drawer input change ///////////////////////////
 
   const addCutomNodeColor = (nodes, nodeId, newColour) => {
@@ -152,7 +155,7 @@ export default function MetroMap({
 
       linePathCoords.forEach((coords) => {
         if (coords.source === pathStartId && coords.target === pathEndId) {
-          coords.isChanged = true;
+          coords.isChanged = !coords.isChanged;
         }
       });
     }
@@ -162,14 +165,14 @@ export default function MetroMap({
   const unHighlightConfirmedNodes = (nodes, nodeId) => {
     const updatedNodes = Object.assign({}, nodes);
     if (updatedNodes[nodeId]) {
-      updatedNodes[nodeId].isChanged = true;
+      updatedNodes[nodeId].isChanged = !updatedNodes[nodeId].isChanged;
     }
     for (let eachNode in updatedNodes) {
       const conNodes = updatedNodes[eachNode].connectedNodes;
 
       conNodes.forEach((node) => {
         if (node.id === nodeId) {
-          node.isChanged = true;
+          node.isChanged = !node.isChanged;
         }
       });
     }
@@ -186,7 +189,11 @@ export default function MetroMap({
       });
 
       const updatedWhoConfirmedInput = Object.assign({}, whoConfirmedInput);
-      updatedWhoConfirmedInput.edge.add(whoId);
+      if (whoConfirmedInput.edge.has(whoId)) {
+        whoConfirmedInput.edge.delete(whoId);
+      } else {
+        whoConfirmedInput.edge.add(whoId);
+      }
       setWhoConfirmedInput(updatedWhoConfirmedInput);
 
       unHighlightConfirmedLines(customLines, whoId);
@@ -202,7 +209,11 @@ export default function MetroMap({
       });
 
       const updatedWhoConfirmedInput = Object.assign({}, whoConfirmedInput);
-      updatedWhoConfirmedInput.node.add(whoId);
+      if (whoConfirmedInput.node.has(whoId)) {
+        whoConfirmedInput.node.delete(whoId);
+      } else {
+        whoConfirmedInput.node.add(whoId);
+      }
       setWhoConfirmedInput(updatedWhoConfirmedInput);
 
       unHighlightConfirmedNodes(customNodes, whoId);
@@ -218,15 +229,15 @@ export default function MetroMap({
 
   const openSideDrawer = (who) => {
     // highlight who dom element by adding a class
-    who.classList.add("highlight");
+    // who.classList.add("highlight");
 
-    setWhoOpenSideDrawer(who);
+    // setWhoOpenSideDrawer(who);
     setSideDrawerOpen(true);
   };
 
   const closeSideDrawer = () => {
     // remove highlight class from who dom element
-    whoOpenSideDrawer.classList.remove("highlight");
+    // whoOpenSideDrawer.classList.remove("highlight");
     setSideDrawerOpen(false);
   };
 
@@ -378,8 +389,6 @@ export default function MetroMap({
             <TimeAxis
               data={columns}
               nodeWidth={NODE_WIDTH}
-              screenWidth={screenWidth}
-              screenHeight={screenHeight}
               nodeHeight={NODE_HEIGHT}
               paddingX={paddingX}
               paddingY={paddingY}
@@ -415,9 +424,8 @@ export default function MetroMap({
                   >
                     <MetroLine
                       data={paths}
-                      width={ARTICLE_WIDTH}
                       onClickToOpenDrawer={(event) => {
-                        openSideDrawer(event.target);
+                        handleSideDrawerConfirmed(event.target);
                       }}
                     />
                   </motion.g>
@@ -428,6 +436,8 @@ export default function MetroMap({
             {/* link labels */}
             <motion.div className="absolute">
               {metroLineData.map((data) => {
+                // console.log("Object.entries(data)", Object.entries(data));
+                // console.log("Object.entries(data)[0]", Object.entries(data)[0]);
                 const [lineId, { labels }] = Object.entries(data)[0];
 
                 return (
@@ -445,9 +455,8 @@ export default function MetroMap({
                           data={label}
                           isChanged={false}
                           onMetroLineLabelClick={(event) => {
-                            openSideDrawer(event.target);
+                            handleSideDrawerConfirmed(event.target);
                           }}
-                          width={ARTICLE_WIDTH}
                         />
                       );
                     })}
@@ -468,8 +477,8 @@ export default function MetroMap({
 
             return (
               <motion.div
-                className={`metro--stop--wrapper absolute ${
-                  "cursor-default" // clickedNode === nodeId ? "cursor-default" : "cursor-zoom-in"###
+                className={`metro-stop-wrapper absolute ${
+                  clickedNode === nodeId ? "cursor-default" : "cursor-zoom-in"
                 }`}
                 variants={metroStopVariantsFactory(
                   screenWidth,
@@ -506,9 +515,9 @@ export default function MetroMap({
                   onArticleStackAnimationComplete={
                     onArticleStackAnimationComplete
                   }
-                  onNeighbourNodeLabelClick={openSideDrawer}
-                  onNodeNumberLabelClick={openSideDrawer}
-                  onNodeWordsLabelClick={openSideDrawer}
+                  onNeighbourNodeLabelClick={handleSideDrawerConfirmed}
+                  onNodeNumberLabelClick={handleSideDrawerConfirmed}
+                  onNodeWordsLabelClick={handleSideDrawerConfirmed}
                   onZoomOutClick={onZoomOutButtonClick}
                   mapId={mapId}
                 />
@@ -543,7 +552,6 @@ export default function MetroMap({
                   >
                     <MetroLine
                       data={foundLinkData.data}
-                      width={ARTICLE_WIDTH}
                       reversed={foundLinkData.reversed}
                     />
                   </motion.g>
@@ -606,7 +614,7 @@ export default function MetroMap({
 
           {/* metromap title */}
           <motion.div
-            className={`metromap--title absolute ${
+            className={`absolute ${
               isMapFocused
                 ? "text-2xl"
                 : `bg-black flex flex-col justify-start mt-10 pt-14 content-center `
@@ -653,6 +661,15 @@ export default function MetroMap({
         <AiOutlineFullscreenExit size={40} />
       </NavigationButton>
 
+      {/* button that open the drawer */}
+      <NavigationButton
+        onClick={openSideDrawer}
+        className={`right-[1%] bottom-[3%] z-50 bg-neutral-800 p-2`}
+        isVisible={isMapFocused}
+      >
+        <TbWriting size={40} />
+      </NavigationButton>
+
       {/* {isMapFocused && ( */}
       <SideDrawer
         isVisible={sideDrawerOpen}
@@ -660,7 +677,7 @@ export default function MetroMap({
         screenWidth={screenWidth}
         screenHeight={screenHeight}
         paddingY={paddingY}
-        whoOpenSideDrawer={whoOpenSideDrawer}
+        whoOpenSideDrawer={whoConfirmedInput}
         handleSideDrawerConfirmed={handleSideDrawerConfirmed}
         handleChange={handleCustomChange}
       ></SideDrawer>
