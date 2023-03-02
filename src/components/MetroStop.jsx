@@ -146,7 +146,7 @@ export default function MetroStop({
         )} */}
 
         {/* node words label */}
-        {shouldRenderContent && (
+        {/* {shouldRenderContent && (
           <motion.div
             data-type="node-words-label"
             id={data.id}
@@ -179,7 +179,7 @@ export default function MetroStop({
           >
             {showMore ? moreContent : content}
           </motion.div>
-        )}
+        )} */}
       </motion.div>
     </>
   );
