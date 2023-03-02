@@ -67,81 +67,81 @@ export default function MetroMap({
   const [customNodes, setCustomeNodes] = useState(nodes);
   const [customLines, setCustomLines] = useState(lines);
   const [sideDrawerOpen, setSideDrawerOpen] = useState(false);
-  const [whoOpenSideDrawer, setWhoOpenSideDrawer] = useState();
+  // const [whoOpenSideDrawer, setWhoOpenSideDrawer] = useState();
   const [whoConfirmedInput, setWhoConfirmedInput] = useState({
     node: new Set(),
     edge: new Set(),
   });
   /////////////////////////// Side Drawer input change ///////////////////////////
 
-  const addCutomNodeColor = (nodes, nodeId, newColour) => {
-    const updatedNodes = Object.assign({}, nodes);
-    if (updatedNodes[nodeId]) {
-      updatedNodes[nodeId].colour = newColour;
-    }
-    for (let eachNode in updatedNodes) {
-      const conNodes = updatedNodes[eachNode].connectedNodes;
+  // const addCutomNodeColor = (nodes, nodeId, newColour) => {
+  //   const updatedNodes = Object.assign({}, nodes);
+  //   if (updatedNodes[nodeId]) {
+  //     updatedNodes[nodeId].colour = newColour;
+  //   }
+  //   for (let eachNode in updatedNodes) {
+  //     const conNodes = updatedNodes[eachNode].connectedNodes;
 
-      conNodes.forEach((node) => {
-        if (node.id === nodeId) {
-          node.colour = newColour;
-        }
-      });
-    }
-    setCustomeNodes(updatedNodes);
-  };
+  //     conNodes.forEach((node) => {
+  //       if (node.id === nodeId) {
+  //         node.colour = newColour;
+  //       }
+  //     });
+  //   }
+  //   setCustomeNodes(updatedNodes);
+  // };
 
-  const addCutomLineColor = (lines, pathId, newColour) => {
-    const updatedLines = Object.assign({}, lines);
+  // const addCutomLineColor = (lines, pathId, newColour) => {
+  //   const updatedLines = Object.assign({}, lines);
 
-    const [pathStartId, pathEndId] = pathId.split("-");
+  //   const [pathStartId, pathEndId] = pathId.split("-");
 
-    for (let lineId in updatedLines) {
-      const linePathCoords = updatedLines[lineId].pathCoords;
+  //   for (let lineId in updatedLines) {
+  //     const linePathCoords = updatedLines[lineId].pathCoords;
 
-      linePathCoords.forEach((coords) => {
-        if (coords.source === pathStartId && coords.target === pathEndId) {
-          coords.edgeColour = newColour;
-        }
-      });
-    }
-    setCustomLines(updatedLines);
-  };
+  //     linePathCoords.forEach((coords) => {
+  //       if (coords.source === pathStartId && coords.target === pathEndId) {
+  //         coords.edgeColour = newColour;
+  //       }
+  //     });
+  //   }
+  //   setCustomLines(updatedLines);
+  // };
 
-  const handleCustomChange = (event) => {
-    // console.log("in the drawer: ", whoOpenSideDrawer);
-    mixpanel.track("Metro label changed", {
-      value: event.target.value,
-    });
+  // const handleCustomChange = (event) => {
+  //   // console.log("in the drawer: ", whoOpenSideDrawer);
+  //   mixpanel.track("Metro label changed", {
+  //     value: event.target.value,
+  //   });
 
-    const newColour = customerInterpolation(event.target.value);
+  //   const newColour = customerInterpolation(event.target.value);
 
-    const type = whoOpenSideDrawer.dataset.type;
-    // console.log("type", type);
-    const whoId = whoOpenSideDrawer.id;
+  //   const type = whoOpenSideDrawer.dataset.type;
+  //   // console.log("type", type);
+  //   const whoId = whoOpenSideDrawer.id;
 
-    if (type === "metro-line-label" || type === "metro-line-path") {
-      mixpanel.track("Metro line label colour changed", {
-        lineID: whoId,
-        newColour: newColour,
-      });
-      // console.log(`this is a metro line label at ${whoId}`);
-      addCutomLineColor(customLines, whoId, newColour);
-    }
+  //   if (type === "metro-line-label" || type === "metro-line-path") {
+  //     mixpanel.track("Metro line label colour changed", {
+  //       lineID: whoId,
+  //       newColour: newColour,
+  //     });
+  //     // console.log(`this is a metro line label at ${whoId}`);
+  //     addCutomLineColor(customLines, whoId, newColour);
+  //   }
 
-    if (
-      type === "node-words-label" ||
-      type === "node-number-label" ||
-      type === "neighbour-node-label"
-    ) {
-      mixpanel.track("Node word label colour changed", {
-        nodeID: whoId,
-        newColour: newColour,
-      });
-      // console.log(`this is a node word label at ${whoId}`);
-      addCutomNodeColor(customNodes, whoId, newColour);
-    }
-  };
+  //   if (
+  //     type === "node-words-label" ||
+  //     type === "node-number-label" ||
+  //     type === "neighbour-node-label"
+  //   ) {
+  //     mixpanel.track("Node word label colour changed", {
+  //       nodeID: whoId,
+  //       newColour: newColour,
+  //     });
+  //     // console.log(`this is a node word label at ${whoId}`);
+  //     addCutomNodeColor(customNodes, whoId, newColour);
+  //   }
+  // };
 
   const unHighlightConfirmedLines = (lines, pathId) => {
     const updatedLines = Object.assign({}, lines);
@@ -181,12 +181,12 @@ export default function MetroMap({
     const whoId = who.id;
 
     if (type === "metro-line-label" || type === "metro-line-path") {
-      mixpanel.track("Metro line label confirmed", {
-        lineID: whoId,
-      });
-
       const updatedWhoConfirmedInput = Object.assign({}, whoConfirmedInput);
-      updatedWhoConfirmedInput.edge.add(whoId);
+      if (whoConfirmedInput.edge.has(whoId)) {
+        whoConfirmedInput.edge.delete(whoId);
+      } else {
+        whoConfirmedInput.edge.add(whoId);
+      }
       setWhoConfirmedInput(updatedWhoConfirmedInput);
 
       unHighlightConfirmedLines(customLines, whoId);
@@ -197,12 +197,12 @@ export default function MetroMap({
       type === "node-number-label" ||
       type === "neighbour-node-label"
     ) {
-      mixpanel.track("Node word label confirmed", {
-        nodeID: whoId,
-      });
-
       const updatedWhoConfirmedInput = Object.assign({}, whoConfirmedInput);
-      updatedWhoConfirmedInput.node.add(whoId);
+      if (whoConfirmedInput.node.has(whoId)) {
+        whoConfirmedInput.node.delete(whoId);
+      } else {
+        whoConfirmedInput.node.add(whoId);
+      }
       setWhoConfirmedInput(updatedWhoConfirmedInput);
 
       unHighlightConfirmedNodes(customNodes, whoId);
@@ -218,15 +218,15 @@ export default function MetroMap({
 
   const openSideDrawer = (who) => {
     // highlight who dom element by adding a class
-    who.classList.add("highlight");
+    // who.classList.add("highlight");
 
-    setWhoOpenSideDrawer(who);
+    // setWhoOpenSideDrawer(who);
     setSideDrawerOpen(true);
   };
 
   const closeSideDrawer = () => {
     // remove highlight class from who dom element
-    whoOpenSideDrawer.classList.remove("highlight");
+    // whoOpenSideDrawer.classList.remove("highlight");
     setSideDrawerOpen(false);
   };
 
@@ -660,9 +660,9 @@ export default function MetroMap({
         screenWidth={screenWidth}
         screenHeight={screenHeight}
         paddingY={paddingY}
-        whoOpenSideDrawer={whoOpenSideDrawer}
-        handleSideDrawerConfirmed={handleSideDrawerConfirmed}
-        handleChange={handleCustomChange}
+        // whoOpenSideDrawer={whoOpenSideDrawer}
+        // handleSideDrawerConfirmed={handleSideDrawerConfirmed}
+        // handleChange={handleCustomChange}
       ></SideDrawer>
       {/* )} */}
     </motion.div>

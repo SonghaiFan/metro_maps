@@ -72,7 +72,7 @@ export default function MetroLine({
         return (
           <motion.g key={index}>
             {/* ###line border */}
-            {/* {!path.isChanged && (
+            {path.isChanged && (
               <motion.path
                 className={`edge-shadow-${path.id} alerts-border `}
                 d={drawPath(path.path)}
@@ -85,7 +85,7 @@ export default function MetroLine({
                 initial="hidden"
                 animate="default"
               />
-            )} */}
+            )}
             <motion.path
               data-type="metro-line-path"
               className={`edge-${path.id} hover:cursor-pointer`}

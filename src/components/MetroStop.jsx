@@ -6,6 +6,8 @@ import { useWindowSize } from "react-use";
 import {
   ARTICALSTACK_INNER_PADDING,
   ARTICLE_SIZE_MULTIPLIER,
+  NODEWIDTH,
+  METROLINE_WIDTH,
 } from "../utilities/util";
 import NeighbouringNodes from "./NeighbouringNodes";
 
@@ -144,6 +146,29 @@ export default function MetroStop({
             {data.articles.length}
           </motion.div>
         )} */}
+
+        <motion.div
+          data-type="node-number-label"
+          id={data.id}
+          className="article--stack--panel absolute rounded-full "
+          style={{
+            backgroundColor: clicked ? null : "#9d9b8e",
+            outline: clicked
+              ? null
+              : data.isChanged
+              ? "2px solid white"
+              : "2px solid #9d9b8e",
+          }}
+          animate={{
+            x: clicked ? 0 : -METROLINE_WIDTH / 2,
+            y: clicked ? 0 : ARTICLE_HEIGHT / 2 + METROLINE_WIDTH / 2 + 1,
+            width: ARTICLE_WIDTH + NODEWIDTH / 2 + METROLINE_WIDTH / 2,
+            height: METROLINE_WIDTH,
+          }}
+          onClick={(event) =>
+            isMapFocused ? onNodeWordsLabelClick(event.target) : undefined
+          }
+        ></motion.div>
 
         {/* node words label */}
         {/* {shouldRenderContent && (

@@ -127,7 +127,7 @@ export default function ArticleStack({
       }}
     >
       {/* article stack panel */}
-      <motion.div
+      {/* <motion.div
         className="article--stack--panel absolute rounded-full "
         style={{
           backgroundColor: clicked ? null : "#9d9b8e",
@@ -140,7 +140,7 @@ export default function ArticleStack({
         }}
         // onMouseEnter={() => setShowDoge(true)}
         // onMouseLeave={() => setShowDoge(false)}
-      ></motion.div>
+      ></motion.div> */}
 
       {
         // reversing an array of objects: https://stackoverflow.com/questions/51479338/reverse-array-of-objects-gives-same-output-2
