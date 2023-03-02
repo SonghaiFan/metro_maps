@@ -22,7 +22,7 @@ export const showTruth = true;
 
 const NODEWIDTH = 15;
 const ARTICLE_RADIUS_MULTIPLIER = 0.8;
-const ARTICLE_SIZE_MULTIPLIER = 1.25;
+const ARTICLE_SIZE_MULTIPLIER = 1.5;
 
 const TOP_FULL_PAGE_PADDING = 20;
 const MAX_ARTICLES = 20;
