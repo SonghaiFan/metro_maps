@@ -417,7 +417,7 @@ export default function MetroMap({
                       data={paths}
                       width={ARTICLE_WIDTH}
                       onClickToOpenDrawer={(event) => {
-                        openSideDrawer(event.target);
+                        handleSideDrawerConfirmed(event.target);
                       }}
                     />
                   </motion.g>
