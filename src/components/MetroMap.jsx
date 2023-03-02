@@ -66,7 +66,7 @@ export default function MetroMap({
   const [customNodes, setCustomeNodes] = useState(nodes);
   const [customLines, setCustomLines] = useState(lines);
   const [sideDrawerOpen, setSideDrawerOpen] = useState(false);
-  const [whoOpenSideDrawer, setWhoOpenSideDrawer] = useState();
+  // const [whoOpenSideDrawer, setWhoOpenSideDrawer] = useState();
   const [whoConfirmedInput, setWhoConfirmedInput] = useState({
     node: new Set(),
     edge: new Set(),
@@ -77,74 +77,74 @@ export default function MetroMap({
   );
   /////////////////////////// Side Drawer input change ///////////////////////////
 
-  const addCutomNodeColor = (nodes, nodeId, newColour) => {
-    const updatedNodes = Object.assign({}, nodes);
-    if (updatedNodes[nodeId]) {
-      updatedNodes[nodeId].colour = newColour;
-    }
-    for (let eachNode in updatedNodes) {
-      const conNodes = updatedNodes[eachNode].connectedNodes;
+  // const addCutomNodeColor = (nodes, nodeId, newColour) => {
+  //   const updatedNodes = Object.assign({}, nodes);
+  //   if (updatedNodes[nodeId]) {
+  //     updatedNodes[nodeId].colour = newColour;
+  //   }
+  //   for (let eachNode in updatedNodes) {
+  //     const conNodes = updatedNodes[eachNode].connectedNodes;
 
-      conNodes.forEach((node) => {
-        if (node.id === nodeId) {
-          node.colour = newColour;
-        }
-      });
-    }
-    setCustomeNodes(updatedNodes);
-  };
+  //     conNodes.forEach((node) => {
+  //       if (node.id === nodeId) {
+  //         node.colour = newColour;
+  //       }
+  //     });
+  //   }
+  //   setCustomeNodes(updatedNodes);
+  // };
 
-  const addCutomLineColor = (lines, pathId, newColour) => {
-    const updatedLines = Object.assign({}, lines);
+  // const addCutomLineColor = (lines, pathId, newColour) => {
+  //   const updatedLines = Object.assign({}, lines);
 
-    const [pathStartId, pathEndId] = pathId.split("-");
+  //   const [pathStartId, pathEndId] = pathId.split("-");
 
-    for (let lineId in updatedLines) {
-      const linePathCoords = updatedLines[lineId].pathCoords;
+  //   for (let lineId in updatedLines) {
+  //     const linePathCoords = updatedLines[lineId].pathCoords;
 
-      linePathCoords.forEach((coords) => {
-        if (coords.source === pathStartId && coords.target === pathEndId) {
-          coords.edgeColour = newColour;
-        }
-      });
-    }
-    setCustomLines(updatedLines);
-  };
+  //     linePathCoords.forEach((coords) => {
+  //       if (coords.source === pathStartId && coords.target === pathEndId) {
+  //         coords.edgeColour = newColour;
+  //       }
+  //     });
+  //   }
+  //   setCustomLines(updatedLines);
+  // };
 
-  const handleCustomChange = (event) => {
-    // console.log("in the drawer: ", whoOpenSideDrawer);
-    mixpanel.track("Metro label changed", {
-      value: event.target.value,
-    });
+  // const handleCustomChange = (event) => {
+  //   // console.log("in the drawer: ", whoOpenSideDrawer);
+  //   mixpanel.track("Metro label changed", {
+  //     value: event.target.value,
+  //   });
 
-    const newColour = customerInterpolation(event.target.value);
+  //   const newColour = customerInterpolation(event.target.value);
 
-    const type = whoOpenSideDrawer.dataset.type;
-    // console.log("type", type);
-    const whoId = whoOpenSideDrawer.id;
+  //   const type = whoOpenSideDrawer.dataset.type;
+  //   // console.log("type", type);
+  //   const whoId = whoOpenSideDrawer.id;
 
-    if (type === "metro-line-label" || type === "metro-line-path") {
-      mixpanel.track("Metro line label colour changed", {
-        lineID: whoId,
-        newColour: newColour,
-      });
-      // console.log(`this is a metro line label at ${whoId}`);
-      addCutomLineColor(customLines, whoId, newColour);
-    }
+  //   if (type === "metro-line-label" || type === "metro-line-path") {
+  //     mixpanel.track("Metro line label colour changed", {
+  //       lineID: whoId,
+  //       newColour: newColour,
+  //     });
+  //     // console.log(`this is a metro line label at ${whoId}`);
+  //     addCutomLineColor(customLines, whoId, newColour);
+  //   }
 
-    if (
-      type === "node-words-label" ||
-      type === "node-number-label" ||
-      type === "neighbour-node-label"
-    ) {
-      mixpanel.track("Node word label colour changed", {
-        nodeID: whoId,
-        newColour: newColour,
-      });
-      // console.log(`this is a node word label at ${whoId}`);
-      addCutomNodeColor(customNodes, whoId, newColour);
-    }
-  };
+  //   if (
+  //     type === "node-words-label" ||
+  //     type === "node-number-label" ||
+  //     type === "neighbour-node-label"
+  //   ) {
+  //     mixpanel.track("Node word label colour changed", {
+  //       nodeID: whoId,
+  //       newColour: newColour,
+  //     });
+  //     // console.log(`this is a node word label at ${whoId}`);
+  //     addCutomNodeColor(customNodes, whoId, newColour);
+  //   }
+  // };
 
   const unHighlightConfirmedLines = (lines, pathId) => {
     const updatedLines = Object.assign({}, lines);
@@ -436,8 +436,10 @@ export default function MetroMap({
             {/* link labels */}
             <motion.div className="absolute">
               {metroLineData.map((data) => {
-                // console.log("Object.entries(data)", Object.entries(data));
-                // console.log("Object.entries(data)[0]", Object.entries(data)[0]);
+                console.log(
+                  "🚀 ~ file: MetroMap.jsx:439 ~ {metroLineData.map ~ data:",
+                  data
+                );
                 const [lineId, { labels }] = Object.entries(data)[0];
 
                 return (
@@ -677,9 +679,9 @@ export default function MetroMap({
         screenWidth={screenWidth}
         screenHeight={screenHeight}
         paddingY={paddingY}
-        whoOpenSideDrawer={whoConfirmedInput}
-        handleSideDrawerConfirmed={handleSideDrawerConfirmed}
-        handleChange={handleCustomChange}
+        // whoOpenSideDrawer={whoConfirmedInput}
+        // handleSideDrawerConfirmed={handleSideDrawerConfirmed}
+        // handleChange={handleCustomChange}
       ></SideDrawer>
       {/* )} */}
     </motion.div>

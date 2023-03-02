@@ -8,6 +8,10 @@ import {
 import { useFirstMountState } from "react-use";
 
 export default function MetroLineLabel({ data, onMetroLineLabelClick }) {
+  console.log(
+    "🚀 ~ file: MetroLineLabel.jsx:11 ~ MetroLineLabel ~ data:",
+    data
+  );
   const isFirstMount = useFirstMountState();
 
   const { id, label, colour, points, isChanged } = data;
