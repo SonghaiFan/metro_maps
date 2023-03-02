@@ -13,6 +13,7 @@ import { metroStopVariantsFactory } from "../utilities/metroStopUtilities";
 import { generatePaths } from "../utilities/metroMapUtilities";
 import NavigationButton from "./NavigationButton";
 import { AiOutlineFullscreenExit } from "react-icons/ai";
+import { TbWriting } from "react-icons/tb";
 import MetroMapDescription from "./MetroMapDescription";
 import MetroLine from "./MetroLine";
 import MetroLineLabel from "./MetroLineLabel";
@@ -651,6 +652,14 @@ export default function MetroMap({
         isVisible={clickedNode !== null || clickedNodeBuffer !== null}
       >
         <AiOutlineFullscreenExit size={40} />
+      </NavigationButton>
+
+      <NavigationButton
+        onClick={openSideDrawer}
+        className={`right-[1%] bottom-[3%] z-50 bg-neutral-800 p-2`}
+        isVisible={isMapFocused}
+      >
+        <TbWriting size={40} />
       </NavigationButton>
 
       {/* {isMapFocused && ( */}
