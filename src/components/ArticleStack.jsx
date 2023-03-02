@@ -13,6 +13,7 @@ import {
   METROLINE_WIDTH,
 } from "../utilities/util";
 import _ from "lodash";
+import Tooltip from "./Tooltip";
 
 export default function ArticleStack({
   data,

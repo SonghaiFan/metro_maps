@@ -19,6 +19,7 @@ import MetroLine from "./MetroLine";
 import MetroLineLabel from "./MetroLineLabel";
 import TimeAxis from "./TimeAxis";
 import { SideDrawer } from "./SideDrawer";
+import Tooltip from "./Tooltip";
 import mixpanel from "mixpanel-browser";
 
 export default function MetroMap({

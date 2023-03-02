@@ -10,6 +10,7 @@ import {
   METROLINE_WIDTH,
 } from "../utilities/util";
 import NeighbouringNodes from "./NeighbouringNodes";
+import Tooltip from "./Tooltip";
 
 export default function MetroStop({
   data,
@@ -28,6 +29,7 @@ export default function MetroStop({
   onZoomOutClick,
   mapId,
 }) {
+  console.log("🚀 ~ file: MetroStop.jsx:32 ~ articles:", articles);
   // console.log("From MetroStop", data);
   const label = data.node_words;
   const { width: screenWidth, height: screenHeight } = useWindowSize();
@@ -75,7 +77,7 @@ export default function MetroStop({
         />
       )}
       {isMapFocused && (
-        <>
+        <Tooltip text={title} clicked={clicked}>
           <ArticleStack
             data={data}
             articles={articles}
@@ -93,7 +95,7 @@ export default function MetroStop({
             focusArticleID={focusArticleID}
             setFocusArticleID={setFocusArticleID}
           />
-          {!clicked && (
+          {/* {!clicked && (
             <motion.div
               className={
                 "absolute text-white text-sm m-1 line-clamp-3 font-bold rounded-md px-2 bg-neutral-900 opacity-50 filter drop-shadow-md"
@@ -102,9 +104,10 @@ export default function MetroStop({
             >
               {title}
             </motion.div>
-          )}
-        </>
+          )} */}
+        </Tooltip>
       )}
+
       <motion.div
         data-type="modal"
         style={{
