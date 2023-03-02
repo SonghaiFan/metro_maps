@@ -506,9 +506,9 @@ export default function MetroMap({
                   onArticleStackAnimationComplete={
                     onArticleStackAnimationComplete
                   }
-                  onNeighbourNodeLabelClick={openSideDrawer}
-                  onNodeNumberLabelClick={openSideDrawer}
-                  onNodeWordsLabelClick={openSideDrawer}
+                  onNeighbourNodeLabelClick={handleSideDrawerConfirmed}
+                  onNodeNumberLabelClick={handleSideDrawerConfirmed}
+                  onNodeWordsLabelClick={handleSideDrawerConfirmed}
                   onZoomOutClick={onZoomOutButtonClick}
                   mapId={mapId}
                 />
