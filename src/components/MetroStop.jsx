@@ -149,7 +149,7 @@ export default function MetroStop({
             {data.articles.length}
           </motion.div>
         )} */}
-
+        {/* article stack panel */}
         <motion.div
           data-type="node-number-label"
           id={data.id}
@@ -164,7 +164,7 @@ export default function MetroStop({
           }}
           animate={{
             x: clicked ? 0 : -METROLINE_WIDTH / 2,
-            y: clicked ? 0 : ARTICLE_HEIGHT / 2 + METROLINE_WIDTH / 2 + 1,
+            y: clicked ? 0 : ARTICLE_HEIGHT / 2 + METROLINE_WIDTH / 2 - 0.5,
             width: ARTICLE_WIDTH + NODEWIDTH / 2 + METROLINE_WIDTH / 2,
             height: METROLINE_WIDTH,
           }}
