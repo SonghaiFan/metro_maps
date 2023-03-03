@@ -1,6 +1,10 @@
 import json
 import os
 from rake_nltk import Rake
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+from nltk.corpus import stopwords
+tfidf_vectorizer = TfidfVectorizer(stop_words=stopwords.words('english'))
 
 
 def load_json_files(path):
@@ -22,10 +26,56 @@ data = load_json_files('src/data_norm')
 
 r = Rake()
 
+# initialize TF-IDF vectorizer
+tfidf_vectorizer = TfidfVectorizer(stop_words=stopwords.words('english'))
+
+corpus = []
 
 for json_url, json_data in data.items():
     for article in json_data['articles']:
-        r.extract_keywords_from_text(article['full_text'])
-        keywords = r.get_ranked_phrases()[:5]
-        print(keywords)
-        break
+        corpus.append(article['full_text'])
+
+# fit the vectorizer to the corpus
+tfidf_matrix = tfidf_vectorizer.fit_transform(corpus)
+
+keywords_by_doc = []
+
+for i in range(len(corpus)):
+    # get the TF-IDF scores for the current document
+    scores = zip(tfidf_vectorizer.get_feature_names_out(),
+                 tfidf_matrix[i].toarray()[0])
+    # sort the scores by descending order
+    sorted_scores = sorted(scores, key=lambda x: x[1], reverse=True)
+    # extract the top 5 keywords
+    top_keywords = [word for word, score in sorted_scores[:5]]
+    # store the keywords for the current document
+    keywords_by_doc.append(top_keywords)
+
+
+print(keywords_by_doc)
+
+for json_url, json_data in data.items():
+    for article in json_data['articles']:
+        article['keywords'] = keywords_by_doc.pop(0)
+
+
+write_data(data, 'src/data_mkey')
+
+
+# [['dog', 'convention', 'coat', 'comic', 'mayor'], ['computers', 'librarians', 'robbery', 'room', 'library'], ['teens', 'arrested', 'computer', 'authorities', 'school'], ['brandi', 'spann', 'money', 'amount', 'recovered'], ['bioterrorism', 'publication', 'cdc', 'supply', 'food'], ['patino', 'bioterrorism', 'professor', 'prepared', 'university']]
+
+
+# for json_url, json_data in data.items():
+#     for article in json_data['articles']:
+#         # split text into sentences by ". "
+#         r.extract_keywords_from_sentences(article['full_text'].split(". "))
+#         # r.extract_keywords_from_text(article['full_text'])
+#         keywords = [phrase for phrase in r.get_ranked_phrases() if len(phrase.split()) <= 3][:5]
+#         print(keywords)
+#         break
+
+# ['white trim around', 'purple lace applicas', 'cape made like', 'favorite comic character', 'coat fully extending']
+# ['restrictive confidentiality agreement', 'former chairman lied', 'research center --', 'research center reflected', 'written several weeks']
+# ['johnetta wally', 'group executive director', 'staff members involved', '10 issues', 'charge last fall']
+# ['donor country investment', 'friedman bernard army', 'terrible things continue', 'reduced military spending', 'less terrible place']
+# ['fell 70 cents', 'developer cheung kong', 'hongkong telecommunications ltd', 'east asia ltd', 'larger h shares']

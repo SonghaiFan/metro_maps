@@ -60,8 +60,6 @@ export const SideDrawer = ({
     <AnimatePresence>
       {isVisible && (
         <>
-          {/* print out whoOpenSideDrawer as stirng */}
-
           <motion.div
             className="drawer-modal absolute w-screen h-screen bg-black z-50"
             style={{ opacity: 0.3 }}
