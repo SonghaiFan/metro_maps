@@ -428,7 +428,7 @@ export default function MetroMap({
             </motion.svg>
 
             {/* link labels */}
-            {/* <motion.div className="absolute">
+            <motion.div className="absolute">
               {metroLineData.map((data) => {
                 const [lineId, { labels }] = Object.entries(data)[0];
 
@@ -456,7 +456,7 @@ export default function MetroMap({
                   </motion.div>
                 );
               })}
-            </motion.div> */}
+            </motion.div>
           </>
         )}
 
