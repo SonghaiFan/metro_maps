@@ -31,16 +31,16 @@ export default function MetroStop({
 }) {
   console.log("🚀 ~ file: MetroStop.jsx:32 ~ articles:", articles);
   // console.log("From MetroStop", data);
-  const label = data.node_words;
+  // const label = data.node_words;
   const { width: screenWidth, height: screenHeight } = useWindowSize();
-  const content = label.length > 0 ? label[0].replace(/ /g, "_") : "";
+  // const content = label.length > 0 ? label[0].replace(/ /g, "_") : "";
 
-  const moreContent = Array.isArray(label)
-    ? label
-        .slice(0, 5)
-        .map((x) => x.replace(/ /g, "_"))
-        .join(", ")
-    : label;
+  // const moreContent = Array.isArray(label)
+  //   ? label
+  //       .slice(0, 5)
+  //       .map((x) => x.replace(/ /g, "_"))
+  //       .join(", ")
+  //   : label;
 
   const ARTICLE_HEIGHT = (screenHeight / 18) * ARTICLE_SIZE_MULTIPLIER;
   const ARTICLE_WIDTH = (screenWidth / 13) * ARTICLE_SIZE_MULTIPLIER;
@@ -59,7 +59,19 @@ export default function MetroStop({
     return article ? article.timestamp + ": " + article.title : null;
   }
 
+  function getKeywords() {
+    const article = articles.find((article) => article.id === focusArticleID);
+    return article ? article.keywords.join(", ") : "";
+  }
+
   const title = getTitle();
+
+  const keywords = getKeywords();
+  // console log what is the typeof keywords?
+  console.log("🚀 ~ file: MetroStop.jsx:32 ~ keywords:", keywords);
+
+  const content = keywords;
+  const moreContent = keywords;
 
   const [showMore, setShowMore] = useState(false);
 
@@ -174,7 +186,7 @@ export default function MetroStop({
         ></motion.div>
 
         {/* node words label */}
-        {/* {shouldRenderContent && (
+        {shouldRenderContent && (
           <motion.div
             data-type="node-words-label"
             id={data.id}
@@ -207,7 +219,7 @@ export default function MetroStop({
           >
             {showMore ? moreContent : content}
           </motion.div>
-        )} */}
+        )}
       </motion.div>
     </>
   );

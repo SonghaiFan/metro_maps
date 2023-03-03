@@ -19,8 +19,8 @@ const Tooltip = ({ text, clicked, children }) => {
       ? e.clientX + 10 + "px"
       : e.clientX + 10 - parentLeft + "px";
     tooltipRef.current.style.top = clicked
-      ? e.clientY + 10 + "px"
-      : e.clientY + 10 - parentTop + "px";
+      ? e.clientY - 100 + "px"
+      : e.clientY - 100 - parentTop + "px";
   };
 
   const handleMouseLeave = () => {

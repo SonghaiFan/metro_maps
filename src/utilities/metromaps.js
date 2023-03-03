@@ -15,7 +15,7 @@ const estimateTimeToRead = (data) => {
 
 // const context = require.context("../data", true, /\.json$/);
 
-const context = require.context("../data_norm", true, /\.json$/);
+const context = require.context("../data_mkey", true, /\.json$/);
 
 context.keys().forEach((key, index) => {
   const data = context(key);
