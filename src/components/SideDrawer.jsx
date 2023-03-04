@@ -32,30 +32,8 @@ export const SideDrawer = ({
     setComment(event.target.value);
   };
 
-  // useEffect(() => {
-  //   setIsOnTopHalf(
-  //     whoOpenSideDrawer
-  //       ? whoOpenSideDrawer.getBoundingClientRect().top < screenHeight / 2
-  //       : false
-  //   );
-  // }, [whoOpenSideDrawer, screenHeight]);
-
-  // const getColour = (whoOpenSideDrawer) => {
-  //   if (whoOpenSideDrawer) {
-  //     const type = whoOpenSideDrawer.dataset.type;
-  //     // console.log("type", type);
-  //     if (type === "metro-line-path") {
-  //       // return path element stroke properties
-
-  //       return getComputedStyle(whoOpenSideDrawer).stroke;
-  //     } else {
-  //       return whoOpenSideDrawer.style.backgroundColor;
-  //     }
-  //   }
-  // };
-
-  // const whoColour = getColour(whoOpenSideDrawer);
-  // const whoValue = invertCustomerInterpolation(whoColour);
+  const whoColour = getColour(whoOpenSideDrawer);
+  const whoValue = invertCustomerInterpolation(whoColour);
 
   return (
     <AnimatePresence>

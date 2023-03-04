@@ -124,81 +124,74 @@
         {
             "source": "0_3",
             "target": "1_6",
-            "edge_weight": 0.2793209876543212,
+            "edge_weight": 0.40625000000000017,
             "edge_label": [
                 "vastopolis",
                 "hazards"
             ],
-            "id": 0,
-            "edge_weight-truth": 0.2793209876543212
+            "id": 0
         },
         {
             "source": "1_6",
             "target": "2_6",
-            "edge_weight": 1.0,
+            "edge_weight": 0.99,
             "edge_label": [
                 "hazards",
                 "threats",
                 "danger"
             ],
-            "id": 0,
-            "edge_weight-truth": 1.0
+            "id": 0
         },
         {
             "source": "0_5",
             "target": "1_5",
-            "edge_weight": 0.7654320987654322,
+            "edge_weight": 0.8,
             "edge_label": [
                 "agriculture",
                 "farms",
                 "vastopolis"
             ],
-            "id": 1,
-            "edge_weight-truth": 0.7654320987654322
+            "id": 1
         },
         {
             "source": "1_5",
             "target": "2_0",
-            "edge_weight": 0.271604938271605,
+            "edge_weight": 0.4,
             "edge_label": [
                 "vastopolis",
                 "hazards"
             ],
-            "id": 1,
-            "edge_weight-truth": 0.271604938271605
+            "id": 1
         },
         {
             "source": "0_5",
             "target": "1_6",
-            "edge_weight": 0.13271604938271603,
+            "edge_weight": 0.2875,
             "edge_label": [
                 "vastopolis",
                 "hazards"
             ],
-            "id": 3,
-            "edge_weight-truth": 0.13271604938271603
+            "id": 3
         },
         {
             "source": "1_6",
             "target": "2_0",
-            "edge_weight": 0.0,
+            "edge_weight": 0.18,
             "edge_label": [
                 "vastopolis",
                 "hazards"
             ],
-            "id": 8,
-            "edge_weight-truth": 0.0
+            "id": 8
         },
         {
             "source": "1_5",
             "target": "2_6",
-            "edge_weight": 0.3950617283950617,
+            "edge_weight": 0.5,
             "edge_label": [
                 "vastopolis",
                 "safe"
             ],
-            "id": 2,
-            "edge_weight-truth": 0.3950617283950617
+            "id": 2
         }
     ],
     "articles": [

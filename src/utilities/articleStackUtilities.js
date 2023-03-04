@@ -1,3 +1,4 @@
+import { NODEWIDTH } from "./util";
 const articleVariantsFactory = (
   totalArticles,
   articleIndex,
@@ -7,8 +8,12 @@ const articleVariantsFactory = (
   articleHeight,
   zoomedInArticleWidth,
   zoomedInArticleHeight,
-  clickedArticleYPosition
+  clickedArticleYPosition,
+  articleDate,
+  articleXvalue,
+  articleYvalue
 ) => {
+  // console.log(articleDate);
   return {
     clicked: {
       width: zoomedInArticleWidth,
@@ -21,10 +26,12 @@ const articleVariantsFactory = (
       },
     },
     default: {
-      width: articleWidth,
-      height: articleHeight,
-      x: totalArticles - articleIndex - 1,
-      y: articleIndex - totalArticles + 1,
+      width: NODEWIDTH,
+      height: NODEWIDTH,
+      // x: articleIndex * 20,
+      // y: articleIndex * 5 - totalArticles + 1,
+      x: articleXvalue,
+      y: articleHeight + 2 - articleYvalue,
       transition: {
         // delay: (totalArticles - articleIndex + 1) / 250,
         ease: "easeOut",

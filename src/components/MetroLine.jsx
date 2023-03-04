@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import * as utils from "svg-path-reverse";
+import { NODEWIDTH } from "../utilities/util";
 
 import {
   METROLINE_WIDTH,
@@ -23,25 +24,41 @@ export default function MetroLine({
   strokeWidth,
   reversed,
   onClickToOpenDrawer,
+  width,
 }) {
   const drawPath = (coords) => {
     let res = "";
 
     // Draws svg path through given coords
+
+    const xs = coords.map((c) => c.x);
+    const ys = coords.map((c) => c.y);
+
+    const m = (ys[1] - ys[2]) / (xs[1] - xs[2]);
+
     coords.forEach((c, i) => {
       if (i === 0) {
         // first coord
-        res += `M ${c.x} ${c.y}`;
-      } else {
-        const cl = 10; // curve length
-        const offset = cl * 2 ** -0.5; // side length after curve
-        if (c.start === null) {
-          res += ` L ${c.x} ${c.y}`;
+        res += `M ${xs[i] + width / 2 + NODEWIDTH / 2} ${ys[i]}`;
+      }
+      if (i === 1) {
+        const x0 = xs[i - 1] + width / 2 + NODEWIDTH / 2;
+        if (xs[i] < x0) {
+          res += ` L ${x0} ${m * x0 + ys[i] - m * xs[i]}`;
         } else {
-          res += ` L ${c.x + cl * c.start[0]} ${c.y + cl * c.start[1]}`; // point before curve
-          res += ` C ${c.x} ${c.y} ${c.x} ${c.y}`; // control points
-          res += ` ${c.x + offset * c.end[0]} ${c.y + offset * c.end[1]}`;
+          res += ` L ${xs[i]} ${ys[i]}`;
         }
+      }
+      if (i === 2) {
+        const x0 = xs[i + 1] - width / 2 + NODEWIDTH / 2;
+        if (xs[i] > x0) {
+          res += ` L ${x0} ${m * x0 + ys[i] - m * xs[i]}`;
+        } else {
+          res += ` L ${xs[i]} ${ys[i]}`;
+        }
+      }
+      if (i === 3) {
+        res += ` L ${xs[i] - width / 2 + NODEWIDTH / 2} ${ys[i]}`;
       }
     });
 
@@ -54,6 +71,7 @@ export default function MetroLine({
         // console.log(path);
         return (
           <motion.g key={index}>
+            {/* ###line border */}
             {path.isChanged && (
               <motion.path
                 className={`edge-shadow-${path.id} alerts-border `}

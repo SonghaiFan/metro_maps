@@ -19,6 +19,7 @@ import MetroLine from "./MetroLine";
 import MetroLineLabel from "./MetroLineLabel";
 import TimeAxis from "./TimeAxis";
 import { SideDrawer } from "./SideDrawer";
+import Tooltip from "./Tooltip";
 import mixpanel from "mixpanel-browser";
 
 export default function MetroMap({
@@ -49,6 +50,8 @@ export default function MetroMap({
     : METROMAP_CONTAINER_MARGIN.top * screenHeight + TOP_FULL_PAGE_PADDING;
   const fullPageXPadding = METROMAP_CONTAINER_MARGIN.left * screenWidth;
 
+  const ARTICLE_WIDTH = (screenWidth / 13) * ARTICLE_SIZE_MULTIPLIER;
+
   const paddingX = fullPageXPadding - NODE_WIDTH / 2;
   const paddingY = fullPageYPadding - NODE_HEIGHT;
 
@@ -68,6 +71,7 @@ export default function MetroMap({
   const [customNodes, setCustomeNodes] = useState(nodes);
   const [customLines, setCustomLines] = useState(lines);
   const [sideDrawerOpen, setSideDrawerOpen] = useState(false);
+  // const [whoOpenSideDrawer, setWhoOpenSideDrawer] = useState();
   const [whoConfirmedInput, setWhoConfirmedInput] = useState({
     node: new Set(),
     edge: new Set(),
@@ -111,10 +115,6 @@ export default function MetroMap({
     const whoId = who.id;
 
     if (type === "metro-line-label" || type === "metro-line-path") {
-      mixpanel.track("Metro line label confirmed", {
-        lineID: whoId,
-      });
-
       const updatedWhoConfirmedInput = Object.assign({}, whoConfirmedInput);
       if (whoConfirmedInput.edge.has(whoId)) {
         whoConfirmedInput.edge.delete(whoId);
@@ -131,10 +131,6 @@ export default function MetroMap({
       type === "node-number-label" ||
       type === "neighbour-node-label"
     ) {
-      mixpanel.track("Node word label confirmed", {
-        nodeID: whoId,
-      });
-
       const updatedWhoConfirmedInput = Object.assign({}, whoConfirmedInput);
       if (whoConfirmedInput.node.has(whoId)) {
         whoConfirmedInput.node.delete(whoId);
@@ -197,7 +193,7 @@ export default function MetroMap({
 
   const [clickedNode, setClickedNode] = useState(null);
   const [clickedNodeBuffer, setClickedNodeBuffer] = useState(null);
-  const [previousClickedNode, setPreviousClickedNode] = useState(null);
+  // const [previousClickedNode, setPreviousClickedNode] = useState(null);
 
   const metroLineData = useMemo(
     () =>
@@ -225,15 +221,15 @@ export default function MetroMap({
 
   const handleMetroStopClick = (nodeId) => () => {
     // if the user clicks on next/previous neighbouring node button
-    if (clickedNode) {
-      mixpanel.track("MetroStopOnNeighbouringNode node clicked", {
-        nodeId: nodeId,
-      });
-      setClickedNodeBuffer(nodeId);
-      setPreviousClickedNode(clickedNode);
-      setClickedNode(null);
-      return;
-    }
+    // if (clickedNode) {
+    //   mixpanel.track("MetroStopOnNeighbouringNode node clicked", {
+    //     nodeId: nodeId,
+    //   });
+    //   setClickedNodeBuffer(nodeId);
+    //   setPreviousClickedNode(clickedNode);
+    //   setClickedNode(null);
+    //   return;
+    // }
 
     // if the user clicks the node directly (not the neighbouring node button)
     setClickedNode(nodeId);
@@ -257,7 +253,7 @@ export default function MetroMap({
     clearArticleAnimationDelayRef();
     setClickedNodeBuffer(null);
     setClickedNode(null);
-    setPreviousClickedNode(null);
+    // setPreviousClickedNode(null);
   };
 
   return (
@@ -276,6 +272,8 @@ export default function MetroMap({
             <TimeAxis
               data={columns}
               nodeWidth={NODE_WIDTH}
+              screenWidth={screenWidth}
+              screenHeight={screenHeight}
               nodeHeight={NODE_HEIGHT}
               paddingX={paddingX}
               paddingY={paddingY}
@@ -322,6 +320,7 @@ export default function MetroMap({
                   >
                     <MetroLine
                       data={paths}
+                      width={ARTICLE_WIDTH}
                       onClickToOpenDrawer={(event) => {
                         handleSideDrawerConfirmed(event.target);
                       }}
@@ -357,6 +356,7 @@ export default function MetroMap({
                           onMetroLineLabelClick={(event) => {
                             handleSideDrawerConfirmed(event.target);
                           }}
+                          width={ARTICLE_WIDTH}
                         />
                       );
                     })}
@@ -377,8 +377,8 @@ export default function MetroMap({
 
             return (
               <motion.div
-                className={`metro-stop-wrapper absolute ${
-                  clickedNode === nodeId ? "cursor-default" : "cursor-zoom-in"
+                className={`metro--stop--wrapper absolute ${
+                  "cursor-default" // clickedNode === nodeId ? "cursor-default" : "cursor-zoom-in"###
                 }`}
                 variants={metroStopVariantsFactory(
                   screenWidth,
@@ -427,7 +427,7 @@ export default function MetroMap({
 
           {/* metromap title */}
           <motion.div
-            className={`absolute ${
+            className={`metromap--title absolute ${
               isMapFocused
                 ? "text-2xl"
                 : `bg-black flex flex-col justify-start mt-10 pt-14 content-center `
@@ -474,13 +474,14 @@ export default function MetroMap({
       </NavigationButton>
 
       {/* button that open the drawer */}
-      <NavigationButton
+
+      {/* <NavigationButton
         onClick={openSideDrawer}
         className={`right-[1%] bottom-[3%] z-50 bg-neutral-800 p-2`}
         isVisible={isMapFocused}
       >
         <TbWriting size={40} />
-      </NavigationButton>
+      </NavigationButton> */}
 
       {/* {isMapFocused && ( */}
       <SideDrawer

@@ -13,9 +13,9 @@ const estimateTimeToRead = (data) => {
   return time;
 };
 
-const context = require.context("../data_norm", true, /\.json$/);
 // const context = require.context("../data", true, /\.json$/);
-// const context = require.context("../data_gbt", true, /\.json$/);
+
+const context = require.context("../data_mkey", true, /\.json$/);
 
 context.keys().forEach((key, index) => {
   const data = context(key);
@@ -42,15 +42,16 @@ context.keys().forEach((key, index) => {
 });
 
 // find object in METROMAPS array by url and modify title, time, description, subtitle, hint
-// const findAndModify = (url, { title, time, description, subtitle, hint }) => {
-//   const index = METROMAPS.findIndex((m) => m.url === url);
-//   // if title is not defined, leave it as it is
-//   if (title) METROMAPS[index].title = title;
-//   if (time) METROMAPS[index].time = time;
-//   if (description) METROMAPS[index].description = description;
-//   if (subtitle) METROMAPS[index].subtitle = subtitle;
-//   if (hint) METROMAPS[index].hint = hint;
-// };
+const findAndModify = (url, { title, time, description, subtitle, hint }) => {
+  const index = METROMAPS.findIndex((m) => m.url === url);
+  // if title is not defined, leave it as it is
+  if (title) METROMAPS[index].title = title;
+  if (time) METROMAPS[index].time = time;
+  if (description) METROMAPS[index].description = description;
+  if (subtitle) METROMAPS[index].subtitle = subtitle;
+  if (hint) METROMAPS[index].hint = hint;
+};
+
 // findAndModify("1-dummy-1x4-14_29", {
 //   time: 10,
 // });

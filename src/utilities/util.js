@@ -4,6 +4,8 @@ import { differenceEuclideanRGB } from "d3-color-difference";
 // FUNCTIONS
 export const timeParse = d3.timeParse("%Y-%m-%d");
 export const timeParse2 = d3.timeParse("%Y%m%d");
+export const timeParse3 = d3.timeParse("%B %d, %Y");
+
 export const timeFormat = d3.timeFormat("%d %b %Y");
 export const nodesCollided = (node1, node2) => {
   const xDifference = node1.x - node2.x;
@@ -20,9 +22,9 @@ export const flatMap = (array, mapFunction) => {
 export const showTruth = true;
 // CONSTANTS
 
-export const NODEWIDTH = 10;
-export const ARTICLE_RADIUS_MULTIPLIER = 0.8;
-export const ARTICLE_SIZE_MULTIPLIER = 1.25;
+const NODEWIDTH = 15;
+const ARTICLE_RADIUS_MULTIPLIER = 0.8;
+const ARTICLE_SIZE_MULTIPLIER = 1.5;
 
 export const TOP_FULL_PAGE_PADDING = 20;
 export const MAX_ARTICLES = 20;
@@ -74,18 +76,10 @@ const createColorScale = (colors, range) => {
     (_, i) => range[0] + i * increment
   );
   domain.push(range[1]);
-  console.log(domain);
+  // console.log(domain);
 
   return d3.scaleLinear().domain(domain).range(colors);
 };
-
-//slate-500,emerald-400, yellow-300
-// export const customerInterpolation = (Weight) => {
-//   const ind = Weight * (colours.length - 1);
-//   const colour1 = colours[Math.floor(ind)];
-//   const colour2 = colours[Math.ceil(ind)];
-//   return d3.interpolateRgb(colour1, colour2)(ind - Math.floor(ind));
-// };
 
 export const customerInterpolation = createColorScale(colours, [0, 1]);
 

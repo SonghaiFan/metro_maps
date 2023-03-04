@@ -7,11 +7,7 @@ import {
 } from "../utilities/util";
 import { useFirstMountState } from "react-use";
 
-export default function MetroLineLabel({ data, onMetroLineLabelClick }) {
-  console.log(
-    "🚀 ~ file: MetroLineLabel.jsx:11 ~ MetroLineLabel ~ data:",
-    data
-  );
+export default function MetroLineLabel({ data, onMetroLineLabelClick, width }) {
   const isFirstMount = useFirstMountState();
 
   const { id, label, colour, points, isChanged } = data;
@@ -30,7 +26,7 @@ export default function MetroLineLabel({ data, onMetroLineLabelClick }) {
     : label;
   // join the label array into a string with space as separator
 
-  const [{ x0, y0 }, { x1, y1 }] = points.map((coordinate, index) => {
+  let [{ x0, y0 }, { x1, y1 }] = points.map((coordinate, index) => {
     const keyX = `x${index}`;
     const keyY = `y${index}`;
 

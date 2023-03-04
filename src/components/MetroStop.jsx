@@ -5,9 +5,12 @@ import { nodeWordsVariantsFactory } from "../utilities/metroStopUtilities";
 import { useWindowSize } from "react-use";
 import {
   ARTICALSTACK_INNER_PADDING,
-  METROSTOP_CIRCLE_SIZE,
   ARTICLE_SIZE_MULTIPLIER,
+  NODEWIDTH,
+  METROLINE_WIDTH,
 } from "../utilities/util";
+
+import Tooltip from "./Tooltip";
 
 export default function MetroStop({
   data,
@@ -26,17 +29,18 @@ export default function MetroStop({
   onZoomOutClick,
   mapId,
 }) {
+  console.log("🚀 ~ file: MetroStop.jsx:32 ~ articles:", articles);
   // console.log("From MetroStop", data);
-  const label = data.node_words;
+  // const label = data.node_words;
   const { width: screenWidth, height: screenHeight } = useWindowSize();
-  const content = label.length > 0 ? label[0].replace(/ /g, "_") : "";
+  // const content = label.length > 0 ? label[0].replace(/ /g, "_") : "";
 
-  const moreContent = Array.isArray(label)
-    ? label
-        .slice(0, 5)
-        .map((x) => x.replace(/ /g, "_"))
-        .join(", ")
-    : label;
+  // const moreContent = Array.isArray(label)
+  //   ? label
+  //       .slice(0, 5)
+  //       .map((x) => x.replace(/ /g, "_"))
+  //       .join(", ")
+  //   : label;
 
   const ARTICLE_HEIGHT = (screenHeight / 18) * ARTICLE_SIZE_MULTIPLIER;
   const ARTICLE_WIDTH = (screenWidth / 13) * ARTICLE_SIZE_MULTIPLIER;
@@ -48,12 +52,33 @@ export default function MetroStop({
     ZOOMED_IN_ARTICLE_HEIGHT * ARTICLE_LIMIT +
     ARTICALSTACK_INNER_PADDING * (ARTICLE_LIMIT - 1);
 
+  const [focusArticleID, setFocusArticleID] = useState(null);
+
+  function getTitle() {
+    const article = articles.find((article) => article.id === focusArticleID);
+    return article ? article.timestamp + ": " + article.title : null;
+  }
+
+  function getKeywords() {
+    const article = articles.find((article) => article.id === focusArticleID);
+    return article ? article.keywords.join(", ") : "";
+  }
+
+  const title = getTitle();
+
+  const keywords = getKeywords();
+  // console log what is the typeof keywords?
+  console.log("🚀 ~ file: MetroStop.jsx:32 ~ keywords:", keywords);
+
+  const content = keywords;
+  const moreContent = keywords;
+
   const [showMore, setShowMore] = useState(false);
 
   return (
     <>
       {isMapFocused && (
-        <>
+        <Tooltip text={title} clicked={clicked}>
           <ArticleStack
             data={data}
             articles={articles}
@@ -68,21 +93,22 @@ export default function MetroStop({
             articleLimit={ARTICLE_LIMIT}
             onAnimationComplete={onArticleStackAnimationComplete}
             mapId={mapId}
+            focusArticleID={focusArticleID}
+            setFocusArticleID={setFocusArticleID}
           />
-          {!clicked && (
+          {/* {!clicked && (
             <motion.div
-              style={{
-                fontFamily: "var(--font-serif)",
-                color: "var(--primaryDark)",
-              }}
-              className={"absolute text-sm m-1 line-clamp-3 font-bold"}
+              className={
+                "absolute text-white text-sm m-1 line-clamp-3 font-bold rounded-md px-2 bg-neutral-900 opacity-50 filter drop-shadow-md"
+              }
               onClick={onClick}
             >
               {data.headline}
             </motion.div>
-          )}
-        </>
+          )} */}
+        </Tooltip>
       )}
+
       <motion.div
         data-type="modal"
         style={{
@@ -99,14 +125,14 @@ export default function MetroStop({
           event.target.dataset.type === "modal" && onZoomOutClick();
         }}
       >
-        {/* node number label */}
-        {isMapFocused && !clicked && (
+        {/* node number label#### */}
+        {/* {isMapFocused && !clicked && (
           <motion.div
             data-type="node-number-label"
             id={data.id}
             style={{
               backgroundColor: data.colour, //"white"
-              border: data.isChanged ? "2px solid white" : null,
+              border: data.isChanged ? null : "2px solid white",
             }}
             initial={{
               width: METROSTOP_CIRCLE_SIZE,
@@ -115,7 +141,7 @@ export default function MetroStop({
               x: 0,
             }}
             animate={{
-              width: METROSTOP_CIRCLE_SIZE,
+              width: width * 1.8,
               height: METROSTOP_CIRCLE_SIZE,
               y: height,
               x: 0,
@@ -129,7 +155,30 @@ export default function MetroStop({
           >
             {data.articles.length}
           </motion.div>
-        )}
+        )} */}
+        {/* article stack panel */}
+        <motion.div
+          data-type="node-number-label"
+          id={data.id}
+          className="article--stack--panel absolute rounded-full "
+          style={{
+            backgroundColor: clicked ? null : "#9d9b8e",
+            outline: clicked
+              ? null
+              : data.isChanged
+              ? "2px solid white"
+              : "2px solid #9d9b8e",
+          }}
+          animate={{
+            x: clicked ? 0 : -METROLINE_WIDTH / 2,
+            y: clicked ? 0 : ARTICLE_HEIGHT / 2 + METROLINE_WIDTH / 2 - 0.5,
+            width: ARTICLE_WIDTH + NODEWIDTH / 2 + METROLINE_WIDTH / 2,
+            height: METROLINE_WIDTH,
+          }}
+          onClick={(event) =>
+            isMapFocused ? onNodeWordsLabelClick(event.target) : undefined
+          }
+        ></motion.div>
 
         {/* node words label */}
         {shouldRenderContent && (
@@ -146,14 +195,12 @@ export default function MetroStop({
               moreContent
             )}
             style={{
-              backgroundColor:
-                // "white",
-                data.colour,
-              border: data.isChanged ? "2px solid white" : null,
+              backgroundColor: "#acab9f", // "white", // data.colour,
+              border: data.isChanged ? "2px solid white" : null, //####
             }}
             className={`node-${
               data.id
-            } alerts-border  text-black cursor-pointer  ${
+            } alerts-border  text-black cursor-pointer overflow-hidden  ${
               isMapFocused
                 ? `absolute rounded-md px-2 ${clicked ? "text-4xl" : "text-sm"}`
                 : ""

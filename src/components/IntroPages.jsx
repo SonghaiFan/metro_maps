@@ -358,19 +358,6 @@ export function WelcomePage({
           setIsConfirmed={setIsConfirmed}
         />
         <br></br>
-        {/* <div className="text-center">
-          <a
-            href="https://forms.gle/3kSmPTe5fkN6aGgE9"
-            className="text-2xl text-yellow-400 font-bold hover:underline"
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => {
-              setIsFormSubmitted(true);
-            }}
-          >
-            Consent Form
-          </a>{" "}
-        </div> */}
       </div>
     </>
   );
