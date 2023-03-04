@@ -5,6 +5,7 @@ import {
   flatMap,
   MAX_ARTICLES,
   customerInterpolation,
+  METROMAP_CONTAINER_MARGIN,
 } from "./util";
 
 import { showTruth } from "./util";
@@ -242,12 +243,16 @@ const calculateMetroMapLayout = (
   metroMapWidth,
   metroMapHeight,
   metroMapData,
-  margin
+  METROMAP_CONTAINER_MARGIN
 ) => {
   // console.log("Calculating metro map layout...", metroMapData);
   // the greater the margin, the smaller the metromap will be
-  const paddedMetroMapWidth = metroMapWidth * (1 - 2 * margin.x);
-  const paddedMetroMapHeight = metroMapHeight * (1 - 2 * margin.y);
+  const paddedMetroMapWidth =
+    metroMapWidth *
+    (1 - METROMAP_CONTAINER_MARGIN.left - METROMAP_CONTAINER_MARGIN.right);
+  const paddedMetroMapHeight =
+    metroMapHeight *
+    (1 - METROMAP_CONTAINER_MARGIN.top - METROMAP_CONTAINER_MARGIN.bottom);
 
   const newNodes = {};
   const newLines = {};

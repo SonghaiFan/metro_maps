@@ -7,8 +7,8 @@ import {
   ARTICALSTACK_INNER_PADDING,
   METROSTOP_CIRCLE_SIZE,
   ARTICLE_SIZE_MULTIPLIER,
-  // LEFT_MARGIN,
-  // TOP_MARGIN,
+  LEFT_MARGIN,
+  TOP_MARGIN,
 } from "../utilities/util";
 import NeighbouringNodes from "./NeighbouringNodes";
 
@@ -62,7 +62,7 @@ export default function MetroStop({
 
   return (
     <>
-      {clicked && (
+      {/* {clicked && (
         <NeighbouringNodes
           connectedNodes={data.connectedNodes}
           currentNode={data}
@@ -72,7 +72,7 @@ export default function MetroStop({
           onClick={onNeighbouringNodeClick}
           onNeighbourNodeLabelClick={onNeighbourNodeLabelClick}
         />
-      )}
+      )} */}
       {isMapFocused && (
         <>
           <ArticleStack

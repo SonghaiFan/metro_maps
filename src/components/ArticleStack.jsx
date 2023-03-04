@@ -25,6 +25,7 @@ export default function ArticleStack({
   mapId,
 }) {
   const { width: screenWidth, height: screenHeight } = useWindowSize();
+
   // console.log(data);
 
   const articlesInitialHeight = _.range(articles.length).map(
@@ -82,73 +83,70 @@ export default function ArticleStack({
       }}
     >
       {
-        // reversing an array of objects: https://stackoverflow.com/questions/51479338/reverse-array-of-objects-gives-same-output-2
-        []
-          .concat(articles)
-          .reverse()
-          .map((article, articleIndex, array) => {
-            const clickedArticleYPosition = articlesHeight
-              // the first article (in reverse order) = articles.length - 0 - 1 = articles.lenght - 1 (get all articles)
-              .slice(0, articles.length - articleIndex - 1)
-              .reduce((total, articleHeight) => {
-                return total + ARTICALSTACK_INNER_PADDING + articleHeight;
-              }, 0);
+        // loadash reverse the articles
+        _.reverse(articles).map((article, articleIndex, array) => {
+          const clickedArticleYPosition = articlesHeight
+            // the first article (in reverse order) = articles.length - 0 - 1 = articles.lenght - 1 (get all articles)
+            .slice(0, articles.length - articleIndex - 1)
+            .reduce((total, articleHeight) => {
+              return total + ARTICALSTACK_INNER_PADDING + articleHeight;
+            }, 0);
 
-            // do not use articleIndex here, instead use articles.length - articleIndex - 1 cause the articles are reversed
-            const zoomedArticleHeight = articlesHeight.find(
-              (_, index) => index === articles.length - articleIndex - 1
-            );
-            return (
-              <motion.div
-                key={article.id}
-                className={`article-${data.id} alerts-border absolute rounded-md overflow-hidden`}
-                style={{
-                  border: data.isChanged ? "2px solid white" : null,
-                  backgroundColor: clicked
-                    ? "white"
-                    : (array.length - articleIndex) % 2 === 0
-                    ? "white"
-                    : "#d1cfbf",
-                }}
-                variants={articleVariantsFactory(
-                  array.length,
-                  articleIndex,
-                  screenWidth,
-                  screenHeight,
-                  articleWidth,
-                  articleHeight,
-                  zoomedInArticleWidth,
-                  zoomedArticleHeight,
-                  clickedArticleYPosition
+          // do not use articleIndex here, instead use articles.length - articleIndex - 1 cause the articles are reversed
+          const zoomedArticleHeight = articlesHeight.find(
+            (_, index) => index === articles.length - articleIndex - 1
+          );
+          return (
+            <motion.div
+              key={article.id}
+              className={`article-${data.id} alerts-border absolute rounded-md overflow-hidden`}
+              style={{
+                border: data.isChanged ? "2px solid white" : null,
+                backgroundColor: clicked
+                  ? "white"
+                  : (array.length - articleIndex) % 2 === 0
+                  ? "white"
+                  : "#d1cfbf",
+              }}
+              variants={articleVariantsFactory(
+                array.length,
+                articleIndex,
+                screenWidth,
+                screenHeight,
+                articleWidth,
+                articleHeight,
+                zoomedInArticleWidth,
+                zoomedArticleHeight,
+                clickedArticleYPosition
+              )}
+              animate={clicked ? "clicked" : "default"}
+              onAnimationComplete={() => {
+                if (articleIndex === array.length - 1) {
+                  onAnimationComplete();
+                }
+              }}
+            >
+              <Article
+                article={article}
+                metroStopClicked={clicked}
+                onClick={handleArticleClick(
+                  `${mapId}-${article.id}`,
+                  articles.length - articleIndex - 1
                 )}
-                animate={clicked ? "clicked" : "default"}
-                onAnimationComplete={() => {
-                  if (articleIndex === array.length - 1) {
-                    onAnimationComplete();
-                  }
-                }}
-              >
-                <Article
-                  article={article}
-                  metroStopClicked={clicked}
-                  onClick={handleArticleClick(
-                    `${mapId}-${article.id}`,
-                    articles.length - articleIndex - 1
-                  )}
-                  clicked={articlesClicked[articles.length - articleIndex - 1]}
-                  id={`${mapId}-${article.id}`}
+                clicked={articlesClicked[articles.length - articleIndex - 1]}
+                id={`${mapId}-${article.id}`}
+              />
+
+              {/* helper onClick layer */}
+              {!clicked && (
+                <motion.div
+                  className="helper absolute w-full h-full"
+                  onClick={onClick}
                 />
-
-                {/* helper onClick layer */}
-                {!clicked && (
-                  <motion.div
-                    className="helper absolute w-full h-full"
-                    onClick={onClick}
-                  />
-                )}
-              </motion.div>
-            );
-          })
+              )}
+            </motion.div>
+          );
+        })
       }
     </motion.div>
   );

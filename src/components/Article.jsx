@@ -1,6 +1,4 @@
-import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { MdUnfoldLess, MdUnfoldMore } from "react-icons/md";
 export default function Article({
   article,
   metroStopClicked,

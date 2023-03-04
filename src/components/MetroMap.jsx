@@ -2,17 +2,17 @@ import React, { useState, useMemo, useEffect, useRef } from "react";
 import { calculateMetroMapLayout } from "../utilities/calculateMetroMapLayout";
 import MetroStop from "./MetroStop";
 import {
-  margin,
+  METROMAP_CONTAINER_MARGIN,
   TOP_FULL_PAGE_PADDING,
   METROLINE_ANIMATION_DURATION,
-  customerInterpolation,
   ARTICLE_SIZE_MULTIPLIER,
+  // customerInterpolation,
 } from "../utilities/util";
 import { motion } from "framer-motion";
 import { metroStopVariantsFactory } from "../utilities/metroStopUtilities";
 import { generatePaths } from "../utilities/metroMapUtilities";
 import NavigationButton from "./NavigationButton";
-import { AiOutlineFullscreenExit, AiOutlineMenu } from "react-icons/ai";
+import { AiOutlineFullscreenExit } from "react-icons/ai";
 import { TbWriting } from "react-icons/tb";
 import MetroMapDescription from "./MetroMapDescription";
 import MetroLine from "./MetroLine";
@@ -46,9 +46,9 @@ export default function MetroMap({
   const LANDING_WIDTH = screenWidth / 23;
   const fullPageYPadding = title.startsWith("1")
     ? 0.5 * screenHeight + TOP_FULL_PAGE_PADDING
-    : margin.y * screenHeight + TOP_FULL_PAGE_PADDING;
+    : METROMAP_CONTAINER_MARGIN.top * screenHeight + TOP_FULL_PAGE_PADDING;
   // const fullPageYPadding = margin.y * screenHeight + TOP_FULL_PAGE_PADDING;
-  const fullPageXPadding = margin.x * screenWidth;
+  const fullPageXPadding = METROMAP_CONTAINER_MARGIN.left * screenWidth;
 
   const paddingX = fullPageXPadding - NODE_WIDTH / 2;
   const paddingY = fullPageYPadding - NODE_HEIGHT;
@@ -56,7 +56,13 @@ export default function MetroMap({
   // console.log("data from start of MetroMap", data);
 
   const [nodes, lines, columns] = useMemo(
-    () => calculateMetroMapLayout(screenWidth, screenHeight, data, margin),
+    () =>
+      calculateMetroMapLayout(
+        screenWidth,
+        screenHeight,
+        data,
+        METROMAP_CONTAINER_MARGIN
+      ),
     // data and margin are not changing
     // eslint-disable-next-line react-hooks/exhaustive-deps,
     [screenWidth, screenHeight]
