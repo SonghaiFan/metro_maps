@@ -134,11 +134,6 @@ export default function MetroStop({
           className="article--stack--panel absolute rounded-full "
           style={{
             backgroundColor: clicked ? null : "#9d9b8e",
-            // outline: clicked
-            //   ? null
-            //   : data.isChanged
-            //   ? "2px solid white"
-            //   : "2px solid #9d9b8e",
           }}
           animate={{
             x: clicked ? 0 : NODEWIDTH / 2,
@@ -146,8 +141,10 @@ export default function MetroStop({
             width: ARTICLE_WIDTH + METROLINE_WIDTH / 2,
             height: METROLINE_WIDTH,
           }}
-          onClick={(event) =>
-            isMapFocused ? onNodeWordsLabelClick(event.target) : undefined
+          whileHover={{ scaleY: 1.5 }}
+          onClick={
+            onClick
+            // isMapFocused ? onNodeWordsLabelClick(event.target) : undefined
           }
         ></motion.div>
 
