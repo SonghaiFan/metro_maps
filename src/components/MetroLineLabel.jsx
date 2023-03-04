@@ -53,12 +53,12 @@ export default function MetroLineLabel({ data, onMetroLineLabelClick }) {
 
   const shifDistAlongX =
     angleBetweenTwoLinesDegree > 0 &&
-    Math.abs(x1 - x0) > 3 * Math.abs(shiftDist)
+    Math.abs(x1 - x0) > 6 * Math.abs(shiftDist)
       ? shiftDist * Math.cos(angleBetweenTwoLinesRadian)
       : 0;
   const shifDistAlongY =
     angleBetweenTwoLinesDegree > 0 &&
-    Math.abs(y1 - y0) > 3 * Math.abs(shiftDist)
+    Math.abs(y1 - y0) > 6 * Math.abs(shiftDist)
       ? shiftDist * Math.sin(angleBetweenTwoLinesRadian)
       : 0;
 

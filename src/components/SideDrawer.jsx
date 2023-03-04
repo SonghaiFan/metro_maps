@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { invertCustomerInterpolation } from "../utilities/util";
 import { MdClose, MdCheck } from "react-icons/md";
+import { METROMAP_CONTAINER_MARGIN } from "../utilities/util";
 import mixpanel from "mixpanel-browser";
 
 export const SideDrawer = ({
@@ -13,8 +14,8 @@ export const SideDrawer = ({
   handleSideDrawerConfirmed,
   handleChange,
 }) => {
-  const drawerWidth = screenWidth;
-  const drawerHeight = screenHeight / 4;
+  const drawerWidth = screenWidth * METROMAP_CONTAINER_MARGIN.left;
+  const drawerHeight = screenHeight;
   // check if whoOpenSideDrawer dom element is on top half of the screen
 
   const [isOnTopHalf, setIsOnTopHalf] = useState(true);
@@ -62,22 +63,22 @@ export const SideDrawer = ({
         <>
           {/* print out whoOpenSideDrawer as stirng */}
 
-          <motion.div
+          {/* <motion.div
             className="drawer-modal absolute w-screen h-screen bg-black z-50"
             style={{ opacity: 0.3 }}
             exit={{ opacity: 0 }}
             onClick={close}
             transition={{ duration: 0.2 }}
-          />
+          /> */}
           <motion.div
-            className={
-              isOnTopHalf
-                ? `absolute bottom-0 right-[25%] flex items-center justify-center bg-neutral-900 rounded-2xl z-50`
-                : `absolute top-0 right-[25%] flex items-center justify-center bg-neutral-900 rounded-2xl z-50`
-            }
-            style={{ width: drawerWidth / 2, overflow: "hidden" }}
-            animate={{ height: drawerHeight }}
-            exit={{ height: 0, capacity: 0 }}
+            className={`absolute bottom-0 left-0 flex items-center justify-center bg-neutral-900 rounded-2xl z-50`}
+            style={{
+              width: 0,
+              height: screenHeight,
+              overflow: "hidden",
+            }}
+            animate={{ width: drawerWidth }}
+            exit={{ width: 0, capacity: 0 }}
             transition={{ duration: 0.2 }}
           >
             <motion.button

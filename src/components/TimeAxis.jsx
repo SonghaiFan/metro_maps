@@ -80,17 +80,17 @@ export default function TimeAxis({
                   METROSTOP_BOTTOM_PADDING -
                   MAX_ARTICLES -
                   TIME_AXIS_PADDING,
-                width: (nodeWidth + MAX_ARTICLES) * 1.5,
+                width: (nodeWidth + MAX_ARTICLES) * 1.2,
                 height: 0,
               }}
               animate={{
-                x: column[0].x - (nodeWidth + MAX_ARTICLES) * 0.25,
+                x: paddingX + column[0].x - (nodeWidth + MAX_ARTICLES) * 0.25,
                 y:
                   paddingY -
                   METROSTOP_BOTTOM_PADDING -
                   MAX_ARTICLES -
                   TIME_AXIS_PADDING,
-                width: (nodeWidth + MAX_ARTICLES) * 1.5,
+                width: (nodeWidth + MAX_ARTICLES) * 1.2,
                 height: timeAxisHeight,
                 // transition: {
                 //   duration: isFirstMount ? METROLINE_ANIMATION_DURATION : 0,
@@ -107,21 +107,21 @@ export default function TimeAxis({
                   MAX_ARTICLES -
                   TIME_AXIS_PADDING +
                   timeAxisHeight,
-                width: (nodeWidth + MAX_ARTICLES) * 1.5,
+                width: (nodeWidth + MAX_ARTICLES) * 1.2,
                 opacity: 0,
                 // transition: {
                 //   delay: isFirstMount ? 2 : 0,
                 // },
               }}
               animate={{
-                x: column[0].x - (nodeWidth + MAX_ARTICLES) * 0.25,
+                x: paddingX + column[0].x - (nodeWidth + MAX_ARTICLES) * 0.25,
                 y:
                   paddingY -
                   METROSTOP_BOTTOM_PADDING -
                   MAX_ARTICLES -
                   TIME_AXIS_PADDING +
                   timeAxisHeight,
-                width: (nodeWidth + MAX_ARTICLES) * 1.5,
+                width: (nodeWidth + MAX_ARTICLES) * 1.2,
                 opacity: 1,
                 // transition: {
                 //   delay: isFirstMount ? 2 : 0,

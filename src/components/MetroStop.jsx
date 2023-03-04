@@ -113,7 +113,7 @@ export default function MetroStop({
               : "rgba(0, 0, 0, 0)"
             : data.colour, //"white"
         }}
-        className={`w-fll ml-5 mt-10 h-full text-black flex justify-center -z-40 ${
+        className={`w-fll h-full text-black flex justify-center -z-40 ${
           clicked || isMapFocused ? "truncate " : "items-center"
         } rounded-md`}
         onClick={(event) => {
@@ -132,8 +132,8 @@ export default function MetroStop({
             animate={{
               width: METROSTOP_CIRCLE_SIZE,
               height: METROSTOP_CIRCLE_SIZE,
-              y: height - 40,
-              x: -10,
+              y: height,
+              x: 0,
             }}
             // when hover, scale up the div
             whileHover={{
