@@ -474,13 +474,13 @@ export default function MetroMap({
       </NavigationButton>
 
       {/* button that open the drawer */}
-      <NavigationButton
+      {/* <NavigationButton
         onClick={openSideDrawer}
         className={`right-[1%] bottom-[3%] z-50 bg-neutral-800 p-2`}
         isVisible={isMapFocused}
       >
         <TbWriting size={40} />
-      </NavigationButton>
+      </NavigationButton> */}
 
       {/* {isMapFocused && ( */}
       <SideDrawer
