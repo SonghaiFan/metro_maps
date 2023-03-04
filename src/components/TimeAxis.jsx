@@ -74,14 +74,15 @@ export default function TimeAxis({
             <motion.div
               className="absolute bg-neutral-900 rounded-2xl"
               initial={{
-                x: column[0].x - (nodeWidth + MAX_ARTICLES) * 0.25,
+                x: paddingX + column[0].x - (nodeWidth + MAX_ARTICLES) * 0.25,
                 y:
                   paddingY -
                   METROSTOP_BOTTOM_PADDING -
                   MAX_ARTICLES -
                   TIME_AXIS_PADDING,
                 width: (nodeWidth + MAX_ARTICLES) * 1.2,
-                height: 0,
+                height: timeAxisHeight,
+                opacity: 0,
               }}
               animate={{
                 x: paddingX + column[0].x - (nodeWidth + MAX_ARTICLES) * 0.25,
@@ -92,6 +93,7 @@ export default function TimeAxis({
                   TIME_AXIS_PADDING,
                 width: (nodeWidth + MAX_ARTICLES) * 1.2,
                 height: timeAxisHeight,
+                opacity: 1,
                 // transition: {
                 //   duration: isFirstMount ? METROLINE_ANIMATION_DURATION : 0,
                 // },
@@ -100,7 +102,7 @@ export default function TimeAxis({
             <motion.div
               className="absolute p-2 flex justify-center"
               initial={{
-                x: column[0].x - (nodeWidth + MAX_ARTICLES) * 0.25,
+                x: paddingX + column[0].x - (nodeWidth + MAX_ARTICLES) * 0.25,
                 y:
                   paddingY -
                   METROSTOP_BOTTOM_PADDING -
@@ -109,9 +111,6 @@ export default function TimeAxis({
                   timeAxisHeight,
                 width: (nodeWidth + MAX_ARTICLES) * 1.2,
                 opacity: 0,
-                // transition: {
-                //   delay: isFirstMount ? 2 : 0,
-                // },
               }}
               animate={{
                 x: paddingX + column[0].x - (nodeWidth + MAX_ARTICLES) * 0.25,
@@ -123,9 +122,6 @@ export default function TimeAxis({
                   timeAxisHeight,
                 width: (nodeWidth + MAX_ARTICLES) * 1.2,
                 opacity: 1,
-                // transition: {
-                //   delay: isFirstMount ? 2 : 0,
-                // },
               }}
             >
               {startingDate === endingDate ? (

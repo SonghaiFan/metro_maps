@@ -36,7 +36,7 @@ export const PAGE_DIRECTION = {
 };
 
 export const METROLINE_WIDTH = 10;
-export const METROLINE_ANIMATION_DURATION = 1;
+export const METROLINE_ANIMATION_DURATION = 0;
 
 export const METROSTOP_CIRCLE_SIZE = METROLINE_WIDTH * 2;
 

@@ -7,10 +7,7 @@ export default function Article({
   id,
 }) {
   return (
-    <motion.div
-      className="absolute bg-inherit w-full h-full rounded-md"
-      // onClick={onClick}
-    >
+    <motion.div className="absolute bg-inherit w-full h-full rounded-md">
       <motion.div
         style={{
           fontFamily: "var(--font-serif)",

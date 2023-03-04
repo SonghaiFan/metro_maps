@@ -47,13 +47,10 @@ export default function MetroMap({
   const fullPageYPadding = title.startsWith("1")
     ? 0.5 * screenHeight + TOP_FULL_PAGE_PADDING
     : METROMAP_CONTAINER_MARGIN.top * screenHeight + TOP_FULL_PAGE_PADDING;
-  // const fullPageYPadding = margin.y * screenHeight + TOP_FULL_PAGE_PADDING;
   const fullPageXPadding = METROMAP_CONTAINER_MARGIN.left * screenWidth;
 
   const paddingX = fullPageXPadding - NODE_WIDTH / 2;
   const paddingY = fullPageYPadding - NODE_HEIGHT;
-
-  // console.log("data from start of MetroMap", data);
 
   const [nodes, lines, columns] = useMemo(
     () =>
@@ -68,89 +65,13 @@ export default function MetroMap({
     [screenWidth, screenHeight]
   );
 
-  // console.log("nodes from metropStop", nodes);
   const [customNodes, setCustomeNodes] = useState(nodes);
   const [customLines, setCustomLines] = useState(lines);
   const [sideDrawerOpen, setSideDrawerOpen] = useState(false);
-  // const [whoOpenSideDrawer, setWhoOpenSideDrawer] = useState();
   const [whoConfirmedInput, setWhoConfirmedInput] = useState({
     node: new Set(),
     edge: new Set(),
   });
-  console.log(
-    "🚀 ~ file: MetroMap.jsx:73 ~ whoConfirmedInput:",
-    whoConfirmedInput
-  );
-  /////////////////////////// Side Drawer input change ///////////////////////////
-
-  // const addCutomNodeColor = (nodes, nodeId, newColour) => {
-  //   const updatedNodes = Object.assign({}, nodes);
-  //   if (updatedNodes[nodeId]) {
-  //     updatedNodes[nodeId].colour = newColour;
-  //   }
-  //   for (let eachNode in updatedNodes) {
-  //     const conNodes = updatedNodes[eachNode].connectedNodes;
-
-  //     conNodes.forEach((node) => {
-  //       if (node.id === nodeId) {
-  //         node.colour = newColour;
-  //       }
-  //     });
-  //   }
-  //   setCustomeNodes(updatedNodes);
-  // };
-
-  // const addCutomLineColor = (lines, pathId, newColour) => {
-  //   const updatedLines = Object.assign({}, lines);
-
-  //   const [pathStartId, pathEndId] = pathId.split("-");
-
-  //   for (let lineId in updatedLines) {
-  //     const linePathCoords = updatedLines[lineId].pathCoords;
-
-  //     linePathCoords.forEach((coords) => {
-  //       if (coords.source === pathStartId && coords.target === pathEndId) {
-  //         coords.edgeColour = newColour;
-  //       }
-  //     });
-  //   }
-  //   setCustomLines(updatedLines);
-  // };
-
-  // const handleCustomChange = (event) => {
-  //   // console.log("in the drawer: ", whoOpenSideDrawer);
-  //   mixpanel.track("Metro label changed", {
-  //     value: event.target.value,
-  //   });
-
-  //   const newColour = customerInterpolation(event.target.value);
-
-  //   const type = whoOpenSideDrawer.dataset.type;
-  //   // console.log("type", type);
-  //   const whoId = whoOpenSideDrawer.id;
-
-  //   if (type === "metro-line-label" || type === "metro-line-path") {
-  //     mixpanel.track("Metro line label colour changed", {
-  //       lineID: whoId,
-  //       newColour: newColour,
-  //     });
-  //     // console.log(`this is a metro line label at ${whoId}`);
-  //     addCutomLineColor(customLines, whoId, newColour);
-  //   }
-
-  //   if (
-  //     type === "node-words-label" ||
-  //     type === "node-number-label" ||
-  //     type === "neighbour-node-label"
-  //   ) {
-  //     mixpanel.track("Node word label colour changed", {
-  //       nodeID: whoId,
-  //       newColour: newColour,
-  //     });
-  //     // console.log(`this is a node word label at ${whoId}`);
-  //     addCutomNodeColor(customNodes, whoId, newColour);
-  //   }
-  // };
 
   const unHighlightConfirmedLines = (lines, pathId) => {
     const updatedLines = Object.assign({}, lines);
@@ -277,7 +198,6 @@ export default function MetroMap({
   const [clickedNode, setClickedNode] = useState(null);
   const [clickedNodeBuffer, setClickedNodeBuffer] = useState(null);
   const [previousClickedNode, setPreviousClickedNode] = useState(null);
-  const [foundLinkData, setFoundLinkData] = useState(null);
 
   const metroLineData = useMemo(
     () =>
@@ -291,45 +211,6 @@ export default function MetroMap({
     [customLines]
   );
   // needed for transition animation - find out which nodes and link to draw
-  useEffect(() => {
-    if (previousClickedNode && clickedNodeBuffer) {
-      const foundLineId = Object.keys(lines).find((lineId) => {
-        return (
-          lines[lineId].links.filter(
-            (link) =>
-              (link.source === previousClickedNode &&
-                link.target === clickedNodeBuffer) ||
-              (link.source === clickedNodeBuffer &&
-                link.target === previousClickedNode)
-          ).length > 0
-        );
-      });
-
-      const { paths } = metroLineData.find(
-        (line) => Object.keys(line)[0] === foundLineId
-      )[foundLineId];
-
-      const foundLinkData = paths.filter(
-        ({ path }) =>
-          path[path.length - 1].source === previousClickedNode &&
-          path[path.length - 1].target === clickedNodeBuffer
-      );
-
-      const foundLinkDataReversed = paths.filter(
-        ({ path }) =>
-          path[path.length - 1].source === clickedNodeBuffer &&
-          path[path.length - 1].target === previousClickedNode
-      );
-
-      setFoundLinkData({
-        data:
-          foundLinkDataReversed.length > 0
-            ? foundLinkDataReversed
-            : foundLinkData,
-        reversed: foundLinkDataReversed.length > 0,
-      });
-    }
-  }, [previousClickedNode, clickedNodeBuffer, metroLineData, lines]);
 
   const onArticleStackAnimationComplete = () => {
     if (clickedNodeBuffer) {
@@ -418,6 +299,16 @@ export default function MetroMap({
 
                 return (
                   <motion.g
+                    initial={{
+                      x:
+                        paddingX +
+                        (isMapFocused ? NODE_WIDTH / 2 : LANDING_WIDTH / 2),
+                      y:
+                        paddingY +
+                        (isMapFocused ? NODE_HEIGHT : LANDING_HEIGHT / 2),
+
+                      opacity: 0,
+                    }}
                     animate={{
                       x:
                         paddingX +
@@ -425,6 +316,7 @@ export default function MetroMap({
                       y:
                         paddingY +
                         (isMapFocused ? NODE_HEIGHT : LANDING_HEIGHT / 2),
+                      opacity: 1,
                     }}
                     key={lineId}
                   >
@@ -442,14 +334,14 @@ export default function MetroMap({
             {/* link labels */}
             <motion.div className="absolute">
               {metroLineData.map((data) => {
-                console.log(
-                  "🚀 ~ file: MetroMap.jsx:439 ~ {metroLineData.map ~ data:",
-                  data
-                );
                 const [lineId, { labels }] = Object.entries(data)[0];
 
                 return (
                   <motion.div
+                    initial={{
+                      x: paddingX + NODE_WIDTH / 2,
+                      y: paddingY + NODE_HEIGHT,
+                    }}
                     animate={{
                       x: paddingX + NODE_WIDTH / 2,
                       y: paddingY + NODE_HEIGHT,
@@ -533,93 +425,6 @@ export default function MetroMap({
             );
           })}
 
-          {/* transition animation */}
-          {previousClickedNode && clickedNodeBuffer && (
-            <motion.div>
-              <motion.div
-                className="absolute top-0 left-0 w-screen h-screen"
-                style={{ backgroundColor: "rgba(0, 0, 0, 0.8)" }}
-              />
-              {foundLinkData && (
-                <motion.svg
-                  className="absolute"
-                  x="0"
-                  y="0"
-                  width={screenWidth}
-                  height={screenHeight}
-                >
-                  <motion.g
-                    animate={{
-                      x:
-                        paddingX +
-                        (isMapFocused ? NODE_WIDTH / 2 : LANDING_WIDTH / 2),
-                      y:
-                        paddingY +
-                        (isMapFocused ? NODE_HEIGHT : LANDING_HEIGHT / 2),
-                    }}
-                  >
-                    <MetroLine
-                      data={foundLinkData.data}
-                      reversed={foundLinkData.reversed}
-                    />
-                  </motion.g>
-                </motion.svg>
-              )}
-              {[previousClickedNode, clickedNodeBuffer].map((nodeId) => {
-                const { x: landingX, y: landingY } = nodes[nodeId];
-
-                const articles = customNodes[nodeId].articles.map(
-                  (articleId) => {
-                    return data.articles[articleId];
-                  }
-                );
-                // console.log("articles", articles);
-
-                return (
-                  <motion.div
-                    className="absolute"
-                    variants={metroStopVariantsFactory(
-                      screenWidth,
-                      screenHeight,
-                      isMapFocused,
-                      customNodes[nodeId],
-                      landingX,
-                      landingY,
-                      LANDING_WIDTH,
-                      LANDING_HEIGHT,
-                      paddingX,
-                      paddingY,
-                      NODE_WIDTH,
-                      NODE_HEIGHT
-                    )}
-                    animate={clickedNode === nodeId ? "clicked" : "default"}
-                    key={nodeId}
-                  >
-                    <MetroStop
-                      data={customNodes[nodeId]}
-                      articles={articles}
-                      isMapFocused={isMapFocused}
-                      shouldRenderContent={true}
-                      width={NODE_WIDTH}
-                      height={NODE_HEIGHT}
-                      onClick={
-                        isMapFocused ? handleMetroStopClick(nodeId) : () => {}
-                      }
-                      clicked={clickedNode === nodeId}
-                      onNeighbouringNodeClick={(neighbourId) => {
-                        return handleMetroStopClick(neighbourId);
-                      }}
-                      onArticleStackAnimationComplete={() => {}}
-                      // do not pass in onArticleStackAnimationComplete.
-                      // otherwise, it will assign 2 additional setTimeout
-                      // (executed after the animation for the source and target node is completed)
-                    />
-                  </motion.div>
-                );
-              })}
-            </motion.div>
-          )}
-
           {/* metromap title */}
           <motion.div
             className={`absolute ${
@@ -636,7 +441,6 @@ export default function MetroMap({
               height: isMapFocused ? 0 : screenHeight,
             }}
           >
-            {/* metromap title */}
             <motion.div
               style={{ width: isMapFocused ? width * 3 : width - 64 }}
               className=" my-6 mx-auto text-center whitespace-nowrap overflow-x-auto scrollbar-none text-sm"
@@ -680,7 +484,7 @@ export default function MetroMap({
 
       {/* {isMapFocused && ( */}
       <SideDrawer
-        isVisible={sideDrawerOpen}
+        isVisible={isMapFocused}
         close={closeSideDrawer}
         screenWidth={screenWidth}
         screenHeight={screenHeight}

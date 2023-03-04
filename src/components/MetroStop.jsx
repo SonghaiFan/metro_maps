@@ -7,12 +7,7 @@ import {
   ARTICALSTACK_INNER_PADDING,
   METROSTOP_CIRCLE_SIZE,
   ARTICLE_SIZE_MULTIPLIER,
-  LEFT_MARGIN,
-  TOP_MARGIN,
 } from "../utilities/util";
-import NeighbouringNodes from "./NeighbouringNodes";
-
-const EXCLUDED_TITLES = ["herald sun", "opinion"];
 
 export default function MetroStop({
   data,
@@ -53,26 +48,10 @@ export default function MetroStop({
     ZOOMED_IN_ARTICLE_HEIGHT * ARTICLE_LIMIT +
     ARTICALSTACK_INNER_PADDING * (ARTICLE_LIMIT - 1);
 
-  // filter out title such as Herald Sun
-  const { title } = articles.find(
-    (article) => !EXCLUDED_TITLES.includes(article.title.toLowerCase())
-  );
-
   const [showMore, setShowMore] = useState(false);
 
   return (
     <>
-      {/* {clicked && (
-        <NeighbouringNodes
-          connectedNodes={data.connectedNodes}
-          currentNode={data}
-          screenWidth={screenWidth}
-          screenHeight={screenHeight}
-          zoomedInArticleWidth={ZOOMED_IN_ARTICLE_WIDTH}
-          onClick={onNeighbouringNodeClick}
-          onNeighbourNodeLabelClick={onNeighbourNodeLabelClick}
-        />
-      )} */}
       {isMapFocused && (
         <>
           <ArticleStack
@@ -129,6 +108,12 @@ export default function MetroStop({
               backgroundColor: data.colour, //"white"
               border: data.isChanged ? "2px solid white" : null,
             }}
+            initial={{
+              width: METROSTOP_CIRCLE_SIZE,
+              height: METROSTOP_CIRCLE_SIZE,
+              y: height,
+              x: 0,
+            }}
             animate={{
               width: METROSTOP_CIRCLE_SIZE,
               height: METROSTOP_CIRCLE_SIZE,
@@ -173,6 +158,7 @@ export default function MetroStop({
                 ? `absolute rounded-md px-2 ${clicked ? "text-4xl" : "text-sm"}`
                 : ""
             }`}
+            initial="default"
             animate={clicked ? "clicked" : "default"}
             onClick={(event) =>
               isMapFocused ? onNodeWordsLabelClick(event.target) : undefined

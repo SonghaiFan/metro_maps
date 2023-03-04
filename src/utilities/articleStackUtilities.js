@@ -15,10 +15,10 @@ const articleVariantsFactory = (
       height: zoomedInArticleHeight,
       x: 0,
       y: clickedArticleYPosition,
-      // transition: {
-      //   delay: (totalArticles - articleIndex + 1) / 25,
-      //   ease: "easeOut",
-      // },
+      transition: {
+        // delay: (totalArticles - articleIndex + 1) / 25,
+        ease: "easeOut",
+      },
     },
     default: {
       width: articleWidth,
@@ -26,7 +26,7 @@ const articleVariantsFactory = (
       x: totalArticles - articleIndex - 1,
       y: articleIndex - totalArticles + 1,
       transition: {
-        delay: (totalArticles - articleIndex + 1) / 250,
+        // delay: (totalArticles - articleIndex + 1) / 250,
         ease: "easeOut",
       },
     },

@@ -9,7 +9,7 @@ import {
 import { AnimatePresence, motion } from "framer-motion";
 import NavigationButton from "./NavigationButton";
 import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from "react-icons/fa";
-import { METROMAPS_PER_PAGE, PAGE_DIRECTION, margin } from "../utilities/util";
+import { METROMAPS_PER_PAGE, PAGE_DIRECTION } from "../utilities/util";
 import Timer from "./Timer";
 import mixpanel from "mixpanel-browser";
 
