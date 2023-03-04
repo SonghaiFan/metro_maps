@@ -28,7 +28,6 @@ export default function ArticleStack({
   articleLimit,
   onAnimationComplete,
   mapId,
-  focusArticle,
   setFocusArticleID,
   onZoomOutClick,
 }) {
@@ -38,12 +37,6 @@ export default function ArticleStack({
   const [shownArticles, setShownArticles] = useState(articles);
 
   //use effect when not clicked, set shown articles to articles
-
-  useLayoutEffect(() => {
-    if (!clicked) {
-      setShownArticles(articles);
-    }
-  }, [clicked, articles]);
 
   const articlesInitialHeight = _.range(shownArticles.length).map(
     () => zoomedInArticleHeight
@@ -55,9 +48,9 @@ export default function ArticleStack({
   );
 
   const [mostRecentClickedArticle, setMostRecentClickedArticle] =
-    useState(focusArticle);
+    useState(null);
 
-  const handleArticleClick = (id, articleIndex) => () => {
+  const handleArticleShowMoreOrLessClick = (id, articleIndex) => () => {
     setMostRecentClickedArticle({ id, articleIndex });
     setArticlesClicked((previousArticlesClicked) =>
       previousArticlesClicked.map((value, index) =>
@@ -81,6 +74,12 @@ export default function ArticleStack({
       });
     }
   }, [mostRecentClickedArticle, zoomedInArticleHeight]);
+
+  useLayoutEffect(() => {
+    if (!clicked) {
+      setShownArticles(articles);
+    }
+  }, [clicked, articles]);
 
   // Parse date strings to date objects
   // -----------------------------------
@@ -123,11 +122,7 @@ export default function ArticleStack({
       datatype="article_stack"
       className={`absolute z-10 ${
         clicked
-          ? ` top-0 left-0 w-full h-full overflow-y-scroll  ${
-              shownArticles.length > articleLimit
-                ? "scrollbar"
-                : "scrollbar-none"
-            }`
+          ? ` top-0 left-0 w-full h-full overflow-y-scroll  scrollbar`
           : " z-50"
       }`}
       style={{
@@ -204,13 +199,12 @@ export default function ArticleStack({
               }}
               onClick={() => {
                 setFocusArticleID(article.id);
-                // set shown articles to only the clicked article
-                setShownArticles([article]);
-                // set clicked to true
-                handleArticleClick(
+                handleArticleShowMoreOrLessClick(
                   `${mapId}-${article.id}`,
                   shownArticles.length - articleIndex - 1
                 );
+                // set shown articles to only the clicked article
+                clicked || setShownArticles([article]);
 
                 onClick();
               }}
@@ -218,7 +212,7 @@ export default function ArticleStack({
               <Article
                 article={article}
                 metroStopClicked={clicked}
-                onClick={handleArticleClick(
+                onClick={handleArticleShowMoreOrLessClick(
                   `${mapId}-${article.id}`,
                   shownArticles.length - articleIndex - 1
                 )}
