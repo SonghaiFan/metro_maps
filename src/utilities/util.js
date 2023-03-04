@@ -22,9 +22,9 @@ export const flatMap = (array, mapFunction) => {
 export const showTruth = true;
 // CONSTANTS
 
-const NODEWIDTH = 15;
-const ARTICLE_RADIUS_MULTIPLIER = 0.8;
-const ARTICLE_SIZE_MULTIPLIER = 1.5;
+export const NODEWIDTH = 15;
+export const ARTICLE_RADIUS_MULTIPLIER = 0.8;
+export const ARTICLE_SIZE_MULTIPLIER = 1.5;
 
 export const TOP_FULL_PAGE_PADDING = 20;
 export const MAX_ARTICLES = 20;

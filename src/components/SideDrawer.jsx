@@ -32,8 +32,8 @@ export const SideDrawer = ({
     setComment(event.target.value);
   };
 
-  const whoColour = getColour(whoOpenSideDrawer);
-  const whoValue = invertCustomerInterpolation(whoColour);
+  // const whoColour = getColour(whoOpenSideDrawer);
+  // const whoValue = invertCustomerInterpolation(whoColour);
 
   return (
     <AnimatePresence>

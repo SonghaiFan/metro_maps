@@ -125,37 +125,7 @@ export default function MetroStop({
           event.target.dataset.type === "modal" && onZoomOutClick();
         }}
       >
-        {/* node number label#### */}
-        {/* {isMapFocused && !clicked && (
-          <motion.div
-            data-type="node-number-label"
-            id={data.id}
-            style={{
-              backgroundColor: data.colour, //"white"
-              border: data.isChanged ? null : "2px solid white",
-            }}
-            initial={{
-              width: METROSTOP_CIRCLE_SIZE,
-              height: METROSTOP_CIRCLE_SIZE,
-              y: height,
-              x: 0,
-            }}
-            animate={{
-              width: width * 1.8,
-              height: METROSTOP_CIRCLE_SIZE,
-              y: height,
-              x: 0,
-            }}
-            // when hover, scale up the div
-            whileHover={{
-              scale: 1.2,
-            }}
-            className={`node-${data.id} alerts-border  absolute rounded-xl text-xs flex justify-center items-center cursor-pointer`}
-            onClick={(event) => onNodeNumberLabelClick(event.target)}
-          >
-            {data.articles.length}
-          </motion.div>
-        )} */}
+        {/* node number label */}
         {/* article stack panel */}
         <motion.div
           data-type="node-number-label"
@@ -170,9 +140,9 @@ export default function MetroStop({
               : "2px solid #9d9b8e",
           }}
           animate={{
-            x: clicked ? 0 : -METROLINE_WIDTH / 2,
-            y: clicked ? 0 : ARTICLE_HEIGHT / 2 + METROLINE_WIDTH / 2 - 0.5,
-            width: ARTICLE_WIDTH + NODEWIDTH / 2 + METROLINE_WIDTH / 2,
+            x: clicked ? 0 : NODEWIDTH / 2,
+            y: clicked ? 0 : ARTICLE_HEIGHT + METROLINE_WIDTH / 2,
+            width: ARTICLE_WIDTH + NODEWIDTH,
             height: METROLINE_WIDTH,
           }}
           onClick={(event) =>
