@@ -24,7 +24,7 @@ export const showTruth = true;
 
 export const NODEWIDTH = 15;
 export const ARTICLE_RADIUS_MULTIPLIER = 0.8;
-export const ARTICLE_SIZE_MULTIPLIER = 1.5;
+export const ARTICLE_SIZE_MULTIPLIER = 1.3;
 
 export const TOP_FULL_PAGE_PADDING = 20;
 export const MAX_ARTICLES = 20;
@@ -42,7 +42,7 @@ export const METROLINE_ANIMATION_DURATION = 0;
 
 export const METROSTOP_CIRCLE_SIZE = METROLINE_WIDTH * 2;
 
-export const TIME_AXIS_PADDING = 10;
+export const TIME_AXIS_PADDING = 50;
 
 export const LINK_LABEL_HEIGHT = 20;
 

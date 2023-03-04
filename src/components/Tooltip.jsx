@@ -9,7 +9,7 @@ const Tooltip = ({ text, clicked, children }) => {
   };
 
   const handleMouseMove = (e) => {
-    console.log(e.clientX, e.clientY);
+    // console.log(e.clientX, e.clientY);
     // get the recent parent with class name metro--stop--wrapper position
     const parent = e.target.closest(".metro--stop--wrapper");
     const parentRect = parent.getBoundingClientRect();

@@ -93,28 +93,30 @@ export default function TimeAxis({
         // );
 
         // const timeVaryNodeWidth = scale(endingDate) - scale(startingDate);
+
+        const x =
+          paddingX +
+          column[0].x -
+          (nodeWidth * (ARTICLE_SIZE_MULTIPLIER - 1)) / 2;
+        const y =
+          paddingY -
+          METROSTOP_BOTTOM_PADDING -
+          MAX_ARTICLES -
+          TIME_AXIS_PADDING;
         return (
           <motion.div key={index}>
             <motion.div
               className="absolute bg-neutral-900 rounded-2xl"
               initial={{
-                x: paddingX + column[0].x - nodeWidth * 0.25,
-                y:
-                  paddingY -
-                  METROSTOP_BOTTOM_PADDING -
-                  MAX_ARTICLES -
-                  TIME_AXIS_PADDING,
+                x: x,
+                y: y,
                 width: nodeWidth * ARTICLE_SIZE_MULTIPLIER,
                 height: timeAxisHeight,
                 opacity: 0,
               }}
               animate={{
-                x: paddingX + column[0].x - nodeWidth * 0.25,
-                y:
-                  paddingY -
-                  METROSTOP_BOTTOM_PADDING -
-                  MAX_ARTICLES -
-                  TIME_AXIS_PADDING,
+                x: x,
+                y: y,
                 width: nodeWidth * ARTICLE_SIZE_MULTIPLIER,
                 height: timeAxisHeight,
                 opacity: 1,
@@ -133,25 +135,20 @@ export default function TimeAxis({
             <motion.div
               className="absolute p-2 flex justify-center"
               initial={{
-                x: paddingX + column[0].x - (nodeWidth + MAX_ARTICLES) * 0.25,
-                y:
-                  paddingY -
-                  METROSTOP_BOTTOM_PADDING -
-                  MAX_ARTICLES -
-                  TIME_AXIS_PADDING +
-                  timeAxisHeight,
-                width: (nodeWidth + MAX_ARTICLES) * 1.2,
+                x: x,
+                y: y,
+                width: nodeWidth * 1.2,
                 opacity: 0,
               }}
               animate={{
-                x: paddingX + column[0].x - (nodeWidth + MAX_ARTICLES) * 0.25,
+                x: x,
                 y:
                   paddingY -
                   METROSTOP_BOTTOM_PADDING -
                   MAX_ARTICLES -
                   TIME_AXIS_PADDING +
                   timeAxisHeight,
-                width: (nodeWidth + MAX_ARTICLES) * 1.2,
+                width: nodeWidth * 1.2,
                 opacity: 1,
               }}
             >

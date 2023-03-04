@@ -29,7 +29,7 @@ export default function MetroStop({
   onZoomOutClick,
   mapId,
 }) {
-  console.log("🚀 ~ file: MetroStop.jsx:32 ~ articles:", articles);
+  // console.log("🚀 ~ file: MetroStop.jsx:32 ~ articles:", articles);
   // console.log("From MetroStop", data);
   // const label = data.node_words;
   const { width: screenWidth, height: screenHeight } = useWindowSize();
@@ -68,7 +68,7 @@ export default function MetroStop({
 
   const keywords = getKeywords();
   // console log what is the typeof keywords?
-  console.log("🚀 ~ file: MetroStop.jsx:32 ~ keywords:", keywords);
+  // console.log("🚀 ~ file: MetroStop.jsx:32 ~ keywords:", keywords);
 
   const content = keywords;
   const moreContent = keywords;
@@ -95,6 +95,7 @@ export default function MetroStop({
             mapId={mapId}
             focusArticleID={focusArticleID}
             setFocusArticleID={setFocusArticleID}
+            onZoomOutClick={onZoomOutClick}
           />
           {/* {!clicked && (
             <motion.div
@@ -133,16 +134,16 @@ export default function MetroStop({
           className="article--stack--panel absolute rounded-full "
           style={{
             backgroundColor: clicked ? null : "#9d9b8e",
-            outline: clicked
-              ? null
-              : data.isChanged
-              ? "2px solid white"
-              : "2px solid #9d9b8e",
+            // outline: clicked
+            //   ? null
+            //   : data.isChanged
+            //   ? "2px solid white"
+            //   : "2px solid #9d9b8e",
           }}
           animate={{
             x: clicked ? 0 : NODEWIDTH / 2,
             y: clicked ? 0 : ARTICLE_HEIGHT + METROLINE_WIDTH / 2,
-            width: ARTICLE_WIDTH + NODEWIDTH,
+            width: ARTICLE_WIDTH + METROLINE_WIDTH / 2,
             height: METROLINE_WIDTH,
           }}
           onClick={(event) =>

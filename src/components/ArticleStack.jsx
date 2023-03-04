@@ -31,6 +31,7 @@ export default function ArticleStack({
   mapId,
   focusArticle,
   setFocusArticleID,
+  onZoomOutClick,
 }) {
   const { width: screenWidth, height: screenHeight } = useWindowSize();
   // console.log(data);
@@ -110,7 +111,8 @@ export default function ArticleStack({
 
   return (
     <motion.div
-      className={`absolute  ${
+      datatype="article_stack"
+      className={`absolute z-10 ${
         clicked
           ? ` top-0 left-0 w-full h-full overflow-y-scroll  ${
               articles.length > articleLimit ? "scrollbar" : "scrollbar-none"
@@ -126,23 +128,17 @@ export default function ArticleStack({
         y: clicked ? ARTICALSTACK_TOP_PADDING : 0,
         width: zoomedInArticleWidth + ARTICALSTACK_INNER_PADDING * 2,
       }}
+      onClick={(event) => {
+        console.log("clicked article stack");
+        setFocusArticleID(null);
+        if (
+          clicked &&
+          event.target.getAttribute("datatype") === "article_stack"
+        ) {
+          onZoomOutClick();
+        }
+      }}
     >
-      {/* article stack panel */}
-      {/* <motion.div
-        className="article--stack--panel absolute rounded-full "
-        style={{
-          backgroundColor: clicked ? null : "#9d9b8e",
-        }}
-        animate={{
-          x: clicked ? 0 : 0,
-          y: clicked ? 0 : articleHeight + METROLINE_WIDTH / 2,
-          width: articleWidth + NODEWIDTH,
-          height: METROLINE_WIDTH,
-        }}
-        // onMouseEnter={() => setShowDoge(true)}
-        // onMouseLeave={() => setShowDoge(false)}
-      ></motion.div> */}
-
       {
         // reversing an array of objects: https://stackoverflow.com/questions/51479338/reverse-array-of-objects-gives-same-output-2
         []
@@ -201,24 +197,9 @@ export default function ArticleStack({
                 onClick={() => {
                   const theArticleId = `${mapId}-${article.id}`;
                   const theArticlesClass = `article-${data.id}`;
-                  const theArticle = document.getElementById(theArticleId);
-                  const allArticles =
-                    document.getElementsByClassName(theArticlesClass);
-                  for (let i = 0; i < allArticles.length; i++) {
-                    // find all children with class name "article-container", set it invisible
-                    const articleContainer =
-                      allArticles[i].getElementsByClassName(
-                        "article-container"
-                      );
-                    if (articleContainer.length > 0) {
-                      articleContainer[0].style.backgroundColor = "#d1cfbf";
-                    }
-                  }
 
-                  // set the parent of the clicked article to be red
-                  const theArticleContainer = theArticle.parentElement;
-
-                  theArticleContainer.style.backgroundColor = "white";
+                  console.log("clicked article", theArticleId);
+                  console.log("clicked article class", theArticlesClass);
                 }}
               >
                 <Article
@@ -233,12 +214,12 @@ export default function ArticleStack({
                 />
 
                 {/* helper onClick layer */}
-                {!clicked && (
+                {/* {!clicked && (
                   <motion.div
                     className="helper absolute w-full h-full"
                     onClick={onClick}
                   />
-                )}
+                )} */}
               </motion.div>
             );
           })

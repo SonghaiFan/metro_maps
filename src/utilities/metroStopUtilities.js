@@ -61,7 +61,9 @@ const nodeWordsVariantsFactory = (
 ) => {
   return {
     default: {
-      y: isMapFocused ? height + METROSTOP_CIRCLE_SIZE : 0,
+      y: isMapFocused
+        ? height + METROSTOP_CIRCLE_SIZE + ARTICALSTACK_INNER_PADDING * 1.5
+        : 0,
       x: 0,
       width: showMore
         ? calculateNodeWordsLabelWidth(moreContent)

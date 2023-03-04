@@ -13,13 +13,11 @@ import { metroStopVariantsFactory } from "../utilities/metroStopUtilities";
 import { generatePaths } from "../utilities/metroMapUtilities";
 import NavigationButton from "./NavigationButton";
 import { AiOutlineFullscreenExit } from "react-icons/ai";
-import { TbWriting } from "react-icons/tb";
 import MetroMapDescription from "./MetroMapDescription";
 import MetroLine from "./MetroLine";
 import MetroLineLabel from "./MetroLineLabel";
 import TimeAxis from "./TimeAxis";
 import { SideDrawer } from "./SideDrawer";
-import Tooltip from "./Tooltip";
 import mixpanel from "mixpanel-browser";
 
 export default function MetroMap({
@@ -150,13 +148,13 @@ export default function MetroMap({
     console.log(whoConfirmedInput);
   }, [whoConfirmedInput]);
 
-  const openSideDrawer = (who) => {
-    // highlight who dom element by adding a class
-    // who.classList.add("highlight");
+  // const openSideDrawer = (who) => {
+  //   // highlight who dom element by adding a class
+  //   // who.classList.add("highlight");
 
-    // setWhoOpenSideDrawer(who);
-    setSideDrawerOpen(true);
-  };
+  //   // setWhoOpenSideDrawer(who);
+  //   setSideDrawerOpen(true);
+  // };
 
   const closeSideDrawer = () => {
     // remove highlight class from who dom element
@@ -486,7 +484,7 @@ export default function MetroMap({
       {/* {isMapFocused && ( */}
       <SideDrawer
         isVisible={isMapFocused}
-        close={closeSideDrawer}
+        // close={closeSideDrawer}
         screenWidth={screenWidth}
         screenHeight={screenHeight}
         paddingY={paddingY}
