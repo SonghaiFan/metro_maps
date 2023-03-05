@@ -34,7 +34,7 @@ const Tooltip = ({ text, clicked, children }) => {
       onMouseLeave={handleMouseLeave}
     >
       {children}
-      {show && (
+      {show && !clicked && (
         <div
           ref={tooltipRef}
           style={{ width: "150px" }}

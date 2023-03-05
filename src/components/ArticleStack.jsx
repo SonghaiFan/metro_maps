@@ -27,6 +27,7 @@ export default function ArticleStack({
   articleLimit,
   onAnimationComplete,
   mapId,
+  focusArticleID,
   setFocusArticleID,
   onZoomOutClick,
 }) {
@@ -82,7 +83,32 @@ export default function ArticleStack({
   useLayoutEffect(() => {
     if (!clicked) {
       setShownArticles(articles);
+      // set all articles to not clicked
+      setArticlesState((prev) =>
+        prev.map((state) => ({
+          ...state,
+          clicked: false,
+          height: zoomedInArticleHeight,
+        }))
+      );
     }
+
+    // if shownarticles only has one article, set clicked to true
+    if (shownArticles.length === 1) {
+      setArticlesState((prev) =>
+        prev.map((state) =>
+          state.id === `${mapId}-${shownArticles[0].id}`
+            ? {
+                ...state,
+                clicked: true,
+                height: getClickedArticleHeight(state),
+              }
+            : state
+        )
+      );
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clicked, articles]);
 
   // Parse date strings to date objects
