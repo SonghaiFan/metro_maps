@@ -25,7 +25,7 @@ export default function MetroLineLabel({ data, onMetroLineLabelClick }) {
   const moreContent = Array.isArray(label)
     ? label
         .slice(0, 5)
-        .map((x) => x.replace(/ /g, "_"))
+        // .map((x) => x.replace(/ /g, "_"))
         .join(", ")
     : label;
   // join the label array into a string with space as separator

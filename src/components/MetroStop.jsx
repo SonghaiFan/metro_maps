@@ -29,12 +29,12 @@ export default function MetroStop({
   // console.log("From MetroStop", data);
   const label = data.node_words;
   const { width: screenWidth, height: screenHeight } = useWindowSize();
-  const content = label.length > 0 ? label[0].replace(/ /g, "_") : "";
+  const content = label.length > 0 ? label[0] : "";
 
   const moreContent = Array.isArray(label)
     ? label
         .slice(0, 5)
-        .map((x) => x.replace(/ /g, "_"))
+        // .map((x) => x.replace(/ /g, "_"))
         .join(", ")
     : label;
 
