@@ -19,10 +19,7 @@ export default function MetroLineLabel({ data, onMetroLineLabelClick, width }) {
   // get the first 5 words of the label array
 
   const moreContent = Array.isArray(label)
-    ? label
-        .slice(0, 5)
-        .map((x) => x.replace(/ /g, "_"))
-        .join(", ")
+    ? label.slice(0, 5).join(", ")
     : label;
   // join the label array into a string with space as separator
 
@@ -104,6 +101,7 @@ export default function MetroLineLabel({ data, onMetroLineLabelClick, width }) {
           height: showMore
             ? LINK_LABEL_HEIGHT * labelLength
             : LINK_LABEL_HEIGHT, // 20 from line height of text-sm
+          z: 90,
         }}
         className={`edge-${id} alerts-border  text-black text-sm rounded-md px-2 z-50 cursor-pointer pointer-events-auto`}
         onClick={onMetroLineLabelClick}

@@ -137,7 +137,7 @@ export default function TimeAxis({
               initial={{
                 x: x,
                 y: y,
-                width: nodeWidth * 1.2,
+                width: nodeWidth * ARTICLE_SIZE_MULTIPLIER,
                 opacity: 0,
               }}
               animate={{
@@ -148,7 +148,7 @@ export default function TimeAxis({
                   MAX_ARTICLES -
                   TIME_AXIS_PADDING +
                   timeAxisHeight,
-                width: nodeWidth * 1.2,
+                width: nodeWidth * ARTICLE_SIZE_MULTIPLIER,
                 opacity: 1,
               }}
             >

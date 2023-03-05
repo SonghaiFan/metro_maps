@@ -68,6 +68,7 @@ const nodeWordsVariantsFactory = (
       width: showMore
         ? calculateNodeWordsLabelWidth(moreContent)
         : calculateNodeWordsLabelWidth(content),
+      // zIndex: 50,
     },
     clicked: {
       y:
@@ -103,7 +104,7 @@ const metroStopVariantsFactory = (
       y: 0,
       width: screenWidth,
       height: screenHeight,
-      zIndex: 50,
+      zIndex: 20,
       transition: { ease: "easeOut" },
     },
     default: {

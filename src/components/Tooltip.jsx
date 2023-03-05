@@ -34,13 +34,13 @@ const Tooltip = ({ text, clicked, children }) => {
       onMouseLeave={handleMouseLeave}
     >
       {children}
-      {show && !clicked && (
+      {show && (
         <div
           ref={tooltipRef}
-          style={{ width: "150px" }}
+          style={{ width: "150px", zIndex: 100 }}
           className="absolute text-white text-sm m-1 font-bold rounded-md px-2 bg-neutral-900 opacity-80 filter drop-shadow-md z-50  max-w-xs break-words"
         >
-          {text}
+          {!clicked && text}
         </div>
       )}
     </div>

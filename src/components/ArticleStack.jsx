@@ -54,14 +54,9 @@ export default function ArticleStack({
     div.style.width = `${zoomedInArticleWidth}px`;
     div.innerText = state.data.full_text;
     document.body.appendChild(div);
-
     const height = div.clientHeight;
-
-    console.log(height);
-
     document.body.removeChild(div);
-
-    return height + ARTICALSTACK_TOP_PADDING * 2;
+    return height + ARTICALSTACK_TOP_PADDING * 2 + ARTICALSTACK_INNER_PADDING;
   };
 
   const handleArticleShowMoreOrLessClick = (id) => () => {
@@ -107,9 +102,9 @@ export default function ArticleStack({
         )
       );
     }
-
+    // This is to make show less button work when there is only one article
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [clicked, articles]);
+  }, [clicked]);
 
   // Parse date strings to date objects
   // -----------------------------------
@@ -160,7 +155,7 @@ export default function ArticleStack({
         backgroundColor: clicked ? "" : "#d1cfbf",
       }}
       animate={{
-        x: clicked ? screenWidth / 2 - zoomedInArticleWidth / 2 : 0,
+        x: clicked ? screenWidth / 1.8 - zoomedInArticleWidth / 2 : 0,
         y: clicked ? ARTICALSTACK_TOP_PADDING : 0,
         width: zoomedInArticleWidth + ARTICALSTACK_INNER_PADDING * 2,
       }}
