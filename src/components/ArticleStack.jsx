@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from "react";
+import React, { useLayoutEffect, useState, useRef } from "react";
 import * as d3 from "d3";
 import { motion } from "framer-motion";
 import Article from "./Article";
@@ -10,7 +10,6 @@ import {
   ARTICALSTACK_TOP_PADDING,
   ARTICALSTACK_INNER_PADDING,
   NODEWIDTH,
-  METROLINE_WIDTH,
 } from "../utilities/util";
 import _ from "lodash";
 
@@ -38,42 +37,47 @@ export default function ArticleStack({
 
   //use effect when not clicked, set shown articles to articles
 
-  const articlesInitialHeight = _.range(shownArticles.length).map(
-    () => zoomedInArticleHeight
+  const [articlesState, setArticlesState] = useState(
+    articles.map((article) => ({
+      id: `${mapId}-${article.id}`,
+      height: zoomedInArticleHeight,
+      clicked: false,
+      data: article,
+    }))
   );
 
-  const [articlesHeight, setArticlesHeight] = useState(articlesInitialHeight);
-  const [articlesClicked, setArticlesClicked] = useState(
-    _.range(shownArticles.length).map(() => false)
-  );
+  // write a function that takes data and generate a fake Article component, get its height, and destroy it
+  const getClickedArticleHeight = (state) => {
+    console.log(state);
+    const div = document.createElement("div");
+    div.style.width = `${zoomedInArticleWidth}px`;
+    div.innerText = state.data.full_text;
+    document.body.appendChild(div);
 
-  const [mostRecentClickedArticle, setMostRecentClickedArticle] =
-    useState(null);
+    const height = div.clientHeight;
 
-  const handleArticleShowMoreOrLessClick = (id, articleIndex) => () => {
-    setMostRecentClickedArticle({ id, articleIndex });
-    setArticlesClicked((previousArticlesClicked) =>
-      previousArticlesClicked.map((value, index) =>
-        index === articleIndex ? !value : value
+    console.log(height);
+
+    document.body.removeChild(div);
+
+    return height + ARTICALSTACK_TOP_PADDING * 2;
+  };
+
+  const handleArticleShowMoreOrLessClick = (id) => () => {
+    setArticlesState((prev) =>
+      prev.map((state) =>
+        state.id === id
+          ? {
+              ...state,
+              clicked: !state.clicked,
+              height: !state.clicked
+                ? getClickedArticleHeight(state)
+                : zoomedInArticleHeight,
+            }
+          : state
       )
     );
   };
-
-  useLayoutEffect(() => {
-    if (mostRecentClickedArticle) {
-      const { id, articleIndex } = mostRecentClickedArticle;
-      const { height } = document.getElementById(id).getBoundingClientRect();
-      setArticlesHeight((previousArticlesHeight) => {
-        return previousArticlesHeight.map((articleHeight, index) =>
-          index === articleIndex
-            ? height < zoomedInArticleHeight
-              ? zoomedInArticleHeight
-              : height + ARTICALSTACK_INNER_PADDING
-            : articleHeight
-        );
-      });
-    }
-  }, [mostRecentClickedArticle, zoomedInArticleHeight]);
 
   useLayoutEffect(() => {
     if (!clicked) {
@@ -111,7 +115,7 @@ export default function ArticleStack({
     // article.y_value = 0;
   });
 
-  const [showDoge, setShowDoge] = useState(true);
+  // const [showDoge, setShowDoge] = useState(true);
 
   // console.log(articles);
 
@@ -135,7 +139,6 @@ export default function ArticleStack({
         width: zoomedInArticleWidth + ARTICALSTACK_INNER_PADDING * 2,
       }}
       onClick={(event) => {
-        console.log("clicked article stack");
         setFocusArticleID(null);
         if (
           clicked &&
@@ -145,94 +148,87 @@ export default function ArticleStack({
         }
       }}
     >
-      {
-        // reversing an array of objects: https://stackoverflow.com/questions/51479338/reverse-array-of-objects-gives-same-output-2
-        _.reverse(shownArticles).map((article, articleIndex, array) => {
-          const clickedArticleYPosition = articlesHeight
-            // the first article (in reverse order) = articles.length - 0 - 1 = articles.lenght - 1 (get all articles)
-            .slice(0, shownArticles.length - articleIndex - 1)
-            .reduce((total, articleHeight) => {
-              return total + ARTICALSTACK_INNER_PADDING + articleHeight;
-            }, 0);
+      {_.reverse(shownArticles).map((article, articleIndex, array) => {
+        // Calculate the y position of the article that was clicked
+        // by summing the heights of all the articles in the stack
+        // above it.
+        // loadash shallow copy articlesState
 
-          // do not use articleIndex here, instead use articles.length - articleIndex - 1 cause the articles are reversed
-          const zoomedArticleHeight = articlesHeight.find(
-            (_, index) => index === shownArticles.length - articleIndex - 1
-          );
+        const clickedArticleYPosition = articlesState
+          .slice(0, shownArticles.length - articleIndex - 1)
+          .reduce((total, { id }) => {
+            const state = articlesState.find((state) => state.id === id);
+            return total + ARTICALSTACK_INNER_PADDING + state.height;
+          }, 0);
 
-          return (
-            <motion.div
-              key={article.id}
-              data-title={article.title}
-              className={`article-${data.id} alerts-border absolute rounded-md overflow-hidden cursor-zoom-in `}
-              style={{
-                border: data.isChanged ? "2px solid white" : null, //###
-                backgroundColor: clicked ? "white" : "#d1cfbf",
-                borderRadius: clicked ? "6px" : "15px",
-              }}
-              variants={articleVariantsFactory(
-                array.length,
-                articleIndex,
-                screenWidth,
-                screenHeight,
-                articleWidth,
-                articleHeight,
-                zoomedInArticleWidth,
-                zoomedArticleHeight,
-                clickedArticleYPosition,
-                article.timestamp,
-                article.x_value,
-                showDoge ? article.y_value : 0
+        // Get the height of the article that is currently being displayed.
+        const zoomedArticleHeight = articlesState.find(
+          (state) => state.id === `${mapId}-${article.id}`
+        ).height;
+
+        return (
+          <motion.div
+            key={article.id}
+            data-title={article.title}
+            className={`article-${data.id} alerts-border absolute rounded-md overflow-hidden `}
+            style={{
+              border: data.isChanged ? "2px solid white" : null, //###
+              backgroundColor: clicked ? "white" : "#d1cfbf",
+              borderRadius: clicked ? "6px" : "15px",
+              cursor: clicked ? "default" : "zoom-in",
+            }}
+            variants={articleVariantsFactory(
+              array.length,
+              articleIndex,
+              screenWidth,
+              screenHeight,
+              articleWidth,
+              articleHeight,
+              zoomedInArticleWidth,
+              zoomedArticleHeight,
+              clickedArticleYPosition,
+              article.timestamp,
+              article.x_value,
+              article.y_value
+            )}
+            animate={clicked ? "clicked" : "default"}
+            onAnimationComplete={() => {
+              if (articleIndex === array.length - 1) {
+                onAnimationComplete();
+              }
+            }}
+            whileHover={clicked ? { scale: 1 } : { scale: 1.5 }}
+            onMouseEnter={() => {
+              setFocusArticleID(article.id);
+            }}
+            onMouseLeave={() => {
+              setFocusArticleID(null);
+            }}
+            onClick={() => {
+              setFocusArticleID(article.id);
+              // set shown articles to only the clicked article
+              clicked || setShownArticles([article]);
+
+              // fake open zoomed in article
+              onClick();
+            }}
+          >
+            <Article
+              id={`${mapId}-${article.id}`}
+              article={article}
+              metroStopClicked={clicked}
+              onClick={handleArticleShowMoreOrLessClick(
+                `${mapId}-${article.id}`
               )}
-              animate={clicked ? "clicked" : "default"}
-              onAnimationComplete={() => {
-                if (articleIndex === array.length - 1) {
-                  onAnimationComplete();
-                }
-              }}
-              whileHover={clicked ? { scale: 1 } : { scale: 1.5 }}
-              onMouseEnter={() => {
-                setFocusArticleID(article.id);
-              }}
-              onMouseLeave={() => {
-                setFocusArticleID(null);
-              }}
-              onClick={() => {
-                setFocusArticleID(article.id);
-                handleArticleShowMoreOrLessClick(
-                  `${mapId}-${article.id}`,
-                  shownArticles.length - articleIndex - 1
-                );
-                // set shown articles to only the clicked article
-                clicked || setShownArticles([article]);
-
-                onClick();
-              }}
-            >
-              <Article
-                article={article}
-                metroStopClicked={clicked}
-                onClick={handleArticleShowMoreOrLessClick(
-                  `${mapId}-${article.id}`,
-                  shownArticles.length - articleIndex - 1
-                )}
-                clicked={
-                  articlesClicked[shownArticles.length - articleIndex - 1]
-                }
-                id={`${mapId}-${article.id}`}
-              />
-
-              {/* helper onClick layer */}
-              {/* {!clicked && (
-                  <motion.div
-                    className="helper absolute w-full h-full"
-                    onClick={onClick}
-                  />
-                )} */}
-            </motion.div>
-          );
-        })
-      }
+              clicked={
+                articlesState.find(
+                  (state) => state.id === `${mapId}-${article.id}`
+                ).clicked
+              }
+            />
+          </motion.div>
+        );
+      })}
     </motion.div>
   );
 }

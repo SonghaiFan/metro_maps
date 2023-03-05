@@ -14,6 +14,7 @@ export default function Article({
           color: "var(--primaryDark)",
         }}
         id={id}
+        className="aritcle-container"
       >
         {metroStopClicked && (
           <>
@@ -31,7 +32,11 @@ export default function Article({
               )}
               <span> on {article.timestamp}</span>
             </motion.div>
-            <motion.div className={`${clicked ? "" : "line-clamp-2"} m-2 mt-0`}>
+            <motion.div
+              className={`article-text-container ${
+                clicked ? "" : "line-clamp-2"
+              } m-2 mt-0`}
+            >
               {article.full_text ? article.full_text : article.text}
             </motion.div>
             <motion.button
