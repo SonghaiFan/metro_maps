@@ -68,6 +68,7 @@ export default function MetroStop({
             articleLimit={ARTICLE_LIMIT}
             onAnimationComplete={onArticleStackAnimationComplete}
             mapId={mapId}
+            onZoomOutClick={onZoomOutClick}
           />
           {!clicked && (
             <motion.div

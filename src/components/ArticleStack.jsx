@@ -23,6 +23,7 @@ export default function ArticleStack({
   articleLimit,
   onAnimationComplete,
   mapId,
+  onZoomOutClick,
 }) {
   const { width: screenWidth, height: screenHeight } = useWindowSize();
 
@@ -66,6 +67,7 @@ export default function ArticleStack({
 
   return (
     <motion.div
+      datatype="article_stack"
       className={`${
         clicked
           ? `absolute top-0 left-0 w-full h-full overflow-y-scroll ${
@@ -80,6 +82,14 @@ export default function ArticleStack({
         x: clicked ? screenWidth / 1.8 - zoomedInArticleWidth / 2 : 0,
         y: clicked ? ARTICALSTACK_TOP_PADDING : 0,
         width: zoomedInArticleWidth + ARTICALSTACK_INNER_PADDING * 2,
+      }}
+      onClick={(event) => {
+        if (
+          clicked &&
+          event.target.getAttribute("datatype") === "article_stack"
+        ) {
+          onZoomOutClick();
+        }
       }}
     >
       {
