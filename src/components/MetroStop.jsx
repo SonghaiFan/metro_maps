@@ -105,7 +105,7 @@ export default function MetroStop({
             data-type="node-number-label"
             id={data.id}
             style={{
-              backgroundColor: data.colour, //"white"
+              backgroundColor: "#d1cfbf" /* data.colour */,
               border: data.isChanged ? "2px solid white" : null,
             }}
             initial={{
@@ -146,9 +146,8 @@ export default function MetroStop({
               moreContent
             )}
             style={{
-              backgroundColor:
-                // "white",
-                data.colour,
+              backgroundColor: "#d1cfbf",
+              // data.colour,
               border: data.isChanged ? "2px solid white" : null,
             }}
             className={`node-${

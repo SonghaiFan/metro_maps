@@ -77,7 +77,7 @@ export default function ArticleStack({
         maxHeight: clicked ? clickedArticleContainerHeight : "100%",
       }}
       animate={{
-        x: clicked ? screenWidth / 2 - zoomedInArticleWidth / 2 : 0,
+        x: clicked ? screenWidth / 1.8 - zoomedInArticleWidth / 2 : 0,
         y: clicked ? ARTICALSTACK_TOP_PADDING : 0,
         width: zoomedInArticleWidth + ARTICALSTACK_INNER_PADDING * 2,
       }}

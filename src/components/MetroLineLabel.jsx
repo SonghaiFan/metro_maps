@@ -102,7 +102,7 @@ export default function MetroLineLabel({ data, onMetroLineLabelClick }) {
           borderRightWidth: label ? (isChanged ? "2px" : "0px") : null,
           borderBottomWidth: "0",
           borderStyle: "solid",
-          backgroundColor: colour, // "white"
+          backgroundColor: colour,
         }}
         animate={{
           height: showMore
