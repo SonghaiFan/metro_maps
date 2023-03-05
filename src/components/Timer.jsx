@@ -63,6 +63,7 @@ export default function Timer({ pageState, isValid, isStop, onTimeUp }) {
               color: timeLeftPercent < 0.2 ? "red" : "white",
               animation:
                 timeLeftPercent < 0.2 && "alerts-blink 0.4s ease-out infinite",
+              zIndex: 1000,
             }}
           >
             {isStop ? (
