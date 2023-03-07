@@ -145,7 +145,7 @@ export default function ArticleStack({
   return (
     <motion.div
       datatype="article_stack"
-      className={`absolute z-10 ${
+      className={`absolute z-40 ${
         clicked
           ? ` top-0 left-0 w-full h-full overflow-y-scroll  scrollbar`
           : ""

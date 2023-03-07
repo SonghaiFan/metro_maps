@@ -58,13 +58,14 @@ const Tooltip = ({ data, clicked, children }) => {
       onMouseEnter={handleMouseEnter}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
+      className="z-50"
     >
       {children}
       {show && (
         <div
           ref={tooltipRef}
           style={{ width: "300px" }}
-          className="fixed z-50 text-white text-sm m-1 font-bold rounded-md px-2 bg-white opacity-80 filter max-w-xs break-words"
+          className="absolute z-100 text-white text-sm m-1 font-bold rounded-md px-2 bg-white opacity-80 filter max-w-xs break-words"
         >
           {!clicked && data && (
             <div

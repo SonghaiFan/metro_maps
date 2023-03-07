@@ -375,7 +375,7 @@ export default function MetroMap({
 
             return (
               <motion.div
-                className={`metro--stop--wrapper absolute ${
+                className={`metro--stop--wrapper absolute z-30 ${
                   "cursor-default" // clickedNode === nodeId ? "cursor-default" : "cursor-zoom-in"###
                 }`}
                 variants={metroStopVariantsFactory(

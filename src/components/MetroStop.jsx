@@ -104,16 +104,6 @@ export default function MetroStop({
             setFocusArticleID={setFocusArticleID}
             onZoomOutClick={onZoomOutClick}
           />
-          {/* {!clicked && (
-            <motion.div
-              className={
-                "absolute text-white text-sm m-1 line-clamp-3 font-bold rounded-md px-2 bg-neutral-900 opacity-50 filter drop-shadow-md"
-              }
-              onClick={onClick}
-            >
-              {data.headline}
-            </motion.div>
-          )} */}
         </Tooltip>
       )}
 
@@ -138,7 +128,7 @@ export default function MetroStop({
         <motion.div
           data-type="node-number-label"
           id={data.id}
-          className="article--stack--panel absolute rounded-full "
+          className="z-30 article--stack--panel absolute rounded-full "
           style={{
             backgroundColor: clicked ? null : "#9d9b8e",
           }}
@@ -173,7 +163,7 @@ export default function MetroStop({
               backgroundColor: "#acab9f", // "white", // data.colour,
               border: data.isChanged ? "2px solid white" : null, //####
             }}
-            className={`node-${
+            className={`z-20 node-${
               data.id
             } alerts-border  text-black cursor-pointer overflow-hidden  ${
               isMapFocused

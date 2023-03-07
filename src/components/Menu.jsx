@@ -265,9 +265,9 @@ export default function Menu({
           Prev
           <FaArrowAltCircleLeft size={40} color={"#b1babf"} />
         </NavigationButton> */}
-      </motion.div>
-      <motion.div className="absolute left-[50%] bottom-0">
-        {pageState.current}/{pageState.total}
+        <motion.div className="absolute left-[50%] bottom-0">
+          {pageState.current}/{pageState.total}
+        </motion.div>
       </motion.div>
     </div>
   );
