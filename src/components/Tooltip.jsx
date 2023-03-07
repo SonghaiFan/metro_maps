@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 
-const Tooltip = ({ text, clicked, children }) => {
+const Tooltip = ({ data, clicked, children }) => {
   const [show, setShow] = useState(false);
   const tooltipRef = useRef(null);
 
@@ -15,12 +15,38 @@ const Tooltip = ({ text, clicked, children }) => {
     const parentRect = parent.getBoundingClientRect();
     const parentLeft = parentRect.left;
     const parentTop = parentRect.top;
+
+    // funtion that make sure the x and y not move out of the screen
+    const checkX = (x) => {
+      if (x < 500) {
+        return 500;
+      } else if (x > window.innerWidth - 150) {
+        return window.innerWidth - 150;
+      } else {
+        return x;
+      }
+
+      // return x < 0 ? 0 : x > window.innerWidth - 300 ? window.innerWidth - 300 : x;
+    };
+
+    const checkY = (y) => {
+      if (y < 200) {
+        return 200;
+      } else {
+        return y;
+      }
+    };
+
+    const y = checkY(e.clientY);
+    const x = checkX(e.clientX);
+
     tooltipRef.current.style.left = clicked
-      ? e.clientX + 10 + "px"
-      : e.clientX + 10 - parentLeft + "px";
+      ? x - 150 + "px"
+      : x - 150 - parentLeft + "px";
+
     tooltipRef.current.style.top = clicked
-      ? e.clientY - 100 + "px"
-      : e.clientY - 100 - parentTop + "px";
+      ? y - 200 + "px"
+      : y - 200 - parentTop + "px";
   };
 
   const handleMouseLeave = () => {
@@ -37,10 +63,39 @@ const Tooltip = ({ text, clicked, children }) => {
       {show && (
         <div
           ref={tooltipRef}
-          style={{ width: "150px", zIndex: 100 }}
-          className="absolute text-white text-sm m-1 font-bold rounded-md px-2 bg-neutral-900 opacity-80 filter drop-shadow-md z-50  max-w-xs break-words"
+          style={{ width: "300px" }}
+          className="fixed z-50 text-white text-sm m-1 font-bold rounded-md px-2 bg-white opacity-80 filter max-w-xs break-words"
         >
-          {!clicked && text}
+          {!clicked && data && (
+            <div
+              style={{
+                fontFamily: "var(--font-serif)",
+                color: "var(--primaryDark)",
+              }}
+            >
+              <div
+                className={`text-sm p-2 pb-1 ${
+                  clicked ? "" : "line-clamp-2"
+                } font-bold`}
+              >
+                {data.title}
+              </div>
+              <div className="p-2 pt-0 pb-1">
+                {/* if article.publisher is defined, show string "by {article.publisher} on {article.timestamp}" */}
+                {data.publisher && (
+                  <span className="font-bold">By {data.publisher} </span>
+                )}
+                <span> on {data.timestamp}</span>
+              </div>
+              <div
+                className={`article-text-container text-[10px] unselectable ${
+                  clicked ? "" : "line-clamp-2"
+                } m-2 mt-0`}
+              >
+                {data.text}
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>

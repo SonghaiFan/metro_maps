@@ -33,7 +33,7 @@ export default function Article({
               <span> on {article.timestamp}</span>
             </motion.div>
             <motion.div
-              className={`article-text-container ${
+              className={`article-text-container unselectable ${
                 clicked ? "" : "line-clamp-2"
               } m-2 mt-0`}
             >

@@ -64,6 +64,13 @@ export default function MetroStop({
     return article ? article.keywords.join(", ") : "";
   }
 
+  function getArticle() {
+    const article = articles.find((article) => article.id === focusArticleID);
+    return article;
+  }
+
+  const focusArticle = getArticle();
+
   const title = getTitle();
 
   const keywords = getKeywords();
@@ -78,7 +85,7 @@ export default function MetroStop({
   return (
     <>
       {isMapFocused && (
-        <Tooltip text={title} clicked={clicked}>
+        <Tooltip data={focusArticle} clicked={clicked}>
           <ArticleStack
             data={data}
             articles={articles}

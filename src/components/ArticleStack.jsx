@@ -148,7 +148,7 @@ export default function ArticleStack({
       className={`absolute z-10 ${
         clicked
           ? ` top-0 left-0 w-full h-full overflow-y-scroll  scrollbar`
-          : " z-50"
+          : ""
       }`}
       style={{
         maxHeight: clicked ? clickedArticleContainerHeight : "100%",

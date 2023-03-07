@@ -12,7 +12,7 @@ export default function Timer({ pageState, isValid, isStop, onTimeUp }) {
   const timeToCount = pageState.time;
   const [timeLeft, setTimeLeft] = useState(timeToCount);
 
-  const timeLeftPercent = timeLeft / pageState.time;
+  const timeLeftPercent = timeLeft / timeToCount;
 
   useEffect(() => {
     if (timeLeft === 0) {
@@ -30,7 +30,7 @@ export default function Timer({ pageState, isValid, isStop, onTimeUp }) {
     return () => {
       clearInterval(interval);
     }; // clear the interval when the component unmounts
-  }, [isStop, isValid, onTimeUp, timeLeft, timeLeftPercent]);
+  }, [isStop, onTimeUp, timeLeft]);
 
   useEffect(() => {
     setTimeLeft(pageState.time);
