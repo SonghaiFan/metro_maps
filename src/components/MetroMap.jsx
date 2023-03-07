@@ -156,11 +156,11 @@ export default function MetroMap({
   //   setSideDrawerOpen(true);
   // };
 
-  const closeSideDrawer = () => {
-    // remove highlight class from who dom element
-    // whoOpenSideDrawer.classList.remove("highlight");
-    setSideDrawerOpen(false);
-  };
+  // const closeSideDrawer = () => {
+  //   // remove highlight class from who dom element
+  //   // whoOpenSideDrawer.classList.remove("highlight");
+  //   setSideDrawerOpen(false);
+  // };
 
   ///////////////////////////////////   animation   ///////////////////////////////////////
 
